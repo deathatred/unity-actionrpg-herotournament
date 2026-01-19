@@ -1,0 +1,262 @@
+using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
+using System.Threading;
+using UnityEngine;
+using Zenject;
+
+[DefaultExecutionOrder(-1)]
+public class PlayerSpellCasting : MonoBehaviour
+{
+ 
+
+    [Inject] private DiContainer _container;
+    [Inject] private EventBus _eventBus;
+    [Inject] private PlayerAudio _playerAudio;
+    [Inject] private PlayerStats _stats;
+    [Inject] private PlayerAttackSystem _attackSystem;
+    [Inject] private PlayerAnimations _animation;
+    [Inject] private PlayerInputHandler _input;
+    [Inject] private PlayerSpellbook _spellBook;
+    [Inject] private PlayerStateMachine _fsm;
+    [Inject] private PlayerInteractions _interaction;
+    [Inject] private PlayerController _controller;
+    [Inject] private ProjectilePool _projectilePool;
+    [SerializeField] private Transform _shootPoint;
+
+    public int MaxMana { get; private set; }
+    public int CurrentMana { get; private set; }
+    public SpellSO LastCastSpell { get; private set; }
+
+    private PlayerClass _class;
+    private SpellSO _firstSpell;
+    private SpellSO _secondSpell;
+    private SpellSO _thirdSpell;
+    private SpellSO _queuedSpell;
+    private CancellationTokenSource _cts;
+    private bool _isCasted;
+
+
+    private Dictionary<SpellSO, float> _cooldowns = new();
+
+    private void OnEnable()
+    {
+        _cts = new CancellationTokenSource();
+        SubscribeToEvents();
+    }
+    private void Update()
+    {
+        HandleSpellCasting();
+
+    }
+    private void OnDisable()
+    {
+        _cts.Cancel();
+        _cts.Dispose();
+        UnsubscribeFromEvents();
+    }
+    private void SubscribeToEvents()
+    {
+        _eventBus.Subscribe<StatChangedEvent>(MaxManaChanged);
+        _eventBus.Subscribe<PlayerSpellUnlockedEvent>(EquipSpell);
+        _eventBus.Subscribe<FirstSpellButtonPressedEvent>(CastFirstSpell);
+        _eventBus.Subscribe<SecondSpellButtonPressedEvent>(CastSecondSpell);
+        _eventBus.Subscribe<ThirdSpellButtonPressedEvent>(CastThirdSpell);
+        _eventBus.Subscribe<ReachedSpellTarget>(SpellTargetReached);
+    }
+    private void UnsubscribeFromEvents()
+    {
+        _eventBus.Unsubscribe<StatChangedEvent>(MaxManaChanged);
+        _eventBus.Unsubscribe<PlayerSpellUnlockedEvent>(EquipSpell);
+        _eventBus.Unsubscribe<FirstSpellButtonPressedEvent>(CastFirstSpell);
+        _eventBus.Unsubscribe<SecondSpellButtonPressedEvent>(CastSecondSpell);
+        _eventBus.Unsubscribe<ThirdSpellButtonPressedEvent>(CastThirdSpell);
+        _eventBus.Unsubscribe<ReachedSpellTarget>(SpellTargetReached);
+    }
+    private void HandleSpellCasting()
+    {
+        if (!_input.FirstSpellCast &&
+       !_input.SecondSpellCast &&
+       !_input.ThirdSpellCast)
+        {
+            _isCasted = false;
+        }
+        CastSpellWithInput(_input.FirstSpellCast, _firstSpell);
+        CastSpellWithInput(_input.SecondSpellCast, _secondSpell);
+        CastSpellWithInput(_input.ThirdSpellCast, _thirdSpell);
+    }
+    private void CastSpellWithInput(bool input, SpellSO spell)
+    {
+        if (input)
+        {
+            TryCastSpellAsync(spell, _cts).Forget();
+        }
+    }
+    private void CastFirstSpell(FirstSpellButtonPressedEvent e)
+    {
+        TryCastSpellAsync(_firstSpell, _cts).Forget();
+    }
+    private void CastSecondSpell(SecondSpellButtonPressedEvent e)
+    {
+        TryCastSpellAsync(_secondSpell, _cts).Forget();
+    }
+    private void CastThirdSpell(ThirdSpellButtonPressedEvent e)
+    {
+        TryCastSpellAsync(_thirdSpell, _cts).Forget();
+    }
+    private void SpellTargetReached(ReachedSpellTarget e)
+    {
+        TryCastSpellAsync(_queuedSpell, _cts).Forget();
+    }
+    private bool IsOnCooldown(SpellSO spell)
+    {
+        if (!_cooldowns.TryGetValue(spell, out float nextAvailableTime))
+            return false;
+
+        return Time.time < nextAvailableTime;
+    }
+    private void MaxManaChanged(StatChangedEvent e)
+    {
+        if (e.StatType == StatType.MaxMana)
+        {
+            float oldMax = MaxMana;
+            float oldCurrent = CurrentMana;
+
+            MaxMana = e.Amount;
+            if (oldMax > 0f)
+            {
+                CurrentMana = (int)((float)oldCurrent / oldMax * MaxMana);
+            }
+            else
+            {
+                CurrentMana = MaxMana;
+            }
+            _eventBus.Publish(new CurrentManaChangedEvent(CurrentMana));
+        }
+    }
+    private void EquipSpell(PlayerSpellUnlockedEvent e)
+    {
+        if (_firstSpell == null)
+        {
+            _firstSpell = e.SpellSO;
+            return;
+        }
+        if (_secondSpell == null)
+        {
+            _secondSpell = e.SpellSO;
+        }
+        else
+        {
+            _thirdSpell = e.SpellSO;
+        }
+    }
+    public bool IsInSpellRange(SpellSO spell)
+    {
+        if (spell.Range <= 0)
+            return true;
+
+        var target = _interaction.GetCurrentEnemyTarget();
+        if (target == null)
+            return false;
+        Vector3 dir = target.transform.position - _controller.GetRb().position;
+        dir.y = 0;
+        return dir.magnitude <= spell.Range;
+    }
+    public PlayerAttackSystem GetAttackSystem()
+    {
+        return _attackSystem;
+    }
+    public void CastSpell(SpellSO spellSO)
+    {
+        if (_fsm.CurrentState == PlayerState.SpellCasting)
+        {
+            return;
+        }
+        CurrentMana -= spellSO.ManaCost; 
+        LastCastSpell = spellSO;
+        _animation.SetSpellTrigger(spellSO.AnimationTrigger);
+        _cooldowns[spellSO] = Time.time + spellSO.Cooldown;
+        _eventBus.Publish(new PlayerSpellCastedEvent(spellSO));
+        _eventBus.Publish(new PlayerManaChangedEvent(CurrentMana, MaxMana));
+    }
+    public void SpellCastingEnded()
+    {
+        _eventBus.Publish(new PlayerSpellCastEnded());
+    }
+    public void ExecuteSummoningSpell(GameObject summonPrefab)
+    {
+        float radius = GlobalData.SUMMON_RADIUS; 
+        float angle = Random.Range(0f, 360f);
+
+        Vector3 offset = new Vector3(
+            Mathf.Cos(angle * Mathf.Deg2Rad),
+            0,
+            Mathf.Sin(angle * Mathf.Deg2Rad)
+        ) * radius;
+
+        Vector3 summonPosition = transform.position + offset;
+
+        _container.InstantiatePrefab(
+            summonPrefab,
+            summonPosition,
+            Quaternion.identity,
+            null
+        );
+    }
+    public SpellSO GetQueuedSpell()
+    {
+        return _queuedSpell;
+    }
+    public void RestorePlayerMana(int amount)
+    {
+        MaxMana = _stats.GetStat(StatType.MaxMana);
+        CurrentMana = amount;    
+        _eventBus.Publish(new CurrentManaChangedEvent(CurrentMana));
+        _eventBus.Publish(new PlayerManaChangedEvent(CurrentMana, MaxMana));
+    }
+    private async UniTask TryCastSpellAsync(SpellSO spell, CancellationTokenSource _cts)
+    {
+        if (_isCasted)
+        {
+            return;
+        }
+        if (spell == null)
+        {
+            return;
+        }
+        if (IsOnCooldown(spell))
+        {
+            return;
+        }
+        if (CurrentMana < spell.ManaCost)
+        {
+            return;
+        }
+
+        if (!IsInSpellRange(spell))
+        {
+            _queuedSpell = spell;
+            _fsm.ChangeState(PlayerState.MoveToSpellTarget);
+            return;
+        }
+
+        var target = _interaction.GetCurrentEnemyTarget();
+        _isCasted = true;
+        if (target != null)
+        {
+            await _controller.RotateToTargetAsync(target.transform.position, _cts.Token);
+        }
+        CastSpell(spell);
+        _queuedSpell = null;
+
+    }
+    public async UniTask ExecuteProjectileSpellAsync(ProjectileSO projectileSO,Transform target = null)
+    {
+        await _controller.RotateToTargetAsync(target.transform.position, _cts.Token);
+        Vector3 pos = _shootPoint.position;
+        Vector3 dir = _shootPoint.forward;
+
+        _projectilePool.SpawnProjectile(projectileSO, pos, dir, UnitType.Enemy, target);
+
+    }
+ 
+}

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cbac9ac976271046a6bfafdc1591c21, type: 3}
+  m_Name: EyeOfCthulhuData
+  m_EditorClassIdentifier: 
+  ID: eye_of_cthulhu
+  MaxHealth: 50
+  Damage: 15
+  Name: EyeOfCthuhlhu
+  XpReward: 30
+  ViewAngle: 100
+  ViewDistance: 15
+  AttackRange: 10
+  LoseSightTime: 5
+  AttackCooldown: 3
+  CloseRangeTrigger: 5
+  Prefab: {fileID: 2404304623286243001, guid: 4b1310c30d4c8c94ca2532230961a20c, type: 3}

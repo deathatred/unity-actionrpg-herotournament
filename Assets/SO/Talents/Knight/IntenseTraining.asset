@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3775a25e008624a45aa8fa3f4d69b4e9, type: 3}
+  m_Name: IntenseTraining
+  m_EditorClassIdentifier: 
+  ID: intense_training
+  TalentName: Intense Training
+  Icon: {fileID: 21300000, guid: 2df9a46273ccf7a45ae03374b982c7e6, type: 3}
+  Description: +5 to str and agi
+  Active: 0
+  Spell: {fileID: 0}
+  Passive: 1
+  PassiveEffects:
+  - {fileID: 11400000, guid: 5faf0ec0d74162b4d865105af84e17a6, type: 2}
+  Spec: 0
+  Prerequisites:
+  - {fileID: 11400000, guid: d3ca11e37a6209e41b4d5900834d9124, type: 2}
+  - {fileID: 11400000, guid: fc0eda5a9ca8be5489f9777ea322b1a9, type: 2}
+  MaxLevel: 5

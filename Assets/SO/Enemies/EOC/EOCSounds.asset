@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6ec8a0977b4034419f76f75101ac137, type: 3}
+  m_Name: EOCSounds
+  m_EditorClassIdentifier: 
+  PreattackSounds: []
+  AttackSounds:
+  - {fileID: 8300000, guid: 4110f8aa4aba08f4eb0af1d1210f5fef, type: 3}
+  - {fileID: 8300000, guid: 5c64430545f74354f89b8b629fdb00cf, type: 3}
+  - {fileID: 8300000, guid: 5089ac5ca37bbcd4f872e75919b298e3, type: 3}
+  SpecialAttackSound: {fileID: 0}
+  StepSounds: []
+  DeathSound: {fileID: 8300000, guid: 49759bfbbf2278342a5d2a97a4cbf585, type: 3}
+  HoverSound: {fileID: 8300000, guid: bdafc12fcaf677e43b4ba0ad4f32d97f, type: 3}

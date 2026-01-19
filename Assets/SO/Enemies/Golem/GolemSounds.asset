@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6022adae5d0167f4e8602981b5a3c5bf, type: 3}
+  m_Name: GolemSounds
+  m_EditorClassIdentifier: 
+  PreattackSounds:
+  - {fileID: 8300000, guid: d889049bafbed48458156b626cfaac16, type: 3}
+  - {fileID: 8300000, guid: 7a2de43f693abd346b936a00656eecfb, type: 3}
+  AttackSounds:
+  - {fileID: 8300000, guid: 80734f831acf0c243aafae87bbb6afc2, type: 3}
+  - {fileID: 8300000, guid: 716fdee8e1e5fa146990e4868248f6db, type: 3}
+  - {fileID: 8300000, guid: b1cd3ee07b92c3d428d89104b1d9493c, type: 3}
+  SpecialAttackSound: {fileID: 0}
+  StepSounds:
+  - {fileID: 8300000, guid: 525da8cec639c0b48a4d9d9e2168da07, type: 3}
+  - {fileID: 8300000, guid: 37f69dc3097ac0f4183b641d19b7db29, type: 3}
+  - {fileID: 8300000, guid: da55edf1b942f7f4abaa7e6b1940bccc, type: 3}
+  - {fileID: 8300000, guid: 1830787b5ded1fb4ab287f184d059764, type: 3}
+  DeathSound: {fileID: 8300000, guid: 96171fd3387a00441b82d51734688301, type: 3}
+  SmashImpactSound: {fileID: 8300000, guid: 672e208e43454b94eb51fd89a5ef7c94, type: 3}

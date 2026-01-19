@@ -1,0 +1,221 @@
+﻿using Cysharp.Threading.Tasks;
+using System;
+using System.Threading;
+using UnityEngine;
+
+public abstract class EnemyAttackingStateBase<TStateMachine, TController, TAnimator> : IEnemyState
+    where TStateMachine : EnemyStateMachine
+    where TController : EnemyControllerBase
+    where TAnimator : EnemyAnimationBase
+{
+    public EnemyStateMachine EnemyFsm => _fsm;
+
+    protected readonly TStateMachine _fsm;
+    protected readonly TController _controller;
+    protected readonly TAnimator _animator;
+    protected readonly EnemyData _data;
+    protected readonly EnemyTargetDetector _detector;
+
+    protected CancellationTokenSource _cts;
+    protected bool _isAttacking;
+    protected float _timeSinceLastSeenTarget;
+    protected UniTask _attackTask;
+    protected EnemyDataSO _dataSO;
+
+    protected EnemyAttackingStateBase(
+        TStateMachine fsm,
+        TController controller,
+        TAnimator animator,
+        EnemyData data,
+        EnemyTargetDetector detector)
+    {
+        _fsm = fsm;
+        _controller = controller;
+        _animator = animator;
+        _data = data;
+        _detector = detector;
+    }
+
+    public virtual void Enter()
+    {
+        _cts = new CancellationTokenSource();
+        _isAttacking = false;
+        _dataSO = _data.GetEnemyData();
+    }
+
+    public virtual void Exit()
+    {
+        _cts.Cancel();
+        _cts?.Dispose();
+        _cts = null;
+        _controller.StopMovement();
+        _animator.SetIsMovingFalse();
+        _isAttacking = false;
+    }
+    public virtual void Update()
+    {
+        if (!TryGetTarget(out Transform targetTransform, out Vector3 targetPos))
+        {
+            return;
+        }
+        if (HandleLostSight(targetTransform))
+        {
+            return;
+        }
+        bool canSee = CanSeeTarget(targetTransform);
+        bool inCloseRange = IsInCloseRange(targetTransform);
+        float distance = Vector3.Distance(_controller.transform.position, targetPos);
+        if (ShouldAttack(canSee, inCloseRange, distance))
+        {
+            HandleAttack(targetTransform);
+        }
+        else
+        {
+            HandleMoveToTarget(canSee, inCloseRange, targetPos);
+        }
+    }
+    protected bool TryGetTarget(out Transform targetTransform, out Vector3 targetPos)
+    { 
+        Vector3 playerPos = _controller.transform.position;
+        targetTransform = null;
+        targetPos = Vector3.zero;
+        if (_detector.TryFindClosestTarget(out ITargetable target))
+        {
+            targetTransform = target.Transform;
+            targetPos = target.Transform.position;
+            return true;
+        }
+        OnLostSight();
+        return false;
+    }
+    protected bool CanSeeTarget(Transform targetTransform)
+    {
+        return DetectionHelper.CanSeeTarget(
+            _controller.transform,
+            targetTransform,
+            _dataSO.ViewDistance,
+            _dataSO.ViewAngle,
+            DetectionHelper.DetectionDefaultOffset
+        );
+    }
+    protected bool IsInCloseRange(Transform targetTransform)
+    {
+        return DetectionHelper.InCloseRange(
+            _controller.transform,
+            targetTransform,
+            _dataSO.CloseRangeTrigger
+        );
+    }
+    protected bool ShouldAttack(bool canSee, bool inCloseRange, float distance)
+    {
+        if (!(canSee || inCloseRange))
+            return false;
+
+        return distance <= _dataSO.AttackRange;
+    }
+    protected bool HandleLostSight(Transform targetTransform)
+    {
+        bool canSee = CanSeeTarget(targetTransform);
+        bool inCloseRange = IsInCloseRange(targetTransform);
+
+        if (!canSee && !inCloseRange)
+        {
+            _timeSinceLastSeenTarget += Time.deltaTime;
+
+            if (_timeSinceLastSeenTarget > _dataSO.LoseSightTime)
+            {
+                _timeSinceLastSeenTarget = 0f;
+                OnLostSight();
+                return true;
+            }
+        }
+        else
+        {
+            _timeSinceLastSeenTarget = 0f;
+        }
+        return false;
+    }
+    protected void HandleAttack(Transform targetTransform)
+    {
+        _controller.StopMovement();
+        _animator.SetIsMovingFalse();
+        _controller.RotateTowardsTarget(targetTransform);
+        if (CanStartBaseAttack())
+        {
+            if (!_isAttacking && _attackTask.Status != UniTaskStatus.Pending)
+            {
+                _isAttacking = true;
+                _attackTask = StartAttackingAsync();
+            }
+        }
+    }
+    protected void HandleMoveToTarget(bool canSee, bool inCloseRange, Vector3 targetPos)
+    {
+        if (_isAttacking)
+        {
+            _isAttacking = false;
+            if (_cts != null)
+            {
+                CancelAttack();
+
+                _attackTask = default;
+            }
+        }
+
+        if (canSee || inCloseRange)
+        {
+            if (CanStartBaseAttack())
+            {
+                _controller.SetDestination(targetPos);
+                _animator.SetIsMovingTrue();
+            }
+            else
+            {
+                _controller.StopMovement();
+                _animator.SetIsMovingFalse();
+            }
+        }
+    }
+    protected void CancelAttack()
+    {
+        _cts.Cancel();
+        _cts.Dispose();
+        _cts = null;
+        _cts = new CancellationTokenSource();
+        _attackTask = default;
+        SetIsAttackingFalse();
+    }
+    protected void SetIsAttackingFalse()
+    {
+        _isAttacking = false;
+    }
+    protected virtual bool CanStartBaseAttack()
+    {
+        return true;
+    }
+    protected abstract void OnLostSight();
+
+    protected virtual async UniTask StartAttackingAsync()
+    {
+        var attackCooldown = _dataSO.AttackCooldown;
+        try
+        {
+            while (!_cts.IsCancellationRequested)
+            {
+                if (_animator == null) return;
+                _animator.TriggerAttack();
+                await UniTask.WaitForSeconds(attackCooldown, cancellationToken: _cts.Token);
+            }
+        }
+        catch (OperationCanceledException)
+        {
+
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e);
+        }
+    }
+
+}
+

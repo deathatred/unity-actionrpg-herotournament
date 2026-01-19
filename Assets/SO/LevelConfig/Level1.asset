@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35458a23aa3d3ce44a04b36cc3fa1237, type: 3}
+  m_Name: Level1
+  m_EditorClassIdentifier: 
+  LevelType: 0
+  SurvivalDuration: 70
+  SpawnInterval: 3
+  Wave:
+    Enemies:
+    - {fileID: 11400000, guid: 28107e72dd711b14bb01fec9f163047e, type: 2}
+    - {fileID: 11400000, guid: 28107e72dd711b14bb01fec9f163047e, type: 2}
+    - {fileID: 11400000, guid: 28107e72dd711b14bb01fec9f163047e, type: 2}
+  _levelMusic: {fileID: 0}
+  _levelAmbient: {fileID: 8300000, guid: ca593b26f3f1eea4092b1efbc5dc5b2a, type: 3}

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 277c4071b8149be449e130586d762db1, type: 3}
+  m_Name: DoubleSlashActive
+  m_EditorClassIdentifier: 
+  Class: 0
+  Name: Double Slash
+  About: Swings your weapon twice, dealing 1.5x of your attack damage with each swing
+  ManaCost: 10
+  Cooldown: 15
+  AnimationTrigger: DoubleSlash
+  Icon: {fileID: 21300000, guid: 8fe2b5a178c2bac41823e91ab751e839, type: 3}
+  Range: 2
+  CanBeCastWhileMoving: 0
+  SoundEffect: {fileID: 8300000, guid: 34671a9ce2233f644b1519a72fd50c97, type: 3}

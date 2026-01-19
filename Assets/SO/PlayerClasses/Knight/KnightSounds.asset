@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7495746f38b71fb4894f4dc9e2df28d0, type: 3}
+  m_Name: KnightSounds
+  m_EditorClassIdentifier: 
+  PreattackSounds:
+  - {fileID: 8300000, guid: 89c7bcaa2a53c2a4181f722ecab1dea4, type: 3}
+  - {fileID: 8300000, guid: c60da6d44bc471c4d9f440ed3802db0d, type: 3}
+  AttackSounds:
+  - {fileID: 8300000, guid: 2f6127403dc81ac40b1e9ec2d6b51c75, type: 3}
+  - {fileID: 8300000, guid: b0c8741ff8e1da04e900b9f3e865f4e4, type: 3}
+  - {fileID: 8300000, guid: ab3fcd56dd2d7874499cec638421182a, type: 3}
+  SpecialAttackSound: {fileID: 0}
+  StepSounds:
+  - {fileID: 8300000, guid: 8f68f86c30c9c2344a30c3b740ffe8bf, type: 3}
+  - {fileID: 8300000, guid: b82d61cff58194343913358605ce070a, type: 3}
+  - {fileID: 8300000, guid: f8f6a6298d1340b48bbf46b3c9882fed, type: 3}
+  - {fileID: 8300000, guid: 911813859332a09479cd73dcf35943e1, type: 3}
+  - {fileID: 8300000, guid: 90766662e551c394cbc0fdd7ef63c5e3, type: 3}
+  DeathSound: {fileID: 0}

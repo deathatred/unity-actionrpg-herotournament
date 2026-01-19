@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "730409519770",
+    "firebase_url": "https://herotournament-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "herotournament",
+    "storage_bucket": "herotournament.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730409519770:android:5a434544d16b74733f2d23",
+        "android_client_info": {
+          "package_name": "com.deathatred.herotournament"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaDT8TjF9PJojPaMzbyNQEr4FaSnUuTKg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
