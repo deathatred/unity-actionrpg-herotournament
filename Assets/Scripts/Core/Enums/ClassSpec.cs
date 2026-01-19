@@ -5,7 +5,7 @@ public enum ClassSpec
     Knight,
     Paladin,
     DeathKnight,
-    Mage,
-    FireMage,
-    IceMage,
+    Wizard,
+    FireWizard,
+    IceWizard,
 }

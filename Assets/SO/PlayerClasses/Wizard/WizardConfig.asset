@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6153a54ed7af0648839e593748a436f, type: 3}
-  m_Name: Knight
+  m_Name: WizardConfig
   m_EditorClassIdentifier: 
-  ClassName: Knight
-  ClassIcon: {fileID: 21300000, guid: a90ff360d48009542af0e9ec7b5dbd92, type: 3}
-  DefaultSpec: 0
-  ClassSound: {fileID: 11400000, guid: 007866ee314f4af4da46a936a9ddc4b1, type: 2}
+  ClassName: Wizard
+  ClassIcon: {fileID: 21300000, guid: b853f99406cc2774d98e3b788465b074, type: 3}
+  DefaultSpec: 3
+  ClassSound: {fileID: 0}
   Specs:
-  - {fileID: 11400000, guid: 1c95d8752c537244d98bbd21c07c78ae, type: 2}
-  - {fileID: 11400000, guid: f9261126bb3c5fe4999cef2e93941eb8, type: 2}
+  - {fileID: 11400000, guid: 4bc298de7f1ed694d864c94a1a76948e, type: 2}
+  - {fileID: 11400000, guid: e6bce0720bc1edd49a17ebcb4ad92dc6, type: 2}
