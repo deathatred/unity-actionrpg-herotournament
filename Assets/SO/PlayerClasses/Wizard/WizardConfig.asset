@@ -15,7 +15,8 @@ MonoBehaviour:
   ClassName: Wizard
   ClassIcon: {fileID: 21300000, guid: b853f99406cc2774d98e3b788465b074, type: 3}
   DefaultSpec: 3
-  ClassSound: {fileID: 0}
+  ClassSound: {fileID: 11400000, guid: 007866ee314f4af4da46a936a9ddc4b1, type: 2}
+  DefaultStatsSO: {fileID: 11400000, guid: 7295792073b04d64ca9223a1dbb9dd1c, type: 2}
   Specs:
   - {fileID: 11400000, guid: 4bc298de7f1ed694d864c94a1a76948e, type: 2}
   - {fileID: 11400000, guid: e6bce0720bc1edd49a17ebcb4ad92dc6, type: 2}

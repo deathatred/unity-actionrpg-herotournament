@@ -4,7 +4,11 @@ using Zenject;
 public class PlayerAudio : MonoBehaviour
 {
     [Inject] private AudioManager _audioManager;
-    [SerializeField] private CharacterSoundsSO _characterSounds;
+    private CharacterSoundsSO _characterSounds;
+    public void InitCharacterSounds(CharacterSoundsSO sounds)
+    {
+        _characterSounds = sounds;
+    } 
     public void PlayFootstepSound()
     {
         int random = Random.Range(0, _characterSounds.StepSounds.Length);

@@ -13,7 +13,7 @@ public class PlayerTalentSystem : MonoBehaviour
     [Inject] private PlayerSpellbook _playerSpellbook;
     [Inject] private PlayerStats _playerStats;
 
-    [SerializeField] private ClassSO _currentClass;
+    private ClassSO _currentClass;
     private ClassSpecSO _currentClassSpec;
 
     private Dictionary<TalentSO, int> _learnedTalents = new();
@@ -110,6 +110,10 @@ public class PlayerTalentSystem : MonoBehaviour
         if (_currentClassSpec == null)
             return true;
         return _currentClassSpec.Spec == talent.Spec;
+    }
+    public void InitCurrentClass(ClassSO currentClass)
+    {
+        _currentClass = currentClass;
     }
     public void AddTalentPoint()
     {
