@@ -6,13 +6,13 @@ using Zenject;
 
 public class GlobalSaveManager : MonoBehaviour
 {
-    
     [Inject] private EventBus _eventBus;
     [Inject] private PlayerSaveManager _playerSaveManager;
     [Inject] private FirebaseManager _firebaseManager;
     [Inject] private LevelSaveManager _levelSaveManager;
 
     public bool GameLoaded = false;
+    public static bool PlayerHasSaveFile { get; private set; }
     private CancellationTokenSource _cts;
 
     private void OnEnable()
@@ -22,13 +22,8 @@ public class GlobalSaveManager : MonoBehaviour
     private void Awake()
     {
         _cts = new CancellationTokenSource();
+        CheckIfPlayerHasSaves().Forget();
     }
-
-    private void Start()
-    {
-        InitAsync().Forget();
-    }
-
     private void OnDisable()
     {
         _cts.Cancel();
@@ -39,21 +34,41 @@ public class GlobalSaveManager : MonoBehaviour
     {
         _eventBus.Subscribe<LevelInitedEvent>(SavePlayerDataSubscriber);
         _eventBus.Subscribe<RestartButtonPressedEvent>(RestartPressSubscriber);
+        _eventBus.Subscribe<PlayButtonPressedEvent>(PlayPressSubscriber);
+        _eventBus.Subscribe<ClassSelectedEvent>(ClassSelectedSubscriber);
     }
     private void UnsubscribeFromEvents()
     {
         _eventBus.Unsubscribe<LevelInitedEvent>(SavePlayerDataSubscriber);
         _eventBus.Unsubscribe<RestartButtonPressedEvent>(RestartPressSubscriber);
+        _eventBus.Subscribe<PlayButtonPressedEvent>(PlayPressSubscriber); 
+        _eventBus.Unsubscribe<ClassSelectedEvent>(ClassSelectedSubscriber);
     }
     private void SavePlayerDataSubscriber(LevelInitedEvent e)
     {
-        print("saved");
         var levelData = _levelSaveManager.CreateLevelSaveData();
         _firebaseManager.SaveLevelDataAsync(levelData).AttachExternalCancellation(_cts.Token).Forget();
     }
     private void RestartPressSubscriber(RestartButtonPressedEvent e)
     {
         ClearAllData().Forget();
+    }
+    private void PlayPressSubscriber(PlayButtonPressedEvent e)
+    {
+        if (PlayerHasSaveFile)
+        {
+            InitAsync().Forget();
+        }
+    }
+    private void ClassSelectedSubscriber(ClassSelectedEvent e)
+    {
+        InitAsync().Forget();
+    }
+    private async UniTask CheckIfPlayerHasSaves()
+    {
+       var playerData = await _firebaseManager.LoadPlayerDataAsync().AttachExternalCancellation(_cts.Token);
+       var levelData = await _firebaseManager.LoadLevelDataAsync().AttachExternalCancellation(_cts.Token);
+       PlayerHasSaveFile = (playerData != null) && (levelData != null);
     }
     private async UniTask InitAsync()
     {

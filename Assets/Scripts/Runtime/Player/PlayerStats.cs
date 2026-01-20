@@ -88,7 +88,7 @@ public class PlayerStats : MonoBehaviour
     }
     public void InitDefaultStats(PlayerClassDefaultStatsSO stats)
     {
-        _defaultStats = stats;  
+        _defaultStats = stats;
     }
     public void RestoreStats(PlayerSaveData data)
     {

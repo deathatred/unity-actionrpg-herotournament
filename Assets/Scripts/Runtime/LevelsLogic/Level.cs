@@ -57,6 +57,7 @@ public class Level : MonoBehaviour
 
     private void SpawnDefaultEnemies()
     {
+        Debug.Log("spawning");
         for (int i = 0; i < _levelConfigSO.Wave.Enemies.Count; i++)
         {
             var enemy = _enemySpawnManager.InitEnemy(

@@ -14,6 +14,8 @@ public class PlayerSaveManager
     private readonly PlayerController _playerController;
     private readonly PlayerHealthSystem _healthSystem;
     private readonly PlayerSpellCasting _spellCasting;
+    private readonly PlayerClassHolder _playerClassHolder;
+    private readonly PlayerConfigurator _playerConfigurator;
 
     public PlayerSaveManager(
         EventBus eventBus,
@@ -23,7 +25,9 @@ public class PlayerSaveManager
         PlayerSpellCasting spellCasting,
         PlayerInventory inventory,
         PlayerLevelSystem levelSystem,
-        PlayerController playerController)
+        PlayerController playerController,
+        PlayerClassHolder playerClassHolder,
+        PlayerConfigurator playerConfigurator)
     {
         _eventBus = eventBus;
         _stats = stats;
@@ -33,11 +37,14 @@ public class PlayerSaveManager
         _playerController = playerController;
         _healthSystem = healthSystem;
         _spellCasting = spellCasting;
+        _playerClassHolder = playerClassHolder;
+        _playerConfigurator = playerConfigurator;
     }
     public PlayerSaveData CreatePlayerSaveData()
     {
         return new PlayerSaveData
         {
+            PlayerClass = _playerClassHolder.PlayerClass,
             CurrentLevel = _levelSystem.CurrentLevel,
             ExpAmount = _levelSystem.CurrentXp,
             ExpRequired = _levelSystem.XpToNextLevel,
@@ -56,12 +63,13 @@ public class PlayerSaveManager
         var data = await _firebaseManager.LoadPlayerDataAsync();
         if (data == null)
         {
-            Debug.Log("default set");
+            Debug.Log("no save data found");
             _stats.SetDefaultStats();
             return;
         }
-
+        _playerClassHolder.RestoreClass(data.PlayerClass);
         _levelSystem.RestorePlayerLevelData(data.CurrentLevel, data.LevelPointsAmount, data.ExpAmount,data.ExpRequired);
+        _playerConfigurator.ConfigurePlayer(_playerClassHolder.PlayerClass);
         _stats.RestoreStats(data);
         _talents.RestoreTalentPoints(data.TalentPointsAmount);
 

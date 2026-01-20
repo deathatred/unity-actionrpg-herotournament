@@ -7,6 +7,7 @@ public class PlayerInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<PlayerStateFactory>().AsSingle();
+        Container.Bind<PlayerClassHolder>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<PlayerAudio>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<PlayerStats>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<PlayerWallCheck>().FromComponentInHierarchy().AsSingle().NonLazy();
@@ -23,6 +24,7 @@ public class PlayerInstaller : MonoInstaller
         Container.Bind<PlayerInventory>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<PlayerItemUsingSystem>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<PlayerSpellbook>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.Bind<PlayerConfigurator>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<Transform>().FromInstance(_playerTransform).AsSingle().NonLazy();
     }
 }

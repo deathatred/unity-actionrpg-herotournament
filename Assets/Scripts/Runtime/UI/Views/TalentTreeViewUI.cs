@@ -28,7 +28,7 @@ public class TalentTreeViewUI : MonoBehaviour
     }
     private void Start()
     {
-        InitSpecInfo();
+        //InitSpecInfo();
     }
     private void OnDisable()
     {
