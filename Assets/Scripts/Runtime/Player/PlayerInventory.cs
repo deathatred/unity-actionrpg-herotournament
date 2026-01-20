@@ -116,8 +116,10 @@ public class PlayerInventory : MonoBehaviour
     public InventoryItemsSaveData[] GetInventoryItemsData()
     {
         List<InventoryItemsSaveData> res = new();
+        if (_slots == null) { return res.ToArray(); }
+       
         foreach (var slot in _slots)
-        {
+        { 
             if (slot.item != null)
             {
                 var data = new InventoryItemsSaveData();
