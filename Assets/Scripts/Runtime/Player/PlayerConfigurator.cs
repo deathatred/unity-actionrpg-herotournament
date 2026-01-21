@@ -13,6 +13,7 @@ public class PlayerConfigurator : MonoBehaviour
     private PlayerTalentSystem _playerTalentSystem;
     private PlayerAudio _playerAudio;
     private PlayerAnimations _playerAnimations;
+    private PlayerClassHolder _playerClassHolder;
     private EventBus _eventBus;
     [Inject] private DiContainer _container;
     [Inject]
@@ -21,12 +22,14 @@ public class PlayerConfigurator : MonoBehaviour
         PlayerTalentSystem playerTalentSystem,
         PlayerAudio audio,
         PlayerAnimations playerAnimations,
+        PlayerClassHolder playerClassHolder,
         EventBus eventBus)
     {
         _playerStats = stats;
         _playerTalentSystem = playerTalentSystem;
         _playerAudio = audio;
         _playerAnimations = playerAnimations;
+        _playerClassHolder = playerClassHolder;
         _eventBus = eventBus;
     }
     private void OnEnable()
@@ -66,6 +69,7 @@ public class PlayerConfigurator : MonoBehaviour
         _playerAudio.InitCharacterSounds(classSO.ClassSound);
         var animator = instance.GetComponent<Animator>();
         _playerAnimations.SetAnimator(animator);
+        _playerClassHolder.SetClass(playerClass);
         _eventBus.Publish(new PlayerConfiguredEvent());
         Debug.Log("Configured");
     }
