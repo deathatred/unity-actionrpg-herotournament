@@ -22,10 +22,6 @@ public class PlayerAttackSystem : MonoBehaviour
     {
         SubscribeToEvents();
     }
-    private void Start()
-    {
-        GetAnimator();
-    }
     private void OnDisable()
     {
         UnsubscribeFromEvents();
@@ -92,9 +88,16 @@ public class PlayerAttackSystem : MonoBehaviour
             while (!enemy.IsDead && !_cts.Token.IsCancellationRequested)
             {
                 float speed = _playerStats.GetStat(StatType.AttackSpeed) / 100f;
-                _animator.SetFloat("AttackSpeedMultiplier", speed);
-
-                _eventBus.Publish(new PlayerStartedAttackEvent());
+                if (_animator == null)
+                {
+                    GetAnimator();
+                    _animator.SetFloat("AttackSpeedMultiplier", speed);
+                }
+                else
+                {
+                    _animator.SetFloat("AttackSpeedMultiplier", speed);
+                }
+                    _eventBus.Publish(new PlayerStartedAttackEvent());
                 await UniTask.WaitUntil(() => !_isAttacking, cancellationToken: _cts.Token);
                 _isAttacking = true;
             }
