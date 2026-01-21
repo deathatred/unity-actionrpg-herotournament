@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private Tween _rotationTween;
     private MoveCommand? _currentCommand;
     public bool IsMoving { get; private set; }
+    public bool HasMoveCommand { get; private set; }
 
     private void Awake()
     {
@@ -40,10 +41,12 @@ public class PlayerController : MonoBehaviour
     public void MoveTo(MoveCommand command)
     {
         _currentCommand = command;
+        HasMoveCommand = true;
     }
     public void Stop()
     {
         _currentCommand = null;
+        HasMoveCommand = false; 
         IsMoving = false;
     }
     public void WarpToPosition(Vector3 position)
@@ -106,6 +109,7 @@ public class PlayerController : MonoBehaviour
         if (!IsMoving)
         {
             _currentCommand = null;
+            HasMoveCommand = false;
             return;
         }
 

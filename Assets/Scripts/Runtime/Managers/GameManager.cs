@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     private void SubscribeToEvents()
     {
         _eventBus.Subscribe<PortalInteractedEvent>(LoadNextLevel);
-        _eventBus.Subscribe<PlayButtonPressedEvent>(StartingLevel);
+        //_eventBus.Subscribe<PlayButtonPressedEvent>(StartingLevel);
         _eventBus.Subscribe<PlayerDeadEvent>(PlayerDeadSubscriber);
         _eventBus.Subscribe<RestartButtonPressedEvent>(RestartPress);
         
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     private void UnsubscribeFromEvents()
     {
         _eventBus.Unsubscribe<PortalInteractedEvent>(LoadNextLevel);
-        _eventBus.Unsubscribe<PlayButtonPressedEvent>(StartingLevel);
+        //_eventBus.Unsubscribe<PlayButtonPressedEvent>(StartingLevel);
         _eventBus.Subscribe<PlayerDeadEvent>(PlayerDeadSubscriber);
         _eventBus.Unsubscribe<RestartButtonPressedEvent>(RestartPress);
     }

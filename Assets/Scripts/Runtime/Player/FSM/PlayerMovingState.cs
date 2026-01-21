@@ -40,7 +40,7 @@ public class PlayerMovingState : PlayerStateBase
         {
             MoveCharacter();
         }
-        if (!_playerController.IsMoving)
+        if (!_playerController.HasMoveCommand)
         {
             _fsm.ChangeState(PlayerState.Idle);
         }

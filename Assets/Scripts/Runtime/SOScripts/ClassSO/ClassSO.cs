@@ -8,7 +8,7 @@ public class ClassSO : ScriptableObject
     public Sprite ClassIcon;
     public ClassSpec DefaultSpec;
     public CharacterSoundsSO ClassSound;
-
+    public PlayerClassDefaultStatsSO DefaultStatsSO;
     public List<ClassSpecSO> Specs; 
 
     public ClassSpecSO GetSpecSO(ClassSpec spec)

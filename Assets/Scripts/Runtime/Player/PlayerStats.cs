@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class PlayerStats : MonoBehaviour
 {
     [Inject] private EventBus _eventBus;
-    [SerializeField] private PlayerClassDefaultStatsSO _defaultStats;
+    private PlayerClassDefaultStatsSO _defaultStats;
     private Dictionary<StatType, int> _baseStats = new Dictionary<StatType, int>();
     private Dictionary<StatType, int> _outsideStats = new Dictionary<StatType, int>();
 
@@ -85,6 +85,10 @@ public class PlayerStats : MonoBehaviour
     {
         int armorFormula = ((_baseStats[StatType.Agility] + _outsideStats[StatType.Agility]) / 5) + _defaultStats.Armor;
         return armorFormula;
+    }
+    public void InitDefaultStats(PlayerClassDefaultStatsSO stats)
+    {
+        _defaultStats = stats;
     }
     public void RestoreStats(PlayerSaveData data)
     {

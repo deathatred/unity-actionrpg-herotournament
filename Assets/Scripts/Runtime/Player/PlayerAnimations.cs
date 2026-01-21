@@ -5,7 +5,7 @@ using Zenject;
 public class PlayerAnimations : MonoBehaviour
 {
     [Inject] private EventBus _eventBus;
-  
+
     public static readonly int MovingHash = Animator.StringToHash("IsMoving");
     public static readonly int AttackIndexHash = Animator.StringToHash("AttackIndex");
     public static readonly int IsAttackingHash = Animator.StringToHash("IsAttacking");
@@ -13,14 +13,20 @@ public class PlayerAnimations : MonoBehaviour
     private const int NUMBER_OF_ATTACK_ANIMATIONS = 4;
     private Animator _animator;
     private bool _isMoving;
-  
-    private void Awake()
-    {
-        _animator = GetComponentInChildren<Animator>();
-    }
+
+    private bool _animatorIsSet;
+
     private void Update()
     {
-        HandleAnimations();
+        if (_animatorIsSet)
+        {
+            HandleAnimations();
+        }
+    }
+    public void SetAnimator(Animator animator)
+    {
+        _animator = animator;
+        _animatorIsSet = true;
     }
     private void HandleAnimations()
     {
@@ -53,7 +59,7 @@ public class PlayerAnimations : MonoBehaviour
     }
     public void StartAttackingAnimation()
     {
-        int random = Random.Range(1, NUMBER_OF_ATTACK_ANIMATIONS+1);
+        int random = Random.Range(1, NUMBER_OF_ATTACK_ANIMATIONS + 1);
         _animator.SetInteger(AttackIndexHash, random);
         _animator.SetTrigger(IsAttackingHash);
     }

@@ -8,16 +8,16 @@ public class LevelSaveManager : IDisposable
     [Inject] private FirebaseManager _firebaseManager;
     private EventBus _eventBus;
     private readonly GameManager _gameManager;
-    private bool _playPressed;
+    private bool _playerConfigured;
     public LevelSaveManager(GameManager gameManager, EventBus eventBus)
     {
         _gameManager = gameManager;
         _eventBus = eventBus;
-        _eventBus.Subscribe<PlayButtonPressedEvent>(PlayPressed);
+        _eventBus.Subscribe<PlayerConfiguredEvent>(PlayerConfiguredSubscriber);
     }
-    private void PlayPressed(PlayButtonPressedEvent e)
+    private void PlayerConfiguredSubscriber(PlayerConfiguredEvent e)
     {
-        _playPressed = true;
+        _playerConfigured = true;
     }
     public LevelSaveData CreateLevelSaveData()
     {
@@ -41,7 +41,7 @@ public class LevelSaveManager : IDisposable
     public async UniTask LoadLevelData()
     {
         var data = await _firebaseManager.LoadLevelDataAsync();
-        await UniTask.WaitUntil(() => _playPressed == true);
+        await UniTask.WaitUntil(() => _playerConfigured == true);
         await UniTask.WaitForSeconds(1f);
         if (data == null)
         {
@@ -58,6 +58,6 @@ public class LevelSaveManager : IDisposable
 
     public void Dispose()
     {
-        _eventBus.Unsubscribe<PlayButtonPressedEvent>(PlayPressed);
+        _eventBus.Unsubscribe<PlayerConfiguredEvent>(PlayerConfiguredSubscriber);
     }
 }

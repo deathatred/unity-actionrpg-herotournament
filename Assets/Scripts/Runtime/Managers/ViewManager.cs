@@ -45,6 +45,7 @@ public class ViewManager : IDisposable
         _eventBus.Subscribe<LevelInitedEvent>(LevelInited);
         _eventBus.Subscribe<PortalInteractedEvent>(PortalInteracted);
         _eventBus.Subscribe<PlayerDeadEvent>(PlayerDead);
+        _eventBus.Subscribe<ClassSelectedEvent>(ClassSelected);
     }
     private void UnsubscribeFromEvents()
     {
@@ -56,6 +57,7 @@ public class ViewManager : IDisposable
         _eventBus.Unsubscribe<LevelInitedEvent>(LevelInited);
         _eventBus.Unsubscribe<PortalInteractedEvent>(PortalInteracted);
         _eventBus.Unsubscribe<PlayerDeadEvent>(PlayerDead);
+        _eventBus.Unsubscribe<ClassSelectedEvent>(ClassSelected);
     }
     private void LevelInited(LevelInitedEvent e)
     {
@@ -90,7 +92,14 @@ public class ViewManager : IDisposable
     }
     private void PlayButtonPressedEvent(PlayButtonPressedEvent e)
     {
-        ChangeCanvas(5);
+        if (GlobalSaveManager.PlayerHasSaveFile)
+        {
+            ChangeCanvas(5);
+        }
+        else
+        {
+            ChangeCanvas(7);
+        }       
     } 
     private void PortalInteracted(PortalInteractedEvent e)
     {
@@ -99,6 +108,10 @@ public class ViewManager : IDisposable
     private void PlayerDead(PlayerDeadEvent e)
     {
         ChangeCanvas(6);
+    }
+    private void ClassSelected(ClassSelectedEvent e)
+    {
+        ChangeCanvas(5);
     }
     public void Dispose()
     {

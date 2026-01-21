@@ -23,10 +23,8 @@ public class PlayerStateMachine : MonoBehaviour
     }
     private void Update()
     {
-
         HandleGlobalTransitions();
         _currentState.Update();
-        print(CurrentState);
     }
     private void OnDisable()
     {
