@@ -67,19 +67,14 @@ public class PlayerSaveManager
             _stats.SetDefaultStats();
             return;
         }
-        _playerClassHolder.RestoreClass(data.PlayerClass);
         _levelSystem.RestorePlayerLevelData(data.CurrentLevel, data.LevelPointsAmount, data.ExpAmount,data.ExpRequired);
-        _playerConfigurator.ConfigurePlayer(_playerClassHolder.PlayerClass);
+        _playerConfigurator.ConfigurePlayer(data.PlayerClass);
         _stats.RestoreStats(data);
         _talents.RestoreTalentPoints(data.TalentPointsAmount);
-
         _talents.RestoreTalents(data.LearnedTalentsIds);
-
         _inventory.RestoreItems(data.InventoryItems);
-
         _healthSystem.RestoreHealth(data.CurrentHealth);
         _spellCasting.RestorePlayerMana(data.CurrentMana);
-
         _eventBus.Publish(new PlayerDataLoadedEvent(data.LearnedTalentsIds));
         _playerController.WarpToPosition(data.Position);
     }
