@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3775a25e008624a45aa8fa3f4d69b4e9, type: 3}
+  m_Name: IceShaklesTalent
+  m_EditorClassIdentifier: 
+  ID: ice_shakles
+  TalentName: Ice Shakles
+  Icon: {fileID: 21300000, guid: 32c4acc349c921a44a74ec015b1a36a3, type: 3}
+  Description: 
+  Active: 0
+  Spell: {fileID: 11400000, guid: 5e4858187ffed5844961eb1fcc84d0e7, type: 2}
+  Passive: 0
+  PassiveEffects: []
+  Spec: 5
+  Prerequisites:
+  - {fileID: 11400000, guid: c9359b7a83407754dad8e7761085beae, type: 2}
+  MaxLevel: 1

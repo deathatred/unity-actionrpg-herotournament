@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 305e085316f95894486aca7d0ba8c096, type: 3}
   m_Name: WizardDefaultStats
   m_EditorClassIdentifier: 
-  DefaultHealth: 5
+  DefaultHealth: 100
   DefaultMana: 30
   Strenght: 2
   Agility: 2
@@ -22,5 +22,5 @@ MonoBehaviour:
   SpellPower: 5
   MoveSpeed: 7
   Vampirism: 0
-  AttackSpeed: 30
+  AttackSpeed: 50
   CriticalRate: 10

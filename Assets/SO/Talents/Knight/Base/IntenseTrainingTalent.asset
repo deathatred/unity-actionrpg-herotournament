@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3775a25e008624a45aa8fa3f4d69b4e9, type: 3}
-  m_Name: IntenseTraining
+  m_Name: IntenseTrainingTalent
   m_EditorClassIdentifier: 
   ID: intense_training
   TalentName: Intense Training
