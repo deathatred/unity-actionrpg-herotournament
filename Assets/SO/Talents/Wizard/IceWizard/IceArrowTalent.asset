@@ -16,7 +16,7 @@ MonoBehaviour:
   TalentName: Ice Arrow
   Icon: {fileID: 21300000, guid: d3a8b0e25d32439428a866c3d126accc, type: 3}
   Description: 
-  Active: 0
+  Active: 1
   Spell: {fileID: 11400000, guid: 36b6960798d3c01468c1391f09d3b4aa, type: 2}
   Passive: 0
   PassiveEffects: []

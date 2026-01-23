@@ -16,7 +16,7 @@ MonoBehaviour:
   TalentName: Self Ignite
   Icon: {fileID: 21300000, guid: 4db853c58e94cb0439c8110b4a30670f, type: 3}
   Description: 
-  Active: 0
+  Active: 1
   Spell: {fileID: 11400000, guid: f0a3d698cdab7884784ca4391ea5a2b0, type: 2}
   Passive: 0
   PassiveEffects: []

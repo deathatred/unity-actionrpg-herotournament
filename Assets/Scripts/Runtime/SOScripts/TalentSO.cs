@@ -8,9 +8,8 @@ public class TalentSO : ScriptableObject
     public Sprite Icon;
     public string Description;
 
-    public bool Active;
+    public SpellType SpellType;
     public SpellSO Spell;
-    public bool Passive;
     public PassiveEffect[] PassiveEffects;
     public ClassSpec Spec; 
     public TalentSO[] Prerequisites;
