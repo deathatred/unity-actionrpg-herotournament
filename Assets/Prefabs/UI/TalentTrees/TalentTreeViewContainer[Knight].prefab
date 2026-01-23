@@ -201,6 +201,11 @@ MonoBehaviour:
   - {fileID: 3820917453598858984}
   - {fileID: 5134321782818640561}
   - {fileID: 5065355817964462840}
+  _talentTreeClass: 0
+  _backButton: {fileID: 4716895330724014337}
+  _learnButton: {fileID: 0}
+  _closeButton: {fileID: 0}
+  _currentTalentTree: {fileID: 0}
 --- !u!1 &1424983304809580390
 GameObject:
   m_ObjectHideFlags: 0

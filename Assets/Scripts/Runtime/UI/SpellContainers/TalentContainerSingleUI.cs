@@ -6,7 +6,6 @@ using Zenject;
 public class TalentContainerSingleUI : MonoBehaviour
 {
     [Inject] private EventBus _eventBus;
-    [SerializeField] private TalentTreeViewUI _talentTreeViewUI;
     [SerializeField] private TalentSO _talentSO;
     [SerializeField] private Image _talentImage;
     [SerializeField] private Button _talentButton;
@@ -14,6 +13,7 @@ public class TalentContainerSingleUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _talentPointsMaxText;
     [SerializeField] private GameObject _chainsObject;
 
+    private TalentTreeViewUI _talentTreeViewUI;
     private int _currentTalentPoints;
     private int _maxTalentPoints;
 
@@ -71,6 +71,10 @@ public class TalentContainerSingleUI : MonoBehaviour
     public void SetChainsActive()
     {
         _chainsObject.SetActive(true);
+    }
+    public void SetTalentTreeView(TalentTreeViewUI view)
+    {
+        _talentTreeViewUI = view;
     }
     public TalentSO GetTalentSO()
     {
