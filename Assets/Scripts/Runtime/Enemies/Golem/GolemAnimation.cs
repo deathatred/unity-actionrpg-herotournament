@@ -11,11 +11,11 @@ public class GolemAnimation : EnemyAnimationBase
     //}
     public void SetSmashIsTrue()
     {
-        _animator.SetBool(SmashHash, true);
+        _animator?.SetBool(SmashHash, true);
     }
     public void SetSmashIsFalse()
     {
-        _animator.SetBool(SmashHash, false);
+        _animator?.SetBool(SmashHash, false);
     }
     protected override void HealthSystemOnDeath(object sender, EventArgs e)
     {
@@ -24,7 +24,7 @@ public class GolemAnimation : EnemyAnimationBase
     public override void TriggerAttack()
     {
         int random = UnityEngine.Random.Range(0, 2);
-        _animator.SetInteger(AttackModifierHash, random);
+        _animator?.SetInteger(AttackModifierHash, random);
         base.TriggerAttack();
     }
 }

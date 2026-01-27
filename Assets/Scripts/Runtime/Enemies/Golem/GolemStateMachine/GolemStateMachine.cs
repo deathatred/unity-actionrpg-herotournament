@@ -27,6 +27,7 @@ public class GolemStateMachine : EnemyStateMachine
     private void OnDisable()
     {
         _healthSystem.OnDeath -= HealthSystemOnDeath;
+        CurrentState.Exit();
     }
     public void ChangeState(GolemState state)
     {
