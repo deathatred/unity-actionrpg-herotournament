@@ -16,9 +16,8 @@ MonoBehaviour:
   TalentName: Intense Training
   Icon: {fileID: 21300000, guid: 2df9a46273ccf7a45ae03374b982c7e6, type: 3}
   Description: +5 to str and agi
-  Active: 0
+  SpellType: 1
   Spell: {fileID: 0}
-  Passive: 1
   PassiveEffects:
   - {fileID: 11400000, guid: 5faf0ec0d74162b4d865105af84e17a6, type: 2}
   Spec: 0
