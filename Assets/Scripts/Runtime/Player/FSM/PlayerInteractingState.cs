@@ -61,8 +61,6 @@ public class PlayerInteractingState : PlayerStateBase
             _playerInteractions.GetCurrentInteractableTarget().Transform, InteractStopDistance);
         if (interactableIsInRange && !_isInteracting)
         {
-            _playerController.RotateToTargetAsync(_playerInteractions.GetCurrentItemTarget().transform.position,
-               _rotateCts.Token).Forget();
             _playerAnimations.SetIsMovingFalse();
             _playerInteractions.GetCurrentInteractableTarget().Interact(); 
             _fsm.ChangeState(PlayerState.Idle);
