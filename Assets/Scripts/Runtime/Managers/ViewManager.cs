@@ -8,13 +8,15 @@ public class ViewManager : IDisposable
 {
     private Canvas[] _views;
     private EventBus _eventBus;
+    private GlobalSaveManager _globalSaveManager;
     private CancellationTokenSource _cts;
     [Inject]
-    public ViewManager(Canvas[] views, EventBus eventBus)
+    public ViewManager(Canvas[] views, EventBus eventBus, GlobalSaveManager globalManager)
     {
         _views = views;
         _eventBus = eventBus;
         _cts = new CancellationTokenSource();
+        _globalSaveManager = globalManager;
         SubscribeToEvents();
     }
     private void ChangeCanvas(int id)
@@ -62,7 +64,7 @@ public class ViewManager : IDisposable
     private void LevelInited(LevelInitedEvent e)
     {
         ChangeToGameViewAfterDelay(_cts).Forget();
-    } 
+    }
     private void BackButtonPressed(BackButtonPressedEvent e)
     {
         switch (e.Caller)
@@ -70,8 +72,8 @@ public class ViewManager : IDisposable
             case BackButtonCaller.Inventory:
                 ChangeCanvas(1);
                 break;
-            case BackButtonCaller.TalentTree: 
-                ChangeCanvas(1); 
+            case BackButtonCaller.TalentTree:
+                ChangeCanvas(1);
                 break;
             case BackButtonCaller.StatsMenu:
                 ChangeCanvas(0);
@@ -92,15 +94,8 @@ public class ViewManager : IDisposable
     }
     private void PlayButtonPressedEvent(PlayButtonPressedEvent e)
     {
-        if (GlobalSaveManager.PlayerHasSaveFile)
-        {
-            ChangeCanvas(5);
-        }
-        else
-        {
-            ChangeCanvas(7);
-        }       
-    } 
+        DecidePlayOrSelectView().Forget();
+    }
     private void PortalInteracted(PortalInteractedEvent e)
     {
         ChangeCanvas(5);
@@ -124,5 +119,16 @@ public class ViewManager : IDisposable
         await UniTask.WaitForSeconds(1f).AttachExternalCancellation(cts.Token);
         ChangeCanvas(0);
     }
-
+    private async UniTask DecidePlayOrSelectView()
+    {
+        var res = await _globalSaveManager.CheckIfPlayerHasSaves();
+        if (res)
+        {
+            ChangeCanvas(5);
+        }
+        else
+        {
+            ChangeCanvas(7);
+        }    
+    }
 }

@@ -12,7 +12,7 @@ public class GlobalSaveManager : MonoBehaviour
     [Inject] private LevelSaveManager _levelSaveManager;
 
     public bool GameLoaded = false;
-    public static bool PlayerHasSaveFile { get; private set; }
+    public bool _playerHasSaveFile;
     private CancellationTokenSource _cts;
 
     private void OnEnable()
@@ -55,7 +55,7 @@ public class GlobalSaveManager : MonoBehaviour
     }
     private void PlayPressSubscriber(PlayButtonPressedEvent e)
     {
-        if (PlayerHasSaveFile)
+        if (_playerHasSaveFile)
         {
             InitAsync().Forget();
         }
@@ -63,12 +63,6 @@ public class GlobalSaveManager : MonoBehaviour
     private void ClassSelectedSubscriber(ClassSelectedEvent e)
     {
         InitAsync().Forget();
-    }
-    private async UniTask CheckIfPlayerHasSaves()
-    {
-       var playerData = await _firebaseManager.LoadPlayerDataAsync().AttachExternalCancellation(_cts.Token);
-       var levelData = await _firebaseManager.LoadLevelDataAsync().AttachExternalCancellation(_cts.Token);
-       PlayerHasSaveFile = (playerData != null) && (levelData != null);
     }
     private async UniTask InitAsync()
     {
@@ -88,6 +82,12 @@ public class GlobalSaveManager : MonoBehaviour
             await _firebaseManager.SaveLevelDataAsync(levelData).AttachExternalCancellation(_cts.Token);
             await UniTask.WaitForSeconds(5f, cancellationToken: _cts.Token);
         }
+    }
+    public async UniTask<bool> CheckIfPlayerHasSaves()
+    {
+        var playerData = await _firebaseManager.LoadPlayerDataAsync().AttachExternalCancellation(_cts.Token);
+        var levelData = await _firebaseManager.LoadLevelDataAsync().AttachExternalCancellation(_cts.Token);
+        return _playerHasSaveFile = (playerData != null) && (levelData != null);
     }
     public async UniTask ClearLevelDataAndSaveNew()
     {
