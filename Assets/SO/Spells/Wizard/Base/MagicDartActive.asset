@@ -22,3 +22,4 @@ MonoBehaviour:
   Range: 10
   CanBeCastWhileMoving: 1
   SoundEffect: {fileID: 0}
+  MagicDart: {fileID: 11400000, guid: 886aaa8c44e10fe4ab682eb92ebe071f, type: 2}

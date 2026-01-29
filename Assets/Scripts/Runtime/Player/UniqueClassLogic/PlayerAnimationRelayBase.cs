@@ -10,6 +10,7 @@ public abstract class PlayerAnimationRelayBase : MonoBehaviour
     protected PlayerInteractions _playerInteractions;
     protected PlayerHealthSystem _playerHealthSystem;
     protected PlayerStats _playerStats;
+    [SerializeField] private Transform _shootPoint;
 
     [Inject]
     protected void Construct(
@@ -76,5 +77,9 @@ public abstract class PlayerAnimationRelayBase : MonoBehaviour
     public void PlayFootstepSound()
     {
         _playerAudio.PlayFootstepSound();
+    }
+    public Transform GetShootPoint()
+    {
+        return _shootPoint;
     }
 }

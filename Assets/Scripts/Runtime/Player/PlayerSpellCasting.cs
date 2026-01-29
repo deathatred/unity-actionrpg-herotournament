@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using ModestTree;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -21,7 +22,6 @@ public class PlayerSpellCasting : MonoBehaviour
     [Inject] private PlayerInteractions _interaction;
     [Inject] private PlayerController _controller;
     [Inject] private ProjectilePool _projectilePool;
-    [SerializeField] private Transform _shootPoint;
 
     public int MaxMana { get; private set; }
     public int CurrentMana { get; private set; }
@@ -252,10 +252,12 @@ public class PlayerSpellCasting : MonoBehaviour
     public async UniTask ExecuteProjectileSpellAsync(ProjectileSO projectileSO,Transform target = null)
     {
         await _controller.RotateToTargetAsync(target.transform.position, _cts.Token);
-        Vector3 pos = _shootPoint.position;
-        Vector3 dir = _shootPoint.forward;
+        var relay = GetComponentInChildren<PlayerAnimationRelayBase>();
+        Vector3 pos = relay.GetShootPoint().position;
+        Vector3 dirBefore = (target.position - pos).normalized;
+        Vector3 dirAfter = new Vector3(dirBefore.x, transform.position.y, dirBefore.z);
 
-        _projectilePool.SpawnProjectile(projectileSO, pos, dir, UnitType.Enemy, target);
+        _projectilePool.SpawnProjectile(projectileSO, pos, dirAfter, UnitType.Enemy, target);
 
     }
  
