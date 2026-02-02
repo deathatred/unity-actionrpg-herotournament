@@ -59,14 +59,14 @@ public class PlayerAttackSystem : MonoBehaviour
     {
         if (_currentTarget != null && !_currentTarget.IsDead)
         {
-            int attackDamage = _playerStats.GetStat(StatType.AttackPower);
-            if (UnityEngine.Random.Range(0, 101) < _playerStats.GetStat(StatType.CriticalRate)) {
-                attackDamage = Mathf.RoundToInt(_playerStats.GetStat(StatType.AttackPower) * multiplier * 1.5f);
+            int attackDamage = _playerStats.GetBaseStat(StatType.AttackPower);
+            if (UnityEngine.Random.Range(0, 101) < _playerStats.GetBaseStat(StatType.CriticalRate)) {
+                attackDamage = Mathf.RoundToInt(_playerStats.GetBaseStat(StatType.AttackPower) * multiplier * 1.5f);
             }
             int damageTakenByEnemy = _currentTarget.TakeDamage(attackDamage);
-            if (_playerStats.GetStat(StatType.Vampirism) > 0)
+            if (_playerStats.GetBaseStat(StatType.Vampirism) > 0)
             {
-                float healAmount = damageTakenByEnemy * (_playerStats.GetStat(StatType.Vampirism) / 100f);
+                float healAmount = damageTakenByEnemy * (_playerStats.GetBaseStat(StatType.Vampirism) / 100f);
                 _playerHealthSystem.Heal((int)healAmount);
             }
         }
@@ -100,7 +100,7 @@ public class PlayerAttackSystem : MonoBehaviour
         {
             while (!enemy.IsDead && !_cts.Token.IsCancellationRequested)
             {
-                float speed = _playerStats.GetStat(StatType.AttackSpeed) / 100f;
+                float speed = _playerStats.GetBaseStat(StatType.AttackSpeed) / 100f;
                 if (_animator == null)
                 {
                     GetAnimator();

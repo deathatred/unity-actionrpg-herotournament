@@ -62,8 +62,6 @@ public class PlayerSpellCastingState : PlayerStateBase
         var hasToAutoAttack = _playerInteractions.GetCurrentEnemyTarget() != null && _autoAttack 
             && RangeFinder.IsClose(_playerController.transform, _playerInteractions.GetCurrentEnemyTarget().transform,
                 _playerAttackSystem.GetAttackRange());
-        Debug.LogWarning(RangeFinder.IsClose(_playerController.transform, _playerInteractions.GetCurrentEnemyTarget().transform,
-                _playerAttackSystem.GetAttackRange()) + "is close");
         Debug.LogWarning($"{hasToAutoAttack} HAS TO AUTO ATTACK");
         if (hasToAutoAttack)
         { 

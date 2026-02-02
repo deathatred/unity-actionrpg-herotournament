@@ -83,7 +83,7 @@ public class PlayerHealthSystem : MonoBehaviour, IHealthSystem
     }
     public void RestoreHealth(int amount)
     {
-        _maxHealth = _playerStats.GetStat(StatType.MaxHealth);
+        _maxHealth = _playerStats.GetBaseStat(StatType.MaxHealth);
         _currentHealth = Mathf.Min(amount, _maxHealth);
         _eventBus.Publish(new PlayerHealthChangedEvent(_maxHealth, _currentHealth));
         _eventBus.Publish(new CurrentHealthChangedEvent(_currentHealth));

@@ -9,7 +9,7 @@ public class DoubleSlashSO : SpellSO
         {
             return;
         }
-        ctx.EnemyHealthSystem.TakeDamage(Mathf.RoundToInt(ctx.Stats.GetStat(StatType.AttackPower) * 1.5f));
+        ctx.EnemyHealthSystem.TakeDamage(Mathf.RoundToInt(ctx.Stats.GetBaseStat(StatType.AttackPower) * 1.5f));
         ctx.Audio.PlaySpellAudio(this);
     }
 }

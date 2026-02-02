@@ -13,7 +13,7 @@ public class PlayerSpellCasting : MonoBehaviour
     [Inject] private DiContainer _container;
     [Inject] private EventBus _eventBus;
     [Inject] private PlayerAudio _playerAudio;
-    [Inject] private PlayerStats _stats;
+    [Inject] private PlayerStats _playerStats;
     [Inject] private PlayerAttackSystem _attackSystem;
     [Inject] private PlayerAnimations _animation;
     [Inject] private PlayerInputHandler _input;
@@ -208,7 +208,7 @@ public class PlayerSpellCasting : MonoBehaviour
     }
     public void RestorePlayerMana(int amount)
     {
-        MaxMana = _stats.GetStat(StatType.MaxMana);
+        MaxMana = _playerStats.GetBaseStat(StatType.MaxMana);
         CurrentMana = amount;    
         _eventBus.Publish(new CurrentManaChangedEvent(CurrentMana));
         _eventBus.Publish(new PlayerManaChangedEvent(CurrentMana, MaxMana));
@@ -256,8 +256,9 @@ public class PlayerSpellCasting : MonoBehaviour
         Vector3 pos = relay.GetShootPoint().position;
         Vector3 dirBefore = (target.position - pos).normalized;
         Vector3 dirAfter = new Vector3(dirBefore.x, transform.position.y, dirBefore.z);
-
-        _projectilePool.SpawnProjectile(projectileSO, pos, dirAfter, UnitType.Enemy, target);
+        float spellPowerPercent = _playerStats.GetFinalStat(StatType.SpellPower) / 100f;
+        int finalDamage = Mathf.RoundToInt(projectileSO.Damage * (1f + spellPowerPercent));
+        _projectilePool.SpawnProjectile(projectileSO, pos, dirAfter, UnitType.Enemy, finalDamage);
 
     }
  

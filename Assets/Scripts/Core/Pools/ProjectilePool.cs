@@ -29,9 +29,9 @@ public class ProjectilePool : MonoBehaviour
         );
     }
 
-    public void SpawnProjectile(ProjectileSO so, Vector3 pos, Vector3 dir,UnitType typeToDamage, Transform target = null)
+    public void SpawnProjectile(ProjectileSO so, Vector3 pos, Vector3 dir,UnitType typeToDamage,int finalDamage, Transform target = null)
     {
         var projectile = Get(so);
-        projectile.Init(so, pos, dir, target, typeToDamage, _pools[so]);
+        projectile.Init(so, pos, dir, target, typeToDamage, _pools[so], finalDamage);
     }
 }
