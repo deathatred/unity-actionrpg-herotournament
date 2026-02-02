@@ -71,7 +71,6 @@ public class PlayerConfigurator : MonoBehaviour
         _playerAnimations.SetAnimator(animator);
         _playerClassHolder.SetClass(playerClass);
         _eventBus.Publish(new PlayerConfiguredEvent(playerClass));
-        Debug.Log("Configured");
     }
 
 

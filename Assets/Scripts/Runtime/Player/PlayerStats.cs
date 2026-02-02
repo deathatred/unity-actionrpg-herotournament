@@ -20,10 +20,6 @@ public class PlayerStats : MonoBehaviour
         InitializeDictionary();
         InitializeOutsideDictionary();
     }
-    private void Update()
-    {
-        print(GetFinalStat(StatType.SpellPower));
-    }
     private void OnDisable()
     {
         UnsubscribeFromEvents();
