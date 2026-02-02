@@ -22,3 +22,4 @@ MonoBehaviour:
   Range: 15
   CanBeCastWhileMoving: 1
   SoundEffect: {fileID: 0}
+  FireballProjectile: {fileID: 11400000, guid: fa31c77e00784994c832191848e951bc, type: 2}

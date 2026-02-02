@@ -2156,6 +2156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameLoaded: 0
+  _playerHasSaveFile: 0
 --- !u!4 &789581278
 Transform:
   m_ObjectHideFlags: 0
@@ -4332,7 +4333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310fd29a14af47d4d820cd17c0e70344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meleeAttackRange: 1.8
 --- !u!114 &1995731882
 MonoBehaviour:
   m_ObjectHideFlags: 0

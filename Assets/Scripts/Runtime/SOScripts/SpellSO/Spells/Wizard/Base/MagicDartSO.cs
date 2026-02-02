@@ -8,7 +8,6 @@ public class MagicDartSO : SpellSO
     public override void Activate(PlayerSpellContext ctx)
     {
         ctx.SpellCasting.ExecuteProjectileSpellAsync(MagicDart, ctx.EnemyTransform).Forget();
-        Debug.LogWarning("spawn magic dart");
         ctx.Audio.PlaySpellAudio(this);
     }
 }
