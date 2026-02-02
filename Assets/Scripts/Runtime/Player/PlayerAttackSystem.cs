@@ -11,9 +11,8 @@ public class PlayerAttackSystem : MonoBehaviour
     [Inject] private PlayerStats _playerStats;
     [Inject] private PlayerAnimations _playerAnimations;
     [Inject] private PlayerHealthSystem _playerHealthSystem;
-    [Header("Attack Settings")]
-    [SerializeField] private float _meleeAttackRange = 1.8f;
 
+    private float _attackRange;
     private Animator _animator;
     private CancellationTokenSource _cts = new();
     private EnemyHealthSystem _currentTarget;
@@ -33,14 +32,28 @@ public class PlayerAttackSystem : MonoBehaviour
     private void SubscribeToEvents()
     {
         _eventBus.Subscribe<PlayerAttackEndedEvent>(DealDamageSubscriber);
+        _eventBus.Subscribe<PlayerConfiguredEvent>(SetAttackRange);
     }
     private void UnsubscribeFromEvents()
     {
         _eventBus.Unsubscribe<PlayerAttackEndedEvent>(DealDamageSubscriber);
+        _eventBus.Unsubscribe<PlayerConfiguredEvent>(SetAttackRange);
     }
     private void DealDamageSubscriber(PlayerAttackEndedEvent e)
     {
         DealDamage();
+    }
+    private void SetAttackRange(PlayerConfiguredEvent e)
+    {
+        switch (e.PlayerClass)
+        {
+            case PlayerClass.Knight:
+                _attackRange = GlobalData.KNIGHT_ATTACK_RANGE;
+                break;
+            case PlayerClass.Wizard:
+                _attackRange = GlobalData.MAGE_ATTACK_RANGE; 
+                break;
+        } 
     }
     public void DealDamage(float multiplier = 1)
     {
@@ -68,9 +81,9 @@ public class PlayerAttackSystem : MonoBehaviour
         _cts.Cancel();
         _isAttacking = false;
     }
-    public float GetMeleeAttackRange()
+    public float GetAttackRange()
     {
-        return _meleeAttackRange;
+        return _attackRange;
     }
     public async UniTask MeleeAttackAsync(EnemyHealthSystem enemy)
     {

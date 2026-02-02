@@ -1,8 +1,12 @@
 
+using UnityEngine;
+
 public static class GlobalData 
 {
     #region Player
     public const float ROTATION_DURATION = 0.25f;
+    public const float KNIGHT_ATTACK_RANGE = 1.8f;
+    public const float MAGE_ATTACK_RANGE = 10f;
     #endregion
     #region ObjectPool 
     public const int DEFAULT_PROJECTILE_POOL_SIZE = 50;
