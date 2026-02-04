@@ -8,6 +8,6 @@ public class SelfIgniteSO : SpellSO
     public float BonusDuration;
     public override void Activate(PlayerSpellContext ctx)
     {
-        ctx.Stats.ApplyTemporaryBonusAsync(StatType.SpellPower, SpellPowerBonus, BonusDuration).Forget();
+        ctx.Stats.ApplyTemporaryBonusAsync(GlobalData.SELF_IGNITE_EFFECT,StatType.SpellPower, SpellPowerBonus, BonusDuration).Forget();
     }
 }

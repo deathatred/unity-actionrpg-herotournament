@@ -1774,6 +1774,7 @@ GameObject:
   - component: {fileID: 5567114571179657833}
   - component: {fileID: 3591087358596692179}
   - component: {fileID: 3665273459340285519}
+  - component: {fileID: 1727451385639129518}
   m_Layer: 6
   m_Name: WizardPlayerSkin
   m_TagString: Untagged
@@ -1833,6 +1834,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shootPoint: {fileID: 5634538190791527862}
+--- !u!114 &1727451385639129518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5317709953616598020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9f97fbde41afb4a800028e77ae3531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selfIgniteParticles: {fileID: 5643861923466681325, guid: def31c6d16d5b21408d6a07b75db639b, type: 3}
 --- !u!1 &5336943180830670431
 GameObject:
   m_ObjectHideFlags: 0

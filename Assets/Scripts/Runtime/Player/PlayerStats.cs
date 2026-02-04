@@ -20,6 +20,14 @@ public class PlayerStats : MonoBehaviour
         InitializeDictionary();
         InitializeOutsideDictionary();
     }
+    public void Update()
+    {
+        print(GetFinalStat(StatType.SpellPower));
+        foreach (var effect in _tempBonusEffects)
+        {
+            print(effect.StatType);
+        }
+    }
     private void OnDisable()
     {
         UnsubscribeFromEvents();
@@ -167,13 +175,13 @@ public class PlayerStats : MonoBehaviour
     {
         return _baseStats[type] + _outsideStats[type];
     }
-    public async UniTask ApplyTemporaryBonusAsync(StatType type, int amount, float duration)
+    public async UniTask ApplyTemporaryBonusAsync(string name,StatType type, int amount, float duration)
     {
-        var bonus = new BonusEffect(type,amount, duration);
+        var bonus = new BonusEffect(name,type,amount, duration);
 
         _tempBonusEffects.Add(bonus);
         ChangeOutsideStat(type, amount);
-
+        _eventBus.Publish(new PlayerBonusEffectAppliedEvent(name, duration));
         await RunBonusTimerAsync(bonus);
     }
     private void RemoveTemporaryBonusStat(BonusEffect bonus)
@@ -191,5 +199,9 @@ public class PlayerStats : MonoBehaviour
         }
 
         RemoveTemporaryBonusStat(bonus);
+    }
+    public BonusEffect[] GetBonusEffects()
+    {
+        return _tempBonusEffects.ToArray();
     }
 }

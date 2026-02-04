@@ -8,6 +8,10 @@ public static class GlobalData
     public const float KNIGHT_ATTACK_RANGE = 1.8f;
     public const float MAGE_ATTACK_RANGE = 10f;
     #endregion
+    #region BonusEffects
+    public const string SELF_IGNITE_EFFECT = "SelfIgnite";
+    public const string HOLY_HEAL_EFFECT = "HolyHeal";
+    #endregion
     #region ObjectPool 
     public const int DEFAULT_PROJECTILE_POOL_SIZE = 50;
     #endregion
