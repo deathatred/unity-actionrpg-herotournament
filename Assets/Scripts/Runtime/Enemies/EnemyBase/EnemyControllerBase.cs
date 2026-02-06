@@ -1,13 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class EnemyControllerBase : MonoBehaviour
 {
     [SerializeField] private NavMeshAgent _navMeshAgent;
     [SerializeField] protected float _rotationSpeed = 8f;
-
+    [SerializeField] private float _baseSpeed;
     public void RotateTowardsTarget(Transform target)
     {
         Vector3 directionToPlayer = target.position - this.transform.position;
@@ -34,5 +33,17 @@ public class EnemyControllerBase : MonoBehaviour
     public NavMeshAgent GetNavMeshAgent()
     {
         return _navMeshAgent;
+    }
+    public float GetBaseSpeed()
+    {
+        return _baseSpeed;
+    }
+    public float GetCurrentSpeed()
+    {
+        return _navMeshAgent.speed;
+    }
+    public void SetSpeed(float speed)
+    {
+        _navMeshAgent.speed = speed;
     }
 }

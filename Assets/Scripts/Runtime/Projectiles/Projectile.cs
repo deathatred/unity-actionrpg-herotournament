@@ -108,7 +108,18 @@ public class Projectile : MonoBehaviour
         var hp = collision.collider.GetComponent<IHealthSystem>();
         Debug.LogWarning(_finalDamage + "Final DAmage");
         hp?.TakeDamage(_finalDamage);
-
+        if (this._projectileSO.StatusEffectSO != null)
+        {
+            if (collision.collider.TryGetComponent(out EnemyStatusEffectsManager enemyStatusEfffectManager))
+            {
+                enemyStatusEfffectManager.ApplyStatusEffect(_projectileSO.StatusEffectSO).Forget();
+            }
+            else
+            {
+                Debug.LogWarning("No status effect attached");
+            }
+                
+        }
         DetachTrail();
         Despawn();
     }

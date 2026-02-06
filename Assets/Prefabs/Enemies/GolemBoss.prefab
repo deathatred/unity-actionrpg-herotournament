@@ -768,6 +768,7 @@ GameObject:
   - component: {fileID: 9056427955508949756}
   - component: {fileID: 9180799519395550759}
   - component: {fileID: 6244362098756379265}
+  - component: {fileID: 8398626645462330498}
   m_Layer: 8
   m_Name: GolemBoss
   m_TagString: Untagged
@@ -806,7 +807,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: 35f50bf0ec7e52d4a9fc6fe2d933c772, type: 2}
-  _healthBarUI: {fileID: 1805160914618487722}
   _colliders:
   - {fileID: 6319659225951068925}
   - {fileID: 4139401111827221593}
@@ -838,6 +838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _navMeshAgent: {fileID: 9056427955508949756}
   _rotationSpeed: 4
+  _baseSpeed: 3.5
 --- !u!114 &4820935421633947449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1036,6 +1037,20 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!114 &8398626645462330498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4002371084100732374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38847e66564e612468567a8bad29cdb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controller: {fileID: 5135618186317582839}
+  _healthSystem: {fileID: 8328218028771691965}
 --- !u!1 &4107996099869017280
 GameObject:
   m_ObjectHideFlags: 0
@@ -2687,17 +2702,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0a1e37b23c2a3040a5a0f2be44b3352, type: 3}
---- !u!114 &1805160914618487722 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8249739993781183633, guid: c0a1e37b23c2a3040a5a0f2be44b3352, type: 3}
-  m_PrefabInstance: {fileID: 7742196391436891963}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b92908c22f26cb148bf382ea8f87f3f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &2126188615412344557 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8570477491557880278, guid: c0a1e37b23c2a3040a5a0f2be44b3352, type: 3}

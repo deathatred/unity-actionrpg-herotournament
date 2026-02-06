@@ -19,6 +19,7 @@ MonoBehaviour:
   Cooldown: 3
   AnimationTrigger: IceArrow
   Icon: {fileID: 21300000, guid: d3a8b0e25d32439428a866c3d126accc, type: 3}
-  Range: 8
+  Range: 15
   CanBeCastWhileMoving: 1
   SoundEffect: {fileID: 0}
+  IceArrow: {fileID: 11400000, guid: a2e9064af95b22d48b4afc76cf3515db, type: 2}
