@@ -27,7 +27,14 @@ public abstract class CharacterAnimationBase<THealth> : MonoBehaviour
     {
         SetIsDeadTrue();
     }
-
+    public void Freeze()
+    {
+        _animator.speed = 0f;
+    }
+    public void Unfreeze()
+    {
+        _animator.speed = 1f;
+    }
     public void SetIsMovingTrue()
     {
         _animator.SetBool(IsMovingHash, true);

@@ -8,8 +8,10 @@ public class PlayerSpellContext
     public PlayerStats Stats;
     public PlayerSpellCasting SpellCasting;
     public PlayerAudio Audio;
+    public EnemyStatusEffectsManager EnemyStatusEffectsManager;
     public PlayerSpellContext(IHealthSystem self, Transform enemyTransform,
-        IHealthSystem enemyHealthSystem, PlayerStats stats, PlayerSpellCasting spellCasting, PlayerAudio audio)
+        IHealthSystem enemyHealthSystem, PlayerStats stats, PlayerSpellCasting spellCasting, PlayerAudio audio, 
+        EnemyStatusEffectsManager enemyStatusEffectsManager)
     {
         Self = self;
         EnemyTransform = enemyTransform;
@@ -17,5 +19,6 @@ public class PlayerSpellContext
         Stats = stats;
         SpellCasting = spellCasting;
         Audio = audio;
+        EnemyStatusEffectsManager = enemyStatusEffectsManager;
     }
 }

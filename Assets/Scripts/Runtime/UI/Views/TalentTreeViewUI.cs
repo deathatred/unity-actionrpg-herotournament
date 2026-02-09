@@ -44,8 +44,8 @@ public class TalentTreeViewUI : MonoBehaviour
     }
     private void UnbindButtons()
     {
-        _backButton.onClick.RemoveListener(BackPress);
-        _closeButton.onClick.RemoveListener(CloseContextMenuPressed);
+        _backButton?.onClick.RemoveListener(BackPress);
+        _closeButton?.onClick.RemoveListener(CloseContextMenuPressed);
     }
     private void BackPress()
     {

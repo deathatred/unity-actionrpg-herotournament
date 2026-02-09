@@ -56,6 +56,16 @@ public abstract class PlayerAnimationRelayBase : MonoBehaviour
     public void OnAnimationEvent()
     {
         SpellSO lastSpell = _playerSpell.LastCastSpell;
+        if (_playerInteractions.GetCurrentEnemyTarget()
+            .TryGetComponent<EnemyStatusEffectsManager>(out var statusEffectManager))
+        {
+
+        }
+        else
+        {
+            Debug.LogError("Enemy has no status effect manager script!");
+            return;
+        }
 
         PlayerSpellContext ctx = new PlayerSpellContext(
             _playerHealthSystem,
@@ -63,7 +73,8 @@ public abstract class PlayerAnimationRelayBase : MonoBehaviour
             _playerInteractions.GetCurrentEnemyTarget(),
             _playerStats,
             _playerSpell,
-            _playerAudio
+            _playerAudio,
+            statusEffectManager
         );
 
         lastSpell.Activate(ctx);

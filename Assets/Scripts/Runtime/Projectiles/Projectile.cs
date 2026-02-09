@@ -106,13 +106,13 @@ public class Projectile : MonoBehaviour
             return;
         }
         var hp = collision.collider.GetComponent<IHealthSystem>();
-        Debug.LogWarning(_finalDamage + "Final DAmage");
+        Debug.LogWarning(_finalDamage + "Final Damage");
         hp?.TakeDamage(_finalDamage);
         if (this._projectileSO.StatusEffectSO != null)
         {
             if (collision.collider.TryGetComponent(out EnemyStatusEffectsManager enemyStatusEfffectManager))
             {
-                enemyStatusEfffectManager.ApplyStatusEffect(_projectileSO.StatusEffectSO).Forget();
+                enemyStatusEfffectManager.ApplyStatusEffect(_projectileSO.StatusEffectSO);
             }
             else
             {
