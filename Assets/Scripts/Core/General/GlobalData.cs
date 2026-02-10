@@ -6,7 +6,7 @@ public static class GlobalData
     #region Player
     public const float ROTATION_DURATION = 0.25f;
     public const float KNIGHT_ATTACK_RANGE = 1.8f;
-    public const float MAGE_ATTACK_RANGE = 10f;
+    public const float MAGE_ATTACK_RANGE = 2f;
     #endregion
     #region BonusEffects
     public const string SELF_IGNITE_EFFECT = "SelfIgnite";

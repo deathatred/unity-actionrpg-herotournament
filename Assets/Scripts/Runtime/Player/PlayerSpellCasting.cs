@@ -34,6 +34,7 @@ public class PlayerSpellCasting : MonoBehaviour
     private SpellSO _queuedSpell;
     private CancellationTokenSource _cts;
     private bool _isCasted;
+    private EnemyHealthSystem _castTarget;
 
 
     private Dictionary<SpellSO, float> _cooldowns = new();
@@ -241,6 +242,7 @@ public class PlayerSpellCasting : MonoBehaviour
 
         var target = _interaction.GetCurrentEnemyTarget();
         _isCasted = true;
+        _castTarget = target;
         if (target != null)
         {
             await _controller.RotateToTargetAsync(target.transform.position, _cts.Token);
@@ -248,6 +250,10 @@ public class PlayerSpellCasting : MonoBehaviour
         CastSpell(spell);
         _queuedSpell = null;
 
+    }
+    public EnemyHealthSystem GetCastTarget()
+    {
+        return _castTarget;
     }
     public async UniTask ExecuteProjectileSpellAsync(ProjectileSO projectileSO,Transform target = null)
     {

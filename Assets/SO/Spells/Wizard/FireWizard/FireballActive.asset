@@ -20,6 +20,6 @@ MonoBehaviour:
   AnimationTrigger: Fireball
   Icon: {fileID: 21300000, guid: 89434218aa19a6e44beaa69aeb904168, type: 3}
   Range: 15
-  CanBeCastWhileMoving: 1
+  CanBeCastWhileMoving: 0
   SoundEffect: {fileID: 0}
   FireballProjectile: {fileID: 11400000, guid: fa31c77e00784994c832191848e951bc, type: 2}

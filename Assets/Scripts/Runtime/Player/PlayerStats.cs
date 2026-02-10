@@ -22,7 +22,6 @@ public class PlayerStats : MonoBehaviour
     }
     public void Update()
     {
-        print(GetFinalStat(StatType.SpellPower));
         foreach (var effect in _tempBonusEffects)
         {
             print(effect.StatType);

@@ -21,7 +21,7 @@ public class EnemyStatusEffectsManager : MonoBehaviour
     private readonly Dictionary<EnemyStatusEffectSO, StatusEffectInstance> _activeEffects = new();
     private readonly List<SlowStatusEffectSO> _activeSlows = new();
     private readonly List<Material> _activeOverlayMaterials = new();
-    
+
 
     private void Awake()
     {
@@ -31,6 +31,10 @@ public class EnemyStatusEffectsManager : MonoBehaviour
         {
             _baseMaterials[i] = _renderers[i].materials;
         }
+    }
+    private void OnDisable()
+    {
+        RemoveDebuffsOnDeath();
     }
 
     #region Slow management
@@ -72,11 +76,11 @@ public class EnemyStatusEffectsManager : MonoBehaviour
 
     public void ApplyFreeze()
     {
-        if (_enemyStateMachine.IsStunned) 
+        if (_enemyStateMachine.IsStunned)
         {
             return;
         }
-           
+
         _controller.SetSpeed(0f);
         _enemyAnimationBase.Freeze();
         _enemyStateMachine.SetIsStunnedTrue();
@@ -155,14 +159,24 @@ public class EnemyStatusEffectsManager : MonoBehaviour
         {
             await UniTask.WaitForSeconds(effect.Duration).AttachExternalCancellation(cts.Token);
         }
-        catch(OperationCanceledException)
+        catch (OperationCanceledException)
         {
             print("Reatached");
             return;
         }
-
+        if (this == null || gameObject == null)
+        {
+            return;
+        }
         effect.Remove(this);
         _activeEffects.Remove(effect);
+    }
+    private void RemoveDebuffsOnDeath()
+    {
+        foreach (var effect in _activeEffects)
+        {
+            effect.Value.Cts.Cancel();
+        }
     }
     #endregion
 

@@ -85,6 +85,7 @@ public class PlayerSpellCastingState : PlayerStateBase
         else
         {
             _playerAnimations.SetIsMovingFalse();
+            _playerController.Stop();
         }
     }
     private void HandleMovingIfNeeded()
