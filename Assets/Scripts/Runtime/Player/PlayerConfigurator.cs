@@ -70,9 +70,9 @@ public class PlayerConfigurator : MonoBehaviour
         var animator = instance.GetComponent<Animator>();
         _playerAnimations.SetAnimator(animator);
         _playerClassHolder.SetClass(playerClass);
-        _eventBus.Publish(new PlayerConfiguredEvent());
-        Debug.Log("Configured");
+        _eventBus.Publish(new PlayerConfiguredEvent(playerClass));
     }
+
 
     private GameObject GetPrefabForClass(PlayerClass playerClass, int skinID)
     {

@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 4716305062943088281}
   - component: {fileID: 2183133872970545371}
   - component: {fileID: 8988088238160918017}
+  - component: {fileID: 2050642297203944314}
   - component: {fileID: 1143982958006646609}
   - component: {fileID: 7167211349063758819}
   - component: {fileID: 5716439792315660926}
@@ -121,6 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _navMeshAgent: {fileID: 1143982958006646609}
   _rotationSpeed: 15
+  _baseSpeed: 3.5
 --- !u!114 &3283305710921662658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +136,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: 28107e72dd711b14bb01fec9f163047e, type: 2}
-  _healthBarUI: {fileID: 1906893138032224515}
   _colliders:
   - {fileID: 7167211349063758819}
   - {fileID: 5716439792315660926}
@@ -213,6 +214,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterSoundsSO: {fileID: 11400000, guid: ca34bc1b622e95a4eab7f49016f79ef0, type: 2}
+--- !u!114 &2050642297203944314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2197687578789578379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38847e66564e612468567a8bad29cdb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderers:
+  - {fileID: 5712240738685502661}
+  _enemyStateMachine: {fileID: 4716305062943088281}
+  _controller: {fileID: 9189173850028072539}
+  _healthSystem: {fileID: 3283305710921662658}
+  _enemyAnimationBase: {fileID: 2849143223346952397}
+  _freezeMaterial: {fileID: 2100000, guid: b39c0a3cb0d666144bd3a9d982d02763, type: 2}
 --- !u!195 &1143982958006646609
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1333,17 +1353,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0a1e37b23c2a3040a5a0f2be44b3352, type: 3}
---- !u!114 &1906893138032224515 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8249739993781183633, guid: c0a1e37b23c2a3040a5a0f2be44b3352, type: 3}
-  m_PrefabInstance: {fileID: 7496896768691621266}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b92908c22f26cb148bf382ea8f87f3f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &2232132002158124100 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8570477491557880278, guid: c0a1e37b23c2a3040a5a0f2be44b3352, type: 3}

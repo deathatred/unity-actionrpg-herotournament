@@ -1,6 +1,7 @@
 using UnityEngine;
 using Zenject;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerStats : MonoBehaviour
     private PlayerClassDefaultStatsSO _defaultStats;
     private Dictionary<StatType, int> _baseStats = new Dictionary<StatType, int>();
     private Dictionary<StatType, int> _outsideStats = new Dictionary<StatType, int>();
+    private List<BonusEffect> _tempBonusEffects = new List<BonusEffect>();
 
     private void OnEnable()
     {
@@ -106,7 +108,7 @@ public class PlayerStats : MonoBehaviour
         ChangeStat(StatType.CriticalRate, d.CriticalRate);
 
     }
-    public int GetStat(StatType type)
+    public int GetBaseStat(StatType type)
     {
         return _baseStats[type];
     }
@@ -125,7 +127,7 @@ public class PlayerStats : MonoBehaviour
             _eventBus.Publish(new StatChangedEvent(type, GetFinalStat(type)));
         HandleDerivedStats(type, amount);
     }
-    public void ChangeTalentStat(StatType type, int amount, bool silent = false)
+    public void ChangeOutsideStat(StatType type, int amount, bool silent = false)
     {
         _outsideStats[type] += amount;
 
@@ -164,5 +166,34 @@ public class PlayerStats : MonoBehaviour
     public int GetFinalStat(StatType type)
     {
         return _baseStats[type] + _outsideStats[type];
+    }
+    public async UniTask ApplyTemporaryBonusAsync(string name,StatType type, int amount, float duration)
+    {
+        var bonus = new BonusEffect(name,type,amount, duration);
+
+        _tempBonusEffects.Add(bonus);
+        ChangeOutsideStat(type, amount);
+        _eventBus.Publish(new PlayerBonusEffectAppliedEvent(name, duration));
+        await RunBonusTimerAsync(bonus);
+    }
+    private void RemoveTemporaryBonusStat(BonusEffect bonus)
+    {
+        ChangeOutsideStat(bonus.StatType, -bonus.Amount);
+        _tempBonusEffects.Remove(bonus);
+    }
+    private async UniTask RunBonusTimerAsync(BonusEffect bonus)
+    {
+        while (bonus.RemainingTime > 0f)
+        {
+            await UniTask.Yield();
+
+            bonus.RemainingTime -= Time.deltaTime;
+        }
+
+        RemoveTemporaryBonusStat(bonus);
+    }
+    public BonusEffect[] GetBonusEffects()
+    {
+        return _tempBonusEffects.ToArray();
     }
 }

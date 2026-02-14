@@ -10,6 +10,7 @@ public abstract class PlayerAnimationRelayBase : MonoBehaviour
     protected PlayerInteractions _playerInteractions;
     protected PlayerHealthSystem _playerHealthSystem;
     protected PlayerStats _playerStats;
+    [SerializeField] private Transform _shootPoint;
 
     [Inject]
     protected void Construct(
@@ -54,19 +55,40 @@ public abstract class PlayerAnimationRelayBase : MonoBehaviour
 
     public void OnAnimationEvent()
     {
-        SpellSO lastSpell = _playerSpell.LastCastSpell;
+        var lastSpell = _playerSpell.LastCastSpell;
 
-        PlayerSpellContext ctx = new PlayerSpellContext(
+        if (lastSpell == null)
+        {
+            Debug.LogWarning("Last spell is null!");
+            return;
+        }
+
+        var target = _playerSpell.GetCastTarget();
+
+        EnemyStatusEffectsManager enemyStatusEffectManager = null;
+
+        if (target != null)
+        {
+            if (!target.TryGetComponent(out enemyStatusEffectManager))
+            {
+                Debug.LogWarning("Target has no EnemyStatusEffectsManager!");
+            }
+        }
+
+        var ctx = new PlayerSpellContext(
             _playerHealthSystem,
-            _playerInteractions.GetCurrentEnemyTarget()?.transform,
-            _playerInteractions.GetCurrentEnemyTarget(),
+            target?.transform,
+            target,
             _playerStats,
             _playerSpell,
-            _playerAudio
+            _playerAudio,
+            enemyStatusEffectManager
         );
 
         lastSpell.Activate(ctx);
     }
+
+
 
     public void PlayPreattackSound()
     {
@@ -76,5 +98,9 @@ public abstract class PlayerAnimationRelayBase : MonoBehaviour
     public void PlayFootstepSound()
     {
         _playerAudio.PlayFootstepSound();
+    }
+    public Transform GetShootPoint()
+    {
+        return _shootPoint;
     }
 }

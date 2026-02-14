@@ -1,7 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Pool;
-using static UnityEngine.ParticleSystem;
 
 public class Projectile : MonoBehaviour
 {
@@ -14,20 +13,23 @@ public class Projectile : MonoBehaviour
     private Transform _target;
     private bool _isReleased = false;
     private UnitType _typeToDamage;
-
+    private int _finalDamage;
+    private AudioManager _audioManager;
 
     private IObjectPool<Projectile> _pool;
-    public void Init(ProjectileSO projectileSO, Vector3 pos, Vector3 dir, Transform target,UnitType typeToDamage,
-        IObjectPool<Projectile> pool)
+    public void Init(ProjectileSO projectileSO, Vector3 pos, Vector3 dir, Transform target, UnitType typeToDamage,
+        IObjectPool<Projectile> pool, int finalDamage, AudioManager audioManager)
     {
         _projectileSO = projectileSO;
         _typeToDamage = typeToDamage;
         _target = target;
         _pool = pool;
         _isReleased = false;
+        _finalDamage = finalDamage;
+        _audioManager = audioManager;
         if (_trail != null)
         {
-            _trail.enabled = false; 
+            _trail.enabled = false;
             _trail.Clear();
         }
 
@@ -53,7 +55,7 @@ public class Projectile : MonoBehaviour
         if (_projectileSO.Homing && _target != null && _target == null)
         {
             Vector3 dir = (_target.position - rb.position);
-            dir.y = 0; 
+            dir.y = 0;
             dir = dir.normalized;
             Quaternion targetRot = Quaternion.LookRotation(dir);
             Quaternion nextRot = Quaternion.RotateTowards(
@@ -62,14 +64,14 @@ public class Projectile : MonoBehaviour
                 _projectileSO.HomingRotationSpeed * Time.fixedDeltaTime
             );
 
-            rb.MoveRotation(nextRot); 
+            rb.MoveRotation(nextRot);
 
             rb.linearVelocity = transform.forward * _projectileSO.Speed;
         }
         else
         {
             rb.linearVelocity = transform.forward * _projectileSO.Speed;
-           
+
         }
     }
     private async UniTaskVoid AutoDespawn()
@@ -106,7 +108,21 @@ public class Projectile : MonoBehaviour
             return;
         }
         var hp = collision.collider.GetComponent<IHealthSystem>();
-        hp?.TakeDamage(_projectileSO.Damage);
+        Debug.LogWarning(_finalDamage + "Final Damage");
+        hp?.TakeDamage(_finalDamage);
+        _audioManager.Play3D(_projectileSO.HitSound, collision.collider.transform);
+        if (this._projectileSO.StatusEffectSO != null)
+        {
+            if (collision.collider.TryGetComponent(out EnemyStatusEffectsManager enemyStatusEfffectManager))
+            {
+                enemyStatusEfffectManager.ApplyStatusEffect(_projectileSO.StatusEffectSO);
+            }
+            else
+            {
+                Debug.LogWarning("No status effect attached");
+            }
+                
+        }
         DetachTrail();
         Despawn();
     }
@@ -114,8 +130,8 @@ public class Projectile : MonoBehaviour
     {
         if (_trail == null) return;
 
-        _trail.transform.SetParent(null);            
-         
+        _trail.transform.SetParent(null);
+
     }
     private void Despawn()
     {
@@ -123,7 +139,7 @@ public class Projectile : MonoBehaviour
         {
             return;
         }
-            
+
         _isReleased = true;
         _pool.Release(this);
     }

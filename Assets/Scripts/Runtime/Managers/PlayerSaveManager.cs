@@ -55,6 +55,7 @@ public class PlayerSaveManager
             CurrentMana = _spellCasting.CurrentMana,
             LearnedTalentsIds = _talents.GetLearnedTalents(),
             InventoryItems = _inventory.GetInventoryItemsData(),
+            BonusEffects = _stats.GetBonusEffects(),
             Position = _playerController.transform.position
         };
     }
@@ -77,5 +78,12 @@ public class PlayerSaveManager
         _spellCasting.RestorePlayerMana(data.CurrentMana);
         _eventBus.Publish(new PlayerDataLoadedEvent(data.LearnedTalentsIds));
         _playerController.WarpToPosition(data.Position);
+        if (data.BonusEffects != null)
+        {
+            foreach (var effect in data.BonusEffects)
+            {
+                _stats.ApplyTemporaryBonusAsync(effect.Name, effect.StatType, effect.Amount, effect.RemainingTime).Forget();
+            }
+        }
     }
 }

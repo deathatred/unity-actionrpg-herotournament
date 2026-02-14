@@ -14,9 +14,16 @@ public class PlayerAudio : MonoBehaviour
         int random = Random.Range(0, _characterSounds.StepSounds.Length);
         _audioManager.Play2D(_characterSounds.StepSounds[random], 0.01f);
     }
-    public void PlaySpellAudio(SpellSO spell)
+    public void PlaySpellAudio(SpellSO spell, Transform target = null)
     {
-        _audioManager.Play2D(spell.SoundEffect, 0.1f);
+        if (target == null)
+        {
+            _audioManager.Play2D(spell.SoundEffect, 0.1f);
+        }
+        else
+        {
+            _audioManager.Play3D(spell.SoundEffect, target, 0.1f);
+        }
     } 
     public void PlayAttackAudio()
     {

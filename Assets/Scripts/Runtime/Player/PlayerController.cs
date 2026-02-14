@@ -64,7 +64,6 @@ public class PlayerController : MonoBehaviour
     private void OnLevelLoaded(LevelLoadedEvent e)
     {
         Stop();
-        print("warped");
         WarpToPosition(e.SpawnPoint.position);
     }
     private void StartMovementLoop()

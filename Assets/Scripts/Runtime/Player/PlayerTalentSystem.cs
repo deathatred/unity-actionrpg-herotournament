@@ -6,7 +6,7 @@ using Zenject;
 
 public class PlayerTalentSystem : MonoBehaviour
 {
-    public int TalentPoints { get; private set; }
+    public int TalentPoints { get; private set; } = 5;
 
     [Inject] private TalentDatabase _talentDatabase;
     [Inject] private EventBus _eventBus;
@@ -83,12 +83,12 @@ public class PlayerTalentSystem : MonoBehaviour
 
     private void ApplyTalentFirstTime(TalentSO talent)
     {
-        if (talent.Active)
+        if (talent.SpellType == SpellType.Active)
         {
             _playerSpellbook.UnlockSpell(talent.Spell.Name);
         }
 
-        if (talent.Passive)
+        if (talent.SpellType == SpellType.Passive)
         {
             foreach (var p in talent.PassiveEffects)
                 p.Apply(_playerStats);
@@ -97,7 +97,7 @@ public class PlayerTalentSystem : MonoBehaviour
 
     private void ApplyTalentLevelUp(TalentSO talent)
     {
-        if (talent.Passive)
+        if (talent.SpellType == SpellType.Passive)
         {
             foreach (var p in talent.PassiveEffects)
                 p.Apply(_playerStats);

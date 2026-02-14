@@ -13,7 +13,7 @@ public class EnemyProjectileShootingBase : MonoBehaviour
         Vector3 pos = _shootPoint.position;
         Vector3 dir = _shootPoint.forward;
 
-        _projectilePool.SpawnProjectile(_projectileSO, pos, dir, UnitType.Friendly, target);
+        _projectilePool.SpawnProjectile(_projectileSO, pos, dir, UnitType.Friendly,_projectileSO.Damage, target);
     }
 
 }

@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System;
 using UnityEngine;
 
@@ -15,5 +16,6 @@ public class PlayerSaveData
     public StatsSaveData StatsData;
     public TalentSaveData[] LearnedTalentsIds;
     public InventoryItemsSaveData[] InventoryItems;
+    public BonusEffect[] BonusEffects;
     public Vector3 Position;
 }

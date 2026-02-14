@@ -6,6 +6,7 @@ public class DatabasesInstaller : MonoInstaller
     [SerializeField] private TalentDatabase _talentDatabase;
     [SerializeField] private ItemsDatabase _itemsDatabase;
     [SerializeField] private EnemyDatabase _enemyDatabase;
+    [SerializeField] private TalentTreeDatabase _talentTreeDatabase;
 
     public override void InstallBindings()
     {
@@ -15,5 +16,7 @@ public class DatabasesInstaller : MonoInstaller
         Container.Bind<ItemsDatabase>().FromInstance(_itemsDatabase).AsSingle();
         _enemyDatabase.Init();
         Container.Bind<EnemyDatabase>().FromInstance(_enemyDatabase).AsSingle();
+        _talentTreeDatabase.Init();
+        Container.Bind<TalentTreeDatabase>().FromInstance(_talentTreeDatabase).AsSingle();
     }
 }

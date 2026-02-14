@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using ModestTree;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -7,12 +8,10 @@ using Zenject;
 [DefaultExecutionOrder(-1)]
 public class PlayerSpellCasting : MonoBehaviour
 {
- 
-
     [Inject] private DiContainer _container;
     [Inject] private EventBus _eventBus;
     [Inject] private PlayerAudio _playerAudio;
-    [Inject] private PlayerStats _stats;
+    [Inject] private PlayerStats _playerStats;
     [Inject] private PlayerAttackSystem _attackSystem;
     [Inject] private PlayerAnimations _animation;
     [Inject] private PlayerInputHandler _input;
@@ -21,7 +20,6 @@ public class PlayerSpellCasting : MonoBehaviour
     [Inject] private PlayerInteractions _interaction;
     [Inject] private PlayerController _controller;
     [Inject] private ProjectilePool _projectilePool;
-    [SerializeField] private Transform _shootPoint;
 
     public int MaxMana { get; private set; }
     public int CurrentMana { get; private set; }
@@ -34,6 +32,7 @@ public class PlayerSpellCasting : MonoBehaviour
     private SpellSO _queuedSpell;
     private CancellationTokenSource _cts;
     private bool _isCasted;
+    private EnemyHealthSystem _castTarget;
 
 
     private Dictionary<SpellSO, float> _cooldowns = new();
@@ -208,7 +207,7 @@ public class PlayerSpellCasting : MonoBehaviour
     }
     public void RestorePlayerMana(int amount)
     {
-        MaxMana = _stats.GetStat(StatType.MaxMana);
+        MaxMana = _playerStats.GetBaseStat(StatType.MaxMana);
         CurrentMana = amount;    
         _eventBus.Publish(new CurrentManaChangedEvent(CurrentMana));
         _eventBus.Publish(new PlayerManaChangedEvent(CurrentMana, MaxMana));
@@ -241,6 +240,7 @@ public class PlayerSpellCasting : MonoBehaviour
 
         var target = _interaction.GetCurrentEnemyTarget();
         _isCasted = true;
+        _castTarget = target;
         if (target != null)
         {
             await _controller.RotateToTargetAsync(target.transform.position, _cts.Token);
@@ -249,13 +249,20 @@ public class PlayerSpellCasting : MonoBehaviour
         _queuedSpell = null;
 
     }
+    public EnemyHealthSystem GetCastTarget()
+    {
+        return _castTarget;
+    }
     public async UniTask ExecuteProjectileSpellAsync(ProjectileSO projectileSO,Transform target = null)
     {
         await _controller.RotateToTargetAsync(target.transform.position, _cts.Token);
-        Vector3 pos = _shootPoint.position;
-        Vector3 dir = _shootPoint.forward;
-
-        _projectilePool.SpawnProjectile(projectileSO, pos, dir, UnitType.Enemy, target);
+        var relay = GetComponentInChildren<PlayerAnimationRelayBase>();
+        Vector3 pos = relay.GetShootPoint().position;
+        Vector3 dirBefore = (target.position - pos).normalized;
+        Vector3 dirAfter = new Vector3(dirBefore.x, transform.position.y, dirBefore.z);
+        float spellPowerPercent = _playerStats.GetFinalStat(StatType.SpellPower) / 100f;
+        int finalDamage = Mathf.RoundToInt(projectileSO.Damage * (1f + spellPowerPercent));
+        _projectilePool.SpawnProjectile(projectileSO, pos, dirAfter, UnitType.Enemy, finalDamage);
 
     }
  

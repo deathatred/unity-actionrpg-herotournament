@@ -66,7 +66,7 @@ public class PlayerAttackState : PlayerStateBase
             _fsm.ChangeState(PlayerState.Idle);
             return;
         }
-        var enemyIsInRange = RangeFinder.IsClose(_playerController.transform, currentTarget.transform, _playerAttack.GetMeleeAttackRange());     
+        var enemyIsInRange = RangeFinder.IsClose(_playerController.transform, currentTarget.transform, _playerAttack.GetAttackRange());     
         if (enemyIsInRange && !_isAttacking)
         {
             _playerAnimations.SetIsMovingFalse();
@@ -105,7 +105,7 @@ public class PlayerAttackState : PlayerStateBase
         _playerController.MoveTo(new MoveCommand
         {
             Target = new TransformMoveTarget(current.transform),
-            StopRange = _playerAttack.GetMeleeAttackRange(),
+            StopRange = _playerAttack.GetAttackRange(),
             RotateTowardsTarget = true
         });
 

@@ -8,6 +8,7 @@ public class PlayerSpellCastingState : PlayerStateBase
     private readonly PlayerInputHandler _playerInput;
     private readonly PlayerInteractions _playerInteractions;
     private readonly PlayerSpellCasting _playerSpellCasting;
+    private readonly PlayerAttackSystem _playerAttackSystem;
 
     private readonly PlayerAnimations _playerAnimations;
     private readonly EventBus _eventBus;
@@ -19,6 +20,7 @@ public class PlayerSpellCastingState : PlayerStateBase
      PlayerInteractions playerInteractions,
      EventBus eventBus,
      PlayerAnimations playerAnimations,
+     PlayerAttackSystem playerAttackSystem,
      PlayerSpellCasting playerSpellCasting) : base(fsm)
     {
         _playerInput = input;
@@ -26,6 +28,7 @@ public class PlayerSpellCastingState : PlayerStateBase
         _playerInteractions = playerInteractions;
         _eventBus = eventBus;
         _playerAnimations = playerAnimations;
+        _playerAttackSystem = playerAttackSystem;   
         _playerSpellCasting = playerSpellCasting;
     }
     private bool CanCastWhileMoving =>
@@ -56,8 +59,12 @@ public class PlayerSpellCastingState : PlayerStateBase
     }
     private void EndSpellCasting(PlayerSpellCastEnded e)
     {
-        if (_playerInteractions.GetCurrentEnemyTarget() != null && _autoAttack)
-        {
+        var hasToAutoAttack = _playerInteractions.GetCurrentEnemyTarget() != null && _autoAttack 
+            && RangeFinder.IsClose(_playerController.transform, _playerInteractions.GetCurrentEnemyTarget().transform,
+                _playerAttackSystem.GetAttackRange());
+
+        if (hasToAutoAttack)
+        { 
             _fsm.ChangeState(PlayerState.Attacking);
         }
         else if (_playerController.IsMoving)
@@ -78,6 +85,7 @@ public class PlayerSpellCastingState : PlayerStateBase
         else
         {
             _playerAnimations.SetIsMovingFalse();
+            _playerController.Stop();
         }
     }
     private void HandleMovingIfNeeded()

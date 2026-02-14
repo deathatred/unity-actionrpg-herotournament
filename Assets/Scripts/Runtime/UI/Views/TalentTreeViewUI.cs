@@ -9,15 +9,17 @@ public class TalentTreeViewUI : MonoBehaviour
 {
     [Inject] private PlayerTalentSystem _playerTalentSystem;
     [Inject] private EventBus _eventBus;
-
+    [Inject] private DiContainer _container;
+    [Inject] private TalentTreeDatabase _talentTreeDatabase;
+    [SerializeField] private RectTransform _holder;
     [SerializeField] private Canvas _canvas;
-    [SerializeField] private Button _backButton;
     [SerializeField] private GameObject _talentContextMenuContainer;
     [SerializeField] private TextMeshProUGUI _talentNameText;
     [SerializeField] private TextMeshProUGUI _talentAboutText;
     [SerializeField] private Button _learnButton;
     [SerializeField] private Button _closeButton;
-    [SerializeField] private TalentTreeUI _currentTalentTree;
+    private Button _backButton; 
+    private TalentTreeUI _currentTalentTree;
 
     private TalentContainerSingleUI _currentlyChosenTalentContainer;
 
@@ -38,13 +40,12 @@ public class TalentTreeViewUI : MonoBehaviour
     }
     private void BindButtons()
     {
-        _backButton.onClick.AddListener(BackPress);
         _closeButton.onClick.AddListener(CloseContextMenuPressed);
     }
     private void UnbindButtons()
     {
-        _backButton.onClick.RemoveListener(BackPress);
-        _closeButton.onClick.RemoveListener(CloseContextMenuPressed);
+        _backButton?.onClick.RemoveListener(BackPress);
+        _closeButton?.onClick.RemoveListener(CloseContextMenuPressed);
     }
     private void BackPress()
     {
@@ -61,6 +62,7 @@ public class TalentTreeViewUI : MonoBehaviour
         _eventBus.Subscribe<TalentPointsChangedEvent>(ChangeTalentPointAmount);
         _eventBus.Subscribe<PlayerSpecChosenEvent>(ChangeTalentTreeVisual);
         _eventBus.Subscribe<PlayerDataLoadedEvent>(RestoreTalentTree);
+        _eventBus.Subscribe<PlayerConfiguredEvent>(ConfigureTalentTreeView);
     }
     private void UnsubscribeFromEvents()
     {
@@ -69,6 +71,7 @@ public class TalentTreeViewUI : MonoBehaviour
         _eventBus.Unsubscribe<TalentPointsChangedEvent>(ChangeTalentPointAmount);
         _eventBus.Unsubscribe<PlayerSpecChosenEvent>(ChangeTalentTreeVisual);
         _eventBus.Unsubscribe<PlayerDataLoadedEvent>(RestoreTalentTree);
+        _eventBus.Unsubscribe<PlayerConfiguredEvent>(ConfigureTalentTreeView);
     }
     private void ShowTalentContextMenu(TalentContainerPressedEvent e)
     {
@@ -91,6 +94,29 @@ public class TalentTreeViewUI : MonoBehaviour
     {
         RestoreTalentUI(e.TalentSaveData);
     }
+    private void ConfigureTalentTreeView(PlayerConfiguredEvent e)
+    {
+        var talentTree = _talentTreeDatabase.GetByClass(e.PlayerClass);
+        switch (e.PlayerClass)
+        {
+            case PlayerClass.Knight:
+                
+                _currentTalentTree = _container.InstantiatePrefabForComponent<TalentTreeUI>(talentTree,_holder);
+                _backButton = _currentTalentTree.GetBackButton();
+                _backButton.onClick.AddListener(BackPress);
+                _currentTalentTree.InitTalentsTalentTreeView(this);
+                InitSpecInfo();
+                break;
+            case PlayerClass.Wizard:
+                _currentTalentTree = _container.InstantiatePrefabForComponent<TalentTreeUI>(talentTree, _holder);
+                _backButton = _currentTalentTree.GetBackButton();
+                _backButton.onClick.AddListener(BackPress);
+                _currentTalentTree.InitTalentsTalentTreeView(this);
+                InitSpecInfo();
+                break;
+        }
+    }
+
     private void SetContextMenuToTalent(TalentSO talentSO)
     {
         if (talentSO.Spell != null)
@@ -123,7 +149,7 @@ public class TalentTreeViewUI : MonoBehaviour
     {
         RectTransform canvasRect = (RectTransform)_canvas.transform;
         RectTransform rect = menu.GetComponent<RectTransform>();
-        Vector2 screenPos =Input.touchCount > 0? Input.GetTouch(0).position: Input.mousePosition;
+        Vector2 screenPos = Input.touchCount > 0 ? Input.GetTouch(0).position : Input.mousePosition;
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvasRect,

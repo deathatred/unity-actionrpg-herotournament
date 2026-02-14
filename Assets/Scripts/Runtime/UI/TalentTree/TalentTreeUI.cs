@@ -1,3 +1,4 @@
+using Firebase.Database;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,7 +12,9 @@ public class TalentTreeUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _talentPointsAmountText;
     [SerializeField] private TextMeshProUGUI _specNameText;
     [SerializeField] private List<TalentContainerSingleUI> _talents;
-
+    [SerializeField] private PlayerClass _talentTreeClass;
+    [SerializeField] private Button _backButton;
+ 
 
     private void OnEnable()
     {
@@ -49,6 +52,13 @@ public class TalentTreeUI : MonoBehaviour
     {
         return _talentPointsAmountText;
     }
+    public void InitTalentsTalentTreeView(TalentTreeViewUI view)
+    {
+        foreach (var talent in _talents)
+        {
+            talent.SetTalentTreeView(view);
+        }
+    }
     private void LockOppositeBranch(ClassSpecSO spec)
     {
         foreach (var talentContainer in _talents)
@@ -72,5 +82,13 @@ public class TalentTreeUI : MonoBehaviour
             res.Add(talentContainer);
         }
         return res;
+    }
+    public Button GetBackButton()
+    {
+        return _backButton;
+    }
+    public PlayerClass GetTalentTreeClass()
+    {
+        return _talentTreeClass;
     }
 }

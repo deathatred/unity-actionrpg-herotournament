@@ -55,6 +55,11 @@ public class PlayerMoveToSpellTargetState : PlayerStateBase
     }
     public override void Update()
     {
+        if (_interaction.GetCurrentEnemyTarget()  == null)
+        {
+            _fsm.ChangeState(PlayerState.Idle);
+            return;
+        }
         if (_queuedSpell == null)
         {
             _fsm.ChangeState(PlayerState.Idle);
