@@ -18,4 +18,6 @@ MonoBehaviour:
   Damage: 15
   Homing: 0
   HomingRotationSpeed: 120
+  StatusEffectSO: {fileID: 0}
   Lifetime: 5
+  HitSound: {fileID: 8300000, guid: 8e90bf531e53bb2468d6d1ecd39fcecd, type: 3}

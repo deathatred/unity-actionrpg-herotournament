@@ -21,6 +21,6 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 4db853c58e94cb0439c8110b4a30670f, type: 3}
   Range: 0
   CanBeCastWhileMoving: 1
-  SoundEffect: {fileID: 0}
+  SoundEffect: {fileID: 8300000, guid: 4e858a8d842bc2b498835989a1d3451e, type: 3}
   SpellPowerBonus: 50
   BonusDuration: 15

@@ -21,5 +21,5 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 32c4acc349c921a44a74ec015b1a36a3, type: 3}
   Range: 15
   CanBeCastWhileMoving: 1
-  SoundEffect: {fileID: 0}
+  SoundEffect: {fileID: 8300000, guid: fcf066be07bfb654fa2d4efdaefa1e83, type: 3}
   _statusEffect: {fileID: 11400000, guid: 33a861bdbfbe8aa40b0ce02e19937a47, type: 2}

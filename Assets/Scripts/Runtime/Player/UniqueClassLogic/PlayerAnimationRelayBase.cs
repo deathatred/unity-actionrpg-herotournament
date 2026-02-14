@@ -55,30 +55,40 @@ public abstract class PlayerAnimationRelayBase : MonoBehaviour
 
     public void OnAnimationEvent()
     {
-        SpellSO lastSpell = _playerSpell.LastCastSpell;
-        var target = _playerSpell.GetCastTarget();
-        if (target != null && target.TryGetComponent<EnemyStatusEffectsManager>(out var statusEffectManager))
-        {
+        var lastSpell = _playerSpell.LastCastSpell;
 
-        }
-        else
+        if (lastSpell == null)
         {
-            Debug.LogWarning("Enemy is null or has no status effect manager script!");
+            Debug.LogWarning("Last spell is null!");
             return;
         }
 
-        PlayerSpellContext ctx = new PlayerSpellContext(
+        var target = _playerSpell.GetCastTarget();
+
+        EnemyStatusEffectsManager enemyStatusEffectManager = null;
+
+        if (target != null)
+        {
+            if (!target.TryGetComponent(out enemyStatusEffectManager))
+            {
+                Debug.LogWarning("Target has no EnemyStatusEffectsManager!");
+            }
+        }
+
+        var ctx = new PlayerSpellContext(
             _playerHealthSystem,
             target?.transform,
             target,
             _playerStats,
             _playerSpell,
             _playerAudio,
-            statusEffectManager
+            enemyStatusEffectManager
         );
 
         lastSpell.Activate(ctx);
     }
+
+
 
     public void PlayPreattackSound()
     {

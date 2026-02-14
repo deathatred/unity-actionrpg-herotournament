@@ -14,10 +14,11 @@ public class Projectile : MonoBehaviour
     private bool _isReleased = false;
     private UnitType _typeToDamage;
     private int _finalDamage;
+    private AudioManager _audioManager;
 
     private IObjectPool<Projectile> _pool;
     public void Init(ProjectileSO projectileSO, Vector3 pos, Vector3 dir, Transform target, UnitType typeToDamage,
-        IObjectPool<Projectile> pool, int finalDamage)
+        IObjectPool<Projectile> pool, int finalDamage, AudioManager audioManager)
     {
         _projectileSO = projectileSO;
         _typeToDamage = typeToDamage;
@@ -25,6 +26,7 @@ public class Projectile : MonoBehaviour
         _pool = pool;
         _isReleased = false;
         _finalDamage = finalDamage;
+        _audioManager = audioManager;
         if (_trail != null)
         {
             _trail.enabled = false;
@@ -108,6 +110,7 @@ public class Projectile : MonoBehaviour
         var hp = collision.collider.GetComponent<IHealthSystem>();
         Debug.LogWarning(_finalDamage + "Final Damage");
         hp?.TakeDamage(_finalDamage);
+        _audioManager.Play3D(_projectileSO.HitSound, collision.collider.transform);
         if (this._projectileSO.StatusEffectSO != null)
         {
             if (collision.collider.TryGetComponent(out EnemyStatusEffectsManager enemyStatusEfffectManager))

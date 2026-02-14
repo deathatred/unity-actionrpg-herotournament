@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class ProjectilePool : MonoBehaviour
 {
+    [SerializeField] private AudioManager _audioManager;
     private Dictionary<ProjectileSO, IObjectPool<Projectile>> _pools =
         new Dictionary<ProjectileSO, IObjectPool<Projectile>>();
 
@@ -32,6 +33,6 @@ public class ProjectilePool : MonoBehaviour
     public void SpawnProjectile(ProjectileSO so, Vector3 pos, Vector3 dir,UnitType typeToDamage,int finalDamage, Transform target = null)
     {
         var projectile = Get(so);
-        projectile.Init(so, pos, dir, target, typeToDamage, _pools[so], finalDamage);
+        projectile.Init(so, pos, dir, target, typeToDamage, _pools[so], finalDamage, _audioManager);
     }
 }

@@ -11,4 +11,5 @@ public class ProjectileSO : ScriptableObject
     public float HomingRotationSpeed = 120f;
     public EnemyStatusEffectSO StatusEffectSO;
     public float Lifetime;
+    public AudioClip HitSound;
 }
