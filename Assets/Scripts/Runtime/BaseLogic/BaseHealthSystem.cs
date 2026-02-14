@@ -35,7 +35,7 @@ public abstract class BaseHealthSystem<TData> : MonoBehaviour, IHealthSystem whe
     {
         _health = Mathf.Min(_health + amount, _maxHealth);
     }
-    public int TakeDamage(int amount)
+    public virtual int TakeDamage(int amount)
     {
         int amountAfterArmor = Mathf.Max(amount - _armor, 0);
         _health -= amountAfterArmor;

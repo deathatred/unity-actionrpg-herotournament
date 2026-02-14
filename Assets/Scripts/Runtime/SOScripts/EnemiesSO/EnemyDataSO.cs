@@ -10,6 +10,7 @@ public class EnemyDataSO : ScriptableObject
     public int XpReward;
     public float ViewAngle;
     public float ViewDistance;
+    public float LeashRange;
     public float AttackRange;
     public float LoseSightTime;
     public float AttackCooldown;

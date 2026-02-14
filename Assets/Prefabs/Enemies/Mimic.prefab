@@ -140,6 +140,7 @@ MonoBehaviour:
   - {fileID: 7167211349063758819}
   - {fileID: 5716439792315660926}
   _targetImage: {fileID: 8706560446524150339}
+  _enemyStateMachine: {fileID: 4716305062943088281}
 --- !u!114 &2849143223346952397
 MonoBehaviour:
   m_ObjectHideFlags: 0

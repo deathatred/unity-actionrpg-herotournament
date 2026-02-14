@@ -35,6 +35,11 @@ public class MimicStateMachine : EnemyStateMachine
     {
         ChangeState(MimicState.Dead);
     }
+    public override void GoToAttackState()
+    {
+        ChangeState(MimicState.Attacking);
+        Debug.Log("I went to attack state bruh");
+    }
     public void ChangeState(MimicState state)
     {
         ChangeState(_states[state]);

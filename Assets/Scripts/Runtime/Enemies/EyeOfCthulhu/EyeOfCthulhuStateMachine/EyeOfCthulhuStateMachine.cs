@@ -43,4 +43,9 @@ public class EyeOfCthulhuStateMachine : EnemyStateMachine
     {
         ChangeState(_states[state]);
     }
+
+    public override void GoToAttackState()
+    {
+        ChangeState(EyeOfCthulhuState.Attacking);
+    }
 }

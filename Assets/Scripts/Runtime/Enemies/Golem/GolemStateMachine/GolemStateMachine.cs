@@ -37,4 +37,9 @@ public class GolemStateMachine : EnemyStateMachine
     {
         ChangeState(GolemState.Dead);
     }
+
+    public override void GoToAttackState()
+    {
+       ChangeState(GolemState.Attacking);
+    }
 }
