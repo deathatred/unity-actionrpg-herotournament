@@ -20,13 +20,6 @@ public class PlayerStats : MonoBehaviour
         InitializeDictionary();
         InitializeOutsideDictionary();
     }
-    public void Update()
-    {
-        foreach (var effect in _tempBonusEffects)
-        {
-            print(effect.StatType);
-        }
-    }
     private void OnDisable()
     {
         UnsubscribeFromEvents();

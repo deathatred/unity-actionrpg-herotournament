@@ -8,8 +8,6 @@ using Zenject;
 [DefaultExecutionOrder(-1)]
 public class PlayerSpellCasting : MonoBehaviour
 {
- 
-
     [Inject] private DiContainer _container;
     [Inject] private EventBus _eventBus;
     [Inject] private PlayerAudio _playerAudio;
