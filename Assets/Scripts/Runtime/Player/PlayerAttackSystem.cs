@@ -45,7 +45,8 @@ public class PlayerAttackSystem : MonoBehaviour
     }
     private void SetAttackRange(PlayerConfiguredEvent e)
     {
-        switch (e.PlayerClass)
+        var classSO = e.PlayerClassSO;
+        switch (classSO.ClassName)
         {
             case PlayerClass.Knight:
                 _attackRange = GlobalData.KNIGHT_ATTACK_RANGE;

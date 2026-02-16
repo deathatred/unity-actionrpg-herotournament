@@ -52,28 +52,6 @@ public abstract class EnemyAttackingStateBase<TStateMachine, TController, TAnima
         _animator.SetIsMovingFalse();
         _isAttacking = false;
     }
-    //public virtual void Update2()
-    //{
-    //    if (!TryGetTarget(out Transform targetTransform, out Vector3 targetPos))
-    //    {
-    //        return;
-    //    }
-    //    if (HandleLostSight(targetTransform))
-    //    {
-    //        return;
-    //    }
-    //    bool canSee = CanSeeTarget(targetTransform);
-    //    bool inCloseRange = IsInCloseRange(targetTransform);
-    //    float distance = Vector3.Distance(_controller.transform.position, targetPos);
-    //    if (ShouldAttack(canSee, inCloseRange, distance))
-    //    {
-    //        HandleAttack(targetTransform);
-    //    }
-    //    else
-    //    {
-    //        HandleMoveToTarget(canSee, inCloseRange, targetPos);
-    //    }
-    //}
     public virtual void Update()
     {
 

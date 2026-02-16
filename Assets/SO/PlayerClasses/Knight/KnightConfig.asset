@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6153a54ed7af0648839e593748a436f, type: 3}
+  m_Script: {fileID: 11500000, guid: ce329a01ceb29b146959897cae7c2b44, type: 3}
   m_Name: KnightConfig
   m_EditorClassIdentifier: 
-  ClassName: Knight
+  ClassName: 0
   ClassIcon: {fileID: 21300000, guid: a90ff360d48009542af0e9ec7b5dbd92, type: 3}
   DefaultSpec: 0
   ClassSound: {fileID: 11400000, guid: 007866ee314f4af4da46a936a9ddc4b1, type: 2}

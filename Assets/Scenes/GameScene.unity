@@ -3102,6 +3102,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d4f7b426b576064a89fa3781e298dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1569028449 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8551278439078419978, guid: 43ece4e4b2991ff43b491600f7e79284, type: 3}
+  m_PrefabInstance: {fileID: 2281835130975786185}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1640392928
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4521,8 +4532,8 @@ MonoBehaviour:
   - {fileID: 5764031700117435545, guid: da81296afcae2df4b8d2959d6046b822, type: 3}
   - {fileID: 5317709953616598020, guid: 8ba790612364e674fa44da0fc1db2842, type: 3}
   _allClassSOsList:
-  - {fileID: 11400000, guid: b4f0499df6dcd314393cbee4259293db, type: 2}
-  - {fileID: 11400000, guid: cc71341c7899fb14fb9839cb6a24d89f, type: 2}
+  - {fileID: 11400000, guid: e769949cbac5e214ba126c5b1ff135ad, type: 2}
+  - {fileID: 11400000, guid: 43f9245aa8c052b40903b275b8829531, type: 2}
   _playerObject: {fileID: 1995731875}
 --- !u!114 &1995731896
 MonoBehaviour:
@@ -5227,6 +5238,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 367022151925837670, guid: 43ece4e4b2991ff43b491600f7e79284, type: 3}
+      propertyPath: _classNameText
+      value: 
+      objectReference: {fileID: 1569028449}
+    - target: {fileID: 367022151925837670, guid: 43ece4e4b2991ff43b491600f7e79284, type: 3}
       propertyPath: _talentTreeButton
       value: 
       objectReference: {fileID: 274305013}
@@ -5326,9 +5341,17 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5471578521046106179, guid: 43ece4e4b2991ff43b491600f7e79284, type: 3}
+      propertyPath: m_text
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5644426207862227544, guid: 43ece4e4b2991ff43b491600f7e79284, type: 3}
       propertyPath: m_Name
       value: 'TalentTree[Button]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8551278439078419978, guid: 43ece4e4b2991ff43b491600f7e79284, type: 3}
+      propertyPath: m_text
+      value: NULL
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6761,6 +6784,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2921075217730343775, guid: 81b01cc69bc2ed24199351008fa81310, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a90ff360d48009542af0e9ec7b5dbd92, type: 3}
     - target: {fileID: 4488454299484227500, guid: 81b01cc69bc2ed24199351008fa81310, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -6851,7 +6878,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6354373046713405522, guid: 81b01cc69bc2ed24199351008fa81310, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7449200594119749722, guid: 81b01cc69bc2ed24199351008fa81310, type: 3}
       propertyPath: m_IsActive
@@ -6868,6 +6895,22 @@ PrefabInstance:
     - target: {fileID: 7793090359871623437, guid: 81b01cc69bc2ed24199351008fa81310, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -0.000061035156
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061760935409488304, guid: 81b01cc69bc2ed24199351008fa81310, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 105.893
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061760935409488304, guid: 81b01cc69bc2ed24199351008fa81310, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 105.027
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061760935409488304, guid: 81b01cc69bc2ed24199351008fa81310, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 161.728
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061760935409488304, guid: 81b01cc69bc2ed24199351008fa81310, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50.851
       objectReference: {fileID: 0}
     - target: {fileID: 8184385393192611953, guid: 81b01cc69bc2ed24199351008fa81310, type: 3}
       propertyPath: m_Name

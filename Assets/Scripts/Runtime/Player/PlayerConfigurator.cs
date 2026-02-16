@@ -7,7 +7,7 @@ using Zenject;
 public class PlayerConfigurator : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _playerSkins = new List<GameObject>();
-    [SerializeField] private List<ClassSO> _allClassSOsList = new List<ClassSO>();  
+    [SerializeField] private List<PlayerClassSO> _allClassSOsList = new List<PlayerClassSO>();  
     [SerializeField] private Transform _playerObject;
     private PlayerStats _playerStats;
     private PlayerTalentSystem _playerTalentSystem;
@@ -55,7 +55,7 @@ public class PlayerConfigurator : MonoBehaviour
     public void ConfigurePlayer(PlayerClass playerClass, int skinID = 0)
     {
         GameObject prefabToSpawn = GetPrefabForClass(playerClass, skinID);
-        ClassSO classSO = GetClassSO(playerClass);
+        PlayerClassSO classSO = GetClassSO(playerClass);
         if (prefabToSpawn == null || classSO == null)
         {
             Debug.LogError("Player prefab or classSO was not found");
@@ -70,7 +70,7 @@ public class PlayerConfigurator : MonoBehaviour
         var animator = instance.GetComponent<Animator>();
         _playerAnimations.SetAnimator(animator);
         _playerClassHolder.SetClass(playerClass);
-        _eventBus.Publish(new PlayerConfiguredEvent(playerClass));
+        _eventBus.Publish(new PlayerConfiguredEvent(classSO));
     }
 
 
@@ -88,7 +88,7 @@ public class PlayerConfigurator : MonoBehaviour
 
         return null;
     }
-    private ClassSO GetClassSO(PlayerClass playerClass)
+    private PlayerClassSO GetClassSO(PlayerClass playerClass)
     {
         switch (playerClass)
         {

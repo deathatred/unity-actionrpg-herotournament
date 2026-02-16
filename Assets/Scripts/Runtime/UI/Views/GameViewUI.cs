@@ -112,6 +112,7 @@ public class GameViewUI : MonoBehaviour
         _eventBus.Subscribe<AmountOfMobsOnLevelDecreasedEvent>(ReduceEnemiesLeftText);
         _eventBus.Subscribe<SurvivalModeStartedEvent>(StartTimerSubscriber);
         _eventBus.Subscribe<DefaultModeStartedEvent>(EnableEnemyAmountSubscriber);
+        _eventBus.Subscribe<PlayerConfiguredEvent>(ConfigureIcon);
     }
     private void UnsubscribeFromEvents()
     {
@@ -128,6 +129,11 @@ public class GameViewUI : MonoBehaviour
         _eventBus.Unsubscribe<AmountOfMobsOnLevelDecreasedEvent>(ReduceEnemiesLeftText);
         _eventBus.Unsubscribe<SurvivalModeStartedEvent>(StartTimerSubscriber);
         _eventBus.Unsubscribe<DefaultModeStartedEvent>(EnableEnemyAmountSubscriber);
+        _eventBus.Unsubscribe<PlayerConfiguredEvent>(ConfigureIcon);
+    }
+    private void ConfigureIcon(PlayerConfiguredEvent e)
+    {
+        _classIconImage.sprite = e.PlayerClassSO.ClassIcon;
     }
     private void StatChanged(StatChangedEvent e)
     {

@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 
 [CreateAssetMenu(menuName = "RPG/Class")]
-public class ClassSO : ScriptableObject
+public class PlayerClassSO : ScriptableObject
 {
-    public string ClassName;
+    public PlayerClass ClassName;
     public Sprite ClassIcon;
     public ClassSpec DefaultSpec;
     public CharacterSoundsSO ClassSound;
