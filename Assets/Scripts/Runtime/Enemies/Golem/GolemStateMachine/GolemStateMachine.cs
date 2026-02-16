@@ -9,6 +9,7 @@ public class GolemStateMachine : EnemyStateMachine
     [SerializeField] private EnemyData _data;
     [SerializeField] private EnemyTargetDetector _detector;
     private Dictionary<GolemState, IEnemyState> _states;
+    public GolemState State { get; private set; }
     private void OnEnable()
     {
         _healthSystem.OnDeath += HealthSystemOnDeath;
@@ -31,10 +32,20 @@ public class GolemStateMachine : EnemyStateMachine
     }
     public void ChangeState(GolemState state)
     {
+        State = state;
         ChangeState(_states[state]);
     }
     private void HealthSystemOnDeath(object sender, System.EventArgs e)
     {
         ChangeState(GolemState.Dead);
+    }
+
+    public override void GoToAttackState()
+    {
+        if (State == GolemState.Attacking)
+        {
+            return;
+        }
+        ChangeState(GolemState.Attacking);
     }
 }

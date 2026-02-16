@@ -13,7 +13,7 @@ public class EnemyTargetDetector : MonoBehaviour
         closestTarget = null;
         Collider[] hits = Physics.OverlapSphere(
             _controller.transform.position,
-            _data.GetEnemyData().ViewDistance,
+            _data.GetEnemyData().LeashRange,
             _targetMask 
         );
         if ( hits.Length == 0 )

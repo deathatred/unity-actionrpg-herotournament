@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyStateMachine : StateMachineBase<IEnemyState>
+public abstract class EnemyStateMachine : StateMachineBase<IEnemyState>
 {
     public bool IsStunned { get; private set; }
     protected override void Update()
@@ -20,4 +20,5 @@ public class EnemyStateMachine : StateMachineBase<IEnemyState>
     {
         IsStunned = false;
     }
+    public abstract void GoToAttackState();
 }

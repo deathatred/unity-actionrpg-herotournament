@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Self Ignite
   About: Ignite yourself to deal more magic damage
   ManaCost: 20
-  Cooldown: 1
+  Cooldown: 40
   AnimationTrigger: SelfIgnite
   Icon: {fileID: 21300000, guid: 4db853c58e94cb0439c8110b4a30670f, type: 3}
   Range: 0

@@ -21,7 +21,7 @@ public abstract class EnemyAttackingStateBase<TStateMachine, TController, TAnima
     protected float _timeSinceLastSeenTarget;
     protected UniTask _attackTask;
     protected EnemyDataSO _dataSO;
-
+    protected Transform _currentTarget;
     protected EnemyAttackingStateBase(
         TStateMachine fsm,
         TController controller,
@@ -52,41 +52,69 @@ public abstract class EnemyAttackingStateBase<TStateMachine, TController, TAnima
         _animator.SetIsMovingFalse();
         _isAttacking = false;
     }
+    //public virtual void Update2()
+    //{
+    //    if (!TryGetTarget(out Transform targetTransform, out Vector3 targetPos))
+    //    {
+    //        return;
+    //    }
+    //    if (HandleLostSight(targetTransform))
+    //    {
+    //        return;
+    //    }
+    //    bool canSee = CanSeeTarget(targetTransform);
+    //    bool inCloseRange = IsInCloseRange(targetTransform);
+    //    float distance = Vector3.Distance(_controller.transform.position, targetPos);
+    //    if (ShouldAttack(canSee, inCloseRange, distance))
+    //    {
+    //        HandleAttack(targetTransform);
+    //    }
+    //    else
+    //    {
+    //        HandleMoveToTarget(canSee, inCloseRange, targetPos);
+    //    }
+    //}
     public virtual void Update()
     {
+
         if (!TryGetTarget(out Transform targetTransform, out Vector3 targetPos))
         {
             return;
         }
-        if (HandleLostSight(targetTransform))
+        float distance = Vector3.Distance(_controller.transform.position, targetPos);
+
+        if (HandleLostSight(targetTransform, distance))
         {
             return;
         }
-        bool canSee = CanSeeTarget(targetTransform);
-        bool inCloseRange = IsInCloseRange(targetTransform);
-        float distance = Vector3.Distance(_controller.transform.position, targetPos);
-        if (ShouldAttack(canSee, inCloseRange, distance))
+
+        bool inAttackRange = distance <= _dataSO.AttackRange;
+
+        if (inAttackRange)
         {
             HandleAttack(targetTransform);
         }
         else
         {
-            HandleMoveToTarget(canSee, inCloseRange, targetPos);
+            HandleMoveToTarget(targetPos);
         }
     }
     protected bool TryGetTarget(out Transform targetTransform, out Vector3 targetPos)
-    { 
-        Vector3 playerPos = _controller.transform.position;
+    {
         targetTransform = null;
         targetPos = Vector3.zero;
-        if (_detector.TryFindClosestTarget(out ITargetable target))
+
+        ITargetable target = _detector.GetCurrentTarget();
+
+        if (target == null || target.HealthSystem.IsDead)
         {
-            targetTransform = target.Transform;
-            targetPos = target.Transform.position;
-            return true;
+            OnLostSight(); 
+            return false;
         }
-        OnLostSight();
-        return false;
+
+        targetTransform = target.Transform;
+        targetPos = targetTransform.position;
+        return true;
     }
     protected bool CanSeeTarget(Transform targetTransform)
     {
@@ -113,12 +141,9 @@ public abstract class EnemyAttackingStateBase<TStateMachine, TController, TAnima
 
         return distance <= _dataSO.AttackRange;
     }
-    protected bool HandleLostSight(Transform targetTransform)
+    protected bool HandleLostSight(Transform targetTransform, float currentDistance)
     {
-        bool canSee = CanSeeTarget(targetTransform);
-        bool inCloseRange = IsInCloseRange(targetTransform);
-
-        if (!canSee && !inCloseRange)
+        if (currentDistance > _data.GetEnemyData().LeashRange)
         {
             _timeSinceLastSeenTarget += Time.deltaTime;
 
@@ -149,7 +174,7 @@ public abstract class EnemyAttackingStateBase<TStateMachine, TController, TAnima
             }
         }
     }
-    protected void HandleMoveToTarget(bool canSee, bool inCloseRange, Vector3 targetPos)
+    protected void HandleMoveToTarget(Vector3 targetPos)
     {
         if (_isAttacking)
         {
@@ -161,19 +186,15 @@ public abstract class EnemyAttackingStateBase<TStateMachine, TController, TAnima
                 _attackTask = default;
             }
         }
-
-        if (canSee || inCloseRange)
+        if (CanStartBaseAttack())
         {
-            if (CanStartBaseAttack())
-            {
-                _controller.SetDestination(targetPos);
-                _animator.SetIsMovingTrue();
-            }
-            else
-            {
-                _controller.StopMovement();
-                _animator.SetIsMovingFalse();
-            }
+            _controller.SetDestination(targetPos);
+            _animator.SetIsMovingTrue();
+        }
+        else
+        {
+            _controller.StopMovement();
+            _animator.SetIsMovingFalse();
         }
     }
     protected void CancelAttack()
