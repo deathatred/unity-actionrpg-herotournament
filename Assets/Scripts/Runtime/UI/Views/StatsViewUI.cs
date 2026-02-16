@@ -93,6 +93,7 @@ public class StatsViewUI : MonoBehaviour
         _eventBus.Subscribe<PlayerLevelChangedEvent>(PlayerLevelUp);
         _eventBus.Subscribe<PlayerLevelRestoredEvent>(PlayerLevelRestored);
         _eventBus.Subscribe<PlayerLevelPointsSpentEvent>(OnLevelPointChanged);
+        _eventBus.Subscribe<PlayerSpecChosenEvent>(OnPlayerSpecChosen);
     }
 
     private void UnsubscribeFromEvents()
@@ -103,6 +104,7 @@ public class StatsViewUI : MonoBehaviour
         _eventBus.Unsubscribe<PlayerLevelChangedEvent>(PlayerLevelUp);
         _eventBus.Unsubscribe<PlayerLevelRestoredEvent>(PlayerLevelRestored);
         _eventBus.Unsubscribe<PlayerLevelPointsSpentEvent>(OnLevelPointChanged);
+        _eventBus.Unsubscribe<PlayerSpecChosenEvent>(OnPlayerSpecChosen);
     }
     private void BackButtonPress()
     {
@@ -148,7 +150,15 @@ public class StatsViewUI : MonoBehaviour
     private void OnPlayerConfigured(PlayerConfiguredEvent e)
     {
         _classNameText.text = e.PlayerClassSO.ClassName.ToString();
-        _classImage.sprite = e.PlayerClassSO.ClassIcon;
+        SetClassIcon(e.PlayerClassSO.ClassIcon);
+    }
+    private void OnPlayerSpecChosen(PlayerSpecChosenEvent e)
+    {
+        SetClassIcon(e.Spec.Icon);
+    }
+    private void SetClassIcon(Sprite icon)
+    {
+        _classImage.sprite = icon;
     }
     private void OnStatChanged(StatChangedEvent e)
     {

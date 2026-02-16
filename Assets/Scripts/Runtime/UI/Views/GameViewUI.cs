@@ -112,7 +112,8 @@ public class GameViewUI : MonoBehaviour
         _eventBus.Subscribe<AmountOfMobsOnLevelDecreasedEvent>(ReduceEnemiesLeftText);
         _eventBus.Subscribe<SurvivalModeStartedEvent>(StartTimerSubscriber);
         _eventBus.Subscribe<DefaultModeStartedEvent>(EnableEnemyAmountSubscriber);
-        _eventBus.Subscribe<PlayerConfiguredEvent>(ConfigureIcon);
+        _eventBus.Subscribe<PlayerConfiguredEvent>(SetClassIcon);
+        _eventBus.Subscribe<PlayerSpecChosenEvent>(SetSpecIcon);
     }
     private void UnsubscribeFromEvents()
     {
@@ -129,11 +130,22 @@ public class GameViewUI : MonoBehaviour
         _eventBus.Unsubscribe<AmountOfMobsOnLevelDecreasedEvent>(ReduceEnemiesLeftText);
         _eventBus.Unsubscribe<SurvivalModeStartedEvent>(StartTimerSubscriber);
         _eventBus.Unsubscribe<DefaultModeStartedEvent>(EnableEnemyAmountSubscriber);
-        _eventBus.Unsubscribe<PlayerConfiguredEvent>(ConfigureIcon);
+        _eventBus.Unsubscribe<PlayerConfiguredEvent>(SetClassIcon);
+        _eventBus.Unsubscribe<PlayerSpecChosenEvent>(SetSpecIcon);
     }
-    private void ConfigureIcon(PlayerConfiguredEvent e)
+    private void SetClassIcon(PlayerConfiguredEvent e)
     {
+        print("here");
+        ChangeClassIcon(e.PlayerClassSO.ClassIcon);
         _classIconImage.sprite = e.PlayerClassSO.ClassIcon;
+    }
+    private void SetSpecIcon(PlayerSpecChosenEvent e)
+    {
+        ChangeClassIcon(e.Spec.Icon);
+    }
+    private void ChangeClassIcon(Sprite icon)
+    {
+        _classIconImage.sprite = icon;
     }
     private void StatChanged(StatChangedEvent e)
     {

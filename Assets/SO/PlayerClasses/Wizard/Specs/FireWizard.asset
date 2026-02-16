@@ -16,4 +16,4 @@ MonoBehaviour:
   SpecName: Fire Wizard
   Spec: 4
   Background: {fileID: 21300000, guid: fbcd9c224a7838c4aa00845d24827697, type: 3}
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 5370c0170aefa09408cfd730ad0b502a, type: 3}

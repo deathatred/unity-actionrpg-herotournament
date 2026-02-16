@@ -16,4 +16,4 @@ MonoBehaviour:
   SpecName: Paladin
   Spec: 1
   Background: {fileID: 21300000, guid: f095efc08c692e043b2df6813a6ef85a, type: 3}
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 17271c12b3dd15142a34515c0441d2aa, type: 3}
