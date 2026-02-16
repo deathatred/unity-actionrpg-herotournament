@@ -151,6 +151,7 @@ public class EnemyStatusEffectsManager : MonoBehaviour
         _activeEffects.Add(effect, newInstance);
 
         effect.Apply(this);
+        _enemyStateMachine.GoToAttackState();
         RunEffectTimer(effect, newInstance.Cts).Forget();
     }
     private async UniTask RunEffectTimer(EnemyStatusEffectSO effect, CancellationTokenSource cts)

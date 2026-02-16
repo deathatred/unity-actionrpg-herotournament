@@ -12,6 +12,7 @@ public class EyeOfCthulhuStateMachine : EnemyStateMachine
     [SerializeField] private EnemyTargetDetector _detector;
     public EyeOfCthulhuState State;
     private Dictionary<EyeOfCthulhuState, IEnemyState> _states;
+    
     public int CurrentPatrolIndex { get; set; } = 0;
     private void OnEnable()
     {
@@ -41,11 +42,16 @@ public class EyeOfCthulhuStateMachine : EnemyStateMachine
     }
     public void ChangeState(EyeOfCthulhuState state)
     {
+        State = state;
         ChangeState(_states[state]);
     }
 
     public override void GoToAttackState()
     {
+        if (State == EyeOfCthulhuState.Attacking)
+        {
+            return;
+        }
         ChangeState(EyeOfCthulhuState.Attacking);
     }
 }

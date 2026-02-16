@@ -12,6 +12,7 @@ public class MimicStateMachine : EnemyStateMachine
     [SerializeField] private EnemyData _data;
     [SerializeField] private EnemyTargetDetector _detector;
     private Dictionary<MimicState, IEnemyState> _states;
+    private MimicState _currentStateEnum;
     private void OnEnable()
     {
         _healthSystem.OnDeath += HealthSystemOnDeath;
@@ -37,11 +38,16 @@ public class MimicStateMachine : EnemyStateMachine
     }
     public override void GoToAttackState()
     {
+        if (_currentStateEnum == MimicState.Attacking)
+        {
+            return;
+        }
         ChangeState(MimicState.Attacking);
         Debug.Log("I went to attack state bruh");
     }
     public void ChangeState(MimicState state)
     {
+        _currentStateEnum = state;
         ChangeState(_states[state]);
     }
 }
