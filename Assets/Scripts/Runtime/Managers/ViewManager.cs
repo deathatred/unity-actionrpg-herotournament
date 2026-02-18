@@ -29,6 +29,10 @@ public class ViewManager : IDisposable
         {
             InputHandler.EnablePlayerInput();
         }
+        if (id == 7)
+        {
+            _eventBus.Publish(new ClassSelectionMenuOpenedEvent());
+        }
         foreach (var view in _views)
         {
             view.enabled = false;
