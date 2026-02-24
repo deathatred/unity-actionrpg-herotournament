@@ -28,7 +28,7 @@ public class GameViewUI : MonoBehaviour
     [SerializeField] private SpellHotkeysUI _thirdSpellHotkeys;
     [SerializeField] private Button _thirdSpellButton;
 
-    [SerializeField] private Image _firstItemImage;  
+    [SerializeField] private Image _firstItemImage;
     [SerializeField] private Image _secondItemImage;
     [SerializeField] private TextMeshProUGUI _firstItemHotkeyText;
     [SerializeField] private TextMeshProUGUI _secondItemHotkeyText;
@@ -135,7 +135,6 @@ public class GameViewUI : MonoBehaviour
     }
     private void SetClassIcon(PlayerConfiguredEvent e)
     {
-        print("here");
         ChangeClassIcon(e.PlayerClassSO.ClassIcon);
         _classIconImage.sprite = e.PlayerClassSO.ClassIcon;
     }
@@ -159,7 +158,7 @@ public class GameViewUI : MonoBehaviour
             _maxManaText.text = $"/{e.Amount.ToString()}";
             return;
         }
-    } 
+    }
     private void ChangeHealth(PlayerHealthChangedEvent e)
     {
         CancelToken(ref _hpCts);
@@ -168,7 +167,7 @@ public class GameViewUI : MonoBehaviour
     private void ChangeXp(PlayerGainedXpEvent e)
     {
         CancelToken(ref _xpCts);
-        AnimateFillAsync(_xpIndicatorImage,null,  e.CurrentXp, e.MaxXp, 0.3f, _xpCts).Forget();
+        AnimateFillAsync(_xpIndicatorImage, null, e.CurrentXp, e.MaxXp, 0.3f, _xpCts).Forget();
     }
     private void ChangeMana(PlayerManaChangedEvent e)
     {
@@ -215,7 +214,7 @@ public class GameViewUI : MonoBehaviour
             _secondSpellHotkeys.SetSpell(e.SpellSO);
             return;
         }
-        else 
+        else
         {
             _thirdSpellHotkeys.SetSpell(e.SpellSO);
             return;
@@ -259,14 +258,14 @@ public class GameViewUI : MonoBehaviour
     private void EnableTimer()
     {
         _timeAmountText.gameObject.SetActive(true);
-        _enemiesAmountText.gameObject.SetActive(false);       
+        _enemiesAmountText.gameObject.SetActive(false);
     }
     public void FillXpIndicatorInstant(float value)
     {
         _xpIndicatorImage.fillAmount = value;
     }
-    private async UniTask AnimateFillAsync(Image fillImage, TextMeshProUGUI optionalText,int currentValue,
-     int maxValue, float duration,CancellationTokenSource cts)
+    private async UniTask AnimateFillAsync(Image fillImage, TextMeshProUGUI optionalText, int currentValue,
+     int maxValue, float duration, CancellationTokenSource cts)
     {
 
         if (optionalText != null)
@@ -289,23 +288,39 @@ public class GameViewUI : MonoBehaviour
     }
     private async UniTask FillXpAsync()
     {
-        CancelToken(ref _xpCts);
-        await _xpIndicatorImage.DOFillAmount(1, 0.3f).SetEase(Ease.Linear)
-            .AsyncWaitForCompletion().AsUniTask();
-        _xpIndicatorImage.fillAmount = 0;
+        try
+        {
+            CancelToken(ref _xpCts);
+            await _xpIndicatorImage.DOFillAmount(1, 0.3f).SetEase(Ease.Linear)
+                .AsyncWaitForCompletion().AsUniTask().AttachExternalCancellation(_xpCts.Token);
+            _xpIndicatorImage.fillAmount = 0;
+        }
+        catch (OperationCanceledException)
+        {
+
+        }
     }
     private async UniTask StartTimer(int time, CancellationTokenSource cts)
     {
-        int maxTime = time;
-        while (maxTime != 0 && !cts.IsCancellationRequested)
+        try
         {
-            _timeAmountText.text = $"time left: {maxTime}";
-            maxTime--;
-            await UniTask.WaitForSeconds(1f);
+
+
+            int maxTime = time;
+            while (maxTime != 0 && !cts.IsCancellationRequested)
+            {
+                _timeAmountText.text = $"time left: {maxTime}";
+                maxTime--;
+                await UniTask.WaitForSeconds(1f, cancellationToken: cts.Token);
+            }
+            if (cts.IsCancellationRequested) return;
+            EnableEnemyAmount();
+            _enemiesAmountText.text = $"Portal Opened";
+            _enemiesAmountText.color = Color.magenta;
         }
-        EnableEnemyAmount();
-        _enemiesAmountText.text = $"Portal Opened";
-        _enemiesAmountText.color = Color.magenta;
+        catch (OperationCanceledException)
+        {
+
+        }
     }
-    
 }

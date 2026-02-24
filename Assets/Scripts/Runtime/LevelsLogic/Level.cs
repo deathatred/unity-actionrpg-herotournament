@@ -226,9 +226,10 @@ public class Level : MonoBehaviour
 
     private async UniTaskVoid StartSurvivalTimer()
     {
+        var token = this.GetCancellationTokenOnDestroy();
         while (Timer > 0)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(1));
+            await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
 
             Timer--;
             TimeToNextSpawn--;
