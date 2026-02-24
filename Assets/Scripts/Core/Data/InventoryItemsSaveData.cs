@@ -1,8 +1,11 @@
 using UnityEngine;
 
-[System.Serializable]
-public class InventoryItemsSaveData
+namespace Assets.Scripts.Core.Data
 {
-    public string ItemId;
-    public int Amount;
+    [System.Serializable]
+    public class InventoryItemsSaveData
+    {
+        public string ItemId;
+        public int Amount;
+    }
 }

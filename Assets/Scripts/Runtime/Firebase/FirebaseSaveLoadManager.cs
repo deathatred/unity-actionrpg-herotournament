@@ -1,3 +1,4 @@
+using Assets.Scripts.Core.Data;
 using Cysharp.Threading.Tasks;
 using Firebase.Database;
 using System;

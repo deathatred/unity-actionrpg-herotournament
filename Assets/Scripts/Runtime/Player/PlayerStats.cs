@@ -2,6 +2,10 @@ using UnityEngine;
 using Zenject;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Assets.Scripts.Core.Data;
+using Assets.Scripts.Core.Enums;
+using Assets.Scripts.Core.General;
+using Assets.Scripts.Core.Observer;
 
 public class PlayerStats : MonoBehaviour
 {

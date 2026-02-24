@@ -1,8 +1,11 @@
 using UnityEngine;
 
-[System.Serializable]
-public class TalentSaveData
+namespace Assets.Scripts.Core.Data
 {
-    public string ID;
-    public int Level;
+    [System.Serializable]
+    public class TalentSaveData
+    {
+        public string ID;
+        public int Level;
+    }
 }

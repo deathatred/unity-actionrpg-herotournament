@@ -1,3 +1,4 @@
+using Assets.Scripts.Core.Interfaces;
 using UnityEngine;
 
 public class EnemyTargetDetector : MonoBehaviour

@@ -1,3 +1,4 @@
+using Assets.Scripts.Core.Enums;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DoubleSlash", menuName = "Player Spells/DoubleSlash")]

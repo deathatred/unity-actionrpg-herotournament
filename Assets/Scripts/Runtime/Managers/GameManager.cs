@@ -1,3 +1,5 @@
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.LevelsLogic;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;

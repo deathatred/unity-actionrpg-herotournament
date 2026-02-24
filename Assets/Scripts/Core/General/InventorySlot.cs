@@ -1,8 +1,10 @@
 using UnityEngine;
 
-[System.Serializable]
-public class InventorySlot
+namespace Assets.Scripts.Core.General
 {
-    public ItemInstance item;
+    [System.Serializable]
+    public class InventorySlot
+    {
+        public ItemInstance item;
+    }
 }
-

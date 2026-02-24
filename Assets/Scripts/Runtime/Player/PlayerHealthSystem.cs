@@ -1,3 +1,6 @@
+using Assets.Scripts.Core.Enums;
+using Assets.Scripts.Core.Interfaces;
+using Assets.Scripts.Core.Observer;
 using System;
 using UnityEngine;
 using Zenject;

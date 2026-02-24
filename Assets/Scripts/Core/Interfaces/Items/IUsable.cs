@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface IUsable
+namespace Assets.Scripts.Core.Interfaces.Items
 {
-    public void Use(IHealthSystem healthSystem);
+    public interface IUsable
+    {
+        public void Use(IHealthSystem healthSystem);
+    }
 }

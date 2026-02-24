@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using Assets.Scripts.Core.Observer;
 using UnityEngine;
 using Zenject;
 

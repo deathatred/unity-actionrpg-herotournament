@@ -1,3 +1,4 @@
+using Assets.Scripts.Core.Observer;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

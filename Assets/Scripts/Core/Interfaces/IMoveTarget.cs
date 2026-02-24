@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface IMoveTarget
+namespace Assets.Scripts.Core.Interfaces
 {
-    Vector3 GetPosition();
+    public interface IMoveTarget
+    {
+        Vector3 GetPosition();
+    }
 }

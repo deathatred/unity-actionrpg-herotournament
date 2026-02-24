@@ -1,4 +1,8 @@
-using Unity.VisualScripting;
+using Assets.Scripts.Core.General;
+using Assets.Scripts.Core.Interfaces;
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Core.Utils;
+using Assets.Scripts.Runtime.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

@@ -1,3 +1,6 @@
+using Assets.Scripts.Core.Enums;
+using Assets.Scripts.Core.General;
+using Assets.Scripts.Core.Observer;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;

@@ -1,3 +1,5 @@
+using Assets.Scripts.Core.Enums;
+using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
 public class ClassSelectedEvent : GameEventBase

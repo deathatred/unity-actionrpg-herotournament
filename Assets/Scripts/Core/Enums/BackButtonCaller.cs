@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public enum BackButtonCaller
+namespace Assets.Scripts.Core.Enums
 {
-    Inventory,
-    StatsMenu,
-    TalentTree
+    public enum BackButtonCaller
+    {
+        Inventory,
+        StatsMenu,
+        TalentTree
+    }
 }

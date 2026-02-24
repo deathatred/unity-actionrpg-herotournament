@@ -1,3 +1,4 @@
+using Assets.Scripts.Core.Interfaces;
 using UnityEngine;
 
 public abstract class CharacterAnimationBase<THealth> : MonoBehaviour

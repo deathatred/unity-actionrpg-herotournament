@@ -1,4 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using Assets.Scripts.Core.Enums;
+using Assets.Scripts.Core.Observer;
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;

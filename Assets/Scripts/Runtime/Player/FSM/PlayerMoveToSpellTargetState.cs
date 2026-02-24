@@ -1,3 +1,6 @@
+using Assets.Scripts.Core.Interfaces;
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.Player;
 using TMPro;
 using UnityEngine;
 

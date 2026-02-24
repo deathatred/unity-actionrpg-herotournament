@@ -1,3 +1,5 @@
+using Assets.Scripts.Core.Data;
+using Assets.Scripts.Core.Interfaces;
 using UnityEngine;
 using Zenject;
 

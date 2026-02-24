@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Assets.Scripts.Core.Structs;
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Threading;

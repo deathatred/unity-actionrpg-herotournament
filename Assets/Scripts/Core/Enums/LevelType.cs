@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public enum LevelType 
+namespace Assets.Scripts.Core.Enums
 {
-    Default, 
-    Survival
+    public enum LevelType
+    {
+        Default,
+        Survival
+    }
 }

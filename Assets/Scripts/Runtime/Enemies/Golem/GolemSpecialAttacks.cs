@@ -1,4 +1,5 @@
-﻿using Unity.Cinemachine;
+﻿using Assets.Scripts.Core.Interfaces;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class GolemSpecialAttacks : MonoBehaviour

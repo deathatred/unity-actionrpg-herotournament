@@ -1,3 +1,4 @@
+using Assets.Scripts.Core.Interfaces;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;

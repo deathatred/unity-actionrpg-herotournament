@@ -1,3 +1,5 @@
+using Assets.Scripts.Core.Interfaces;
+using Assets.Scripts.Core.Interfaces.Items;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Items/Health Potion")]

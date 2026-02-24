@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public abstract class PlayerStateBase
+namespace Assets.Scripts.Core.Interfaces
 {
-    protected PlayerStateMachine _fsm;
-    public PlayerState StateType { get; protected set; }
-
-    public PlayerStateBase(PlayerStateMachine fsm)
+    public abstract class PlayerStateBase
     {
-        _fsm = fsm;
-    }
+        protected PlayerStateMachine _fsm;
+        public PlayerState StateType { get; protected set; }
 
-    public abstract void Enter();
-    public abstract void Update();
-    public abstract void Exit();
+        public PlayerStateBase(PlayerStateMachine fsm)
+        {
+            _fsm = fsm;
+        }
+
+        public abstract void Enter();
+        public abstract void Update();
+        public abstract void Exit();
+    }
 }

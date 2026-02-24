@@ -1,3 +1,5 @@
+using Assets.Scripts.Core.Factories;
+using Assets.Scripts.Runtime.Player;
 using UnityEngine;
 using Zenject;
 

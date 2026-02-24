@@ -1,3 +1,5 @@
+using Assets.Scripts.Core.Data;
+using Assets.Scripts.Core.Observer;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;

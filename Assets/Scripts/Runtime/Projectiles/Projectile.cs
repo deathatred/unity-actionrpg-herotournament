@@ -1,4 +1,6 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Assets.Scripts.Core.Enums;
+using Assets.Scripts.Core.Interfaces;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Pool;
 

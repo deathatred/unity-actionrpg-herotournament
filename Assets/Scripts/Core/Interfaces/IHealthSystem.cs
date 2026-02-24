@@ -1,14 +1,17 @@
 using System;
 using UnityEngine;
 
-public interface IHealthSystem
+namespace Assets.Scripts.Core.Interfaces
 {
-    public int Health { get;}
-    public int Armor { get;}
-    public bool IsDead { get;}
-    public int TakeDamage(int amount);
-    public void Heal(int amount);
-    public void RestoreHealth(int amount);
-    public event Action<int, int> OnHealthChanged;
-    public event EventHandler OnDeath;
+    public interface IHealthSystem
+    {
+        public int Health { get; }
+        public int Armor { get; }
+        public bool IsDead { get; }
+        public int TakeDamage(int amount);
+        public void Heal(int amount);
+        public void RestoreHealth(int amount);
+        public event Action<int, int> OnHealthChanged;
+        public event EventHandler OnDeath;
+    }
 }

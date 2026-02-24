@@ -1,3 +1,6 @@
+using Assets.Scripts.Core.Data;
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.Player;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;

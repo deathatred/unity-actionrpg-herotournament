@@ -1,3 +1,4 @@
+using Assets.Scripts.Core.Structs;
 using UnityEngine;
 
 public class EyeOfCthulhuAudio : CharacterAudioBase<EyeOfCthulhuSoundsSO>

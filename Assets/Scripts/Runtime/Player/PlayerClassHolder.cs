@@ -1,3 +1,4 @@
+using Assets.Scripts.Core.Enums;
 using UnityEngine;
 
 public class PlayerClassHolder : MonoBehaviour

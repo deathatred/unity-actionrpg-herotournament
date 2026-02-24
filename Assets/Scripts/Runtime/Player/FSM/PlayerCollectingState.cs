@@ -1,3 +1,7 @@
+using Assets.Scripts.Core.Interfaces;
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Core.Utils;
+using Assets.Scripts.Runtime.Player;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;

@@ -1,8 +1,12 @@
+using Assets.Scripts.Core.Interfaces;
 using UnityEngine;
 
-public struct MoveCommand
+namespace Assets.Scripts.Core.Structs
 {
-    public IMoveTarget Target;
-    public float StopRange;
-    public bool RotateTowardsTarget;
+    public struct MoveCommand
+    {
+        public IMoveTarget Target;
+        public float StopRange;
+        public bool RotateTowardsTarget;
+    }
 }

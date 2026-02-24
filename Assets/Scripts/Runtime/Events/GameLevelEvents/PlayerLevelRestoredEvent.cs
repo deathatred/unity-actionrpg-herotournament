@@ -1,3 +1,4 @@
+using Assets.Scripts.Core.Observer;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Rendering;

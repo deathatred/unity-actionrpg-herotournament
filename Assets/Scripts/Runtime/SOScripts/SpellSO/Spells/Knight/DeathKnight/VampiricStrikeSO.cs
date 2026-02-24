@@ -1,3 +1,4 @@
+using Assets.Scripts.Core.Enums;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "VampiricStrike", menuName = "Player Spells/VampiricStrike")]

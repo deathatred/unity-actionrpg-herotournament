@@ -1,3 +1,5 @@
+using Assets.Scripts.Core.Interfaces;
+using Assets.Scripts.Core.Observer;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;

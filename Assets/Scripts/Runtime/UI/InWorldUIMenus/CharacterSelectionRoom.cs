@@ -1,3 +1,4 @@
+using Assets.Scripts.Core.Observer;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using Zenject;

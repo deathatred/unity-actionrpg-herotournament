@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Assets.Scripts.Core.Enums;
 
 [CreateAssetMenu(menuName = "RPG/Class Spec")]
 public class ClassSpecSO : ScriptableObject
