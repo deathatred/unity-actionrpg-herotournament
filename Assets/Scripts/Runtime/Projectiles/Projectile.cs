@@ -86,7 +86,6 @@ public class Projectile : MonoBehaviour
         if (_isReleased)
             return;
         int hitLayer = collision.gameObject.layer;
-        print(hitLayer);
         LayerMask targetLayers;
         switch (_typeToDamage)
         {
@@ -108,7 +107,6 @@ public class Projectile : MonoBehaviour
             return;
         }
         var hp = collision.collider.GetComponent<IHealthSystem>();
-        Debug.LogWarning(_finalDamage + "Final Damage");
         hp?.TakeDamage(_finalDamage);
         _audioManager.Play3D(_projectileSO.HitSound, collision.collider.transform);
         if (this._projectileSO.StatusEffectSO != null)

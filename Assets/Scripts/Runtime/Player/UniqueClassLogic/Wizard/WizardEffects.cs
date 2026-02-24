@@ -20,10 +20,8 @@ public class WizardEffects : MonoBehaviour
     }
     private void ApplyBonusEffectVFX(PlayerBonusEffectAppliedEvent e)
     {
-        Debug.Log("here");
         if (e.BonusEffect == GlobalData.SELF_IGNITE_EFFECT)
         {
-            Debug.Log("here inside");
             PlaySelfIgniteParticles(e.Duration);
         }
     }

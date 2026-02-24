@@ -45,7 +45,6 @@ public class LevelSaveManager : IDisposable
         await UniTask.WaitForSeconds(1f);
         if (data == null)
         {
-            Debug.Log("load start level bro");
              await _gameManager.InitStartingLevelAsync();
             _eventBus.Publish(new LevelInitedEvent());
             return;

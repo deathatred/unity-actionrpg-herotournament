@@ -76,7 +76,6 @@ public class FirebaseSaveLoadManager
             var snapshot = await db.Child($"users/{uid}/PlayerData").GetValueAsync().AsUniTask().AttachExternalCancellation(cts.Token);
             if (!snapshot.Exists || snapshot.Value == null)
             {
-                Debug.Log("no save Data found");
                 return null;
             }
             var json = snapshot.GetRawJsonValue();
@@ -122,7 +121,6 @@ public class FirebaseSaveLoadManager
             var snapshot = await db.Child($"users/{uid}/LevelData").GetValueAsync().AsUniTask().AttachExternalCancellation(cts.Token);
             if (!snapshot.Exists || snapshot.Value == null)
             {
-                Debug.Log("no save Data found");
                 return null;
             }
             var json = snapshot.GetRawJsonValue();

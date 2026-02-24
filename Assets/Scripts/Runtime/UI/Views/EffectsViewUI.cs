@@ -86,7 +86,7 @@ public class EffectsViewUI : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Not enought arrows");
+            Debug.LogWarning("Not enought arrows in Effect UI. Skipping.");
         }
     }
 

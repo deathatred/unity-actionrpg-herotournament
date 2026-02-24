@@ -31,7 +31,6 @@ public class PlayerItemUsingSystem : MonoBehaviour
 
         if (item.Data is IUsable usable)
         {
-            print("used");
             usable.Use(_playerHealthSystem);
         }
         else

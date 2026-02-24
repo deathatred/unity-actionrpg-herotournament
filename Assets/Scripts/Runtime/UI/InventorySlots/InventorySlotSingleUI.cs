@@ -36,7 +36,6 @@ public class InventorySlotSingleUI : MonoBehaviour
     {
         _holder.SetSelectedSlot(this);
         _eventBus.Publish(new SlotButtonPressedEvent(_item));
-        print(_item + "ITEM");
     }
     public void AddItem(ItemInstance item)
     {

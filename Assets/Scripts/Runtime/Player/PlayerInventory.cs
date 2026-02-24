@@ -122,7 +122,6 @@ public class PlayerInventory : MonoBehaviour
         { 
             if (slot.item != null)
             {
-                Debug.Log(slot.item.ToString());
                 var data = new InventoryItemsSaveData();
 
                 data.ItemId = slot.item.Data.ItemID;

@@ -52,7 +52,6 @@ public class GolemAttackingState
 
     protected override void OnLostSight()
     {
-        Debug.Log("lost sight");
         _fsm.ChangeState(GolemState.Idle);
     }
 

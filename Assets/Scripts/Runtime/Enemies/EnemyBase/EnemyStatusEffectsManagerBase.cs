@@ -162,7 +162,6 @@ public class EnemyStatusEffectsManager : MonoBehaviour
         }
         catch (OperationCanceledException)
         {
-            print("Reatached");
             return;
         }
         if (this == null || gameObject == null)

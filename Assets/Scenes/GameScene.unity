@@ -356,6 +356,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 4707471633223733453, guid: 6c3d0c937e145504486c482cea8085eb, type: 3}
+      propertyPath: m_AdditionalLightsShadowResolutionTier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6897367266511159080, guid: 6c3d0c937e145504486c482cea8085eb, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -363,6 +367,10 @@ PrefabInstance:
     - target: {fileID: 8948067271337275348, guid: 6c3d0c937e145504486c482cea8085eb, type: 3}
       propertyPath: m_Lightmapping
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948067271337275348, guid: 6c3d0c937e145504486c482cea8085eb, type: 3}
+      propertyPath: m_Shadows.m_NearPlane
+      value: 0.99
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5454,7 +5462,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 73ba1f733047664449712afeb6f87239, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -5524,6 +5532,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 4707471633223733453, guid: 6c3d0c937e145504486c482cea8085eb, type: 3}
+      propertyPath: m_AdditionalLightsShadowResolutionTier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6897367266511159080, guid: 6c3d0c937e145504486c482cea8085eb, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -5531,6 +5543,10 @@ PrefabInstance:
     - target: {fileID: 8948067271337275348, guid: 6c3d0c937e145504486c482cea8085eb, type: 3}
       propertyPath: m_Lightmapping
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948067271337275348, guid: 6c3d0c937e145504486c482cea8085eb, type: 3}
+      propertyPath: m_Shadows.m_NearPlane
+      value: 0.99
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5705,6 +5721,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 4707471633223733453, guid: 6c3d0c937e145504486c482cea8085eb, type: 3}
+      propertyPath: m_AdditionalLightsShadowResolutionTier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6897367266511159080, guid: 6c3d0c937e145504486c482cea8085eb, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -5712,6 +5732,14 @@ PrefabInstance:
     - target: {fileID: 8948067271337275348, guid: 6c3d0c937e145504486c482cea8085eb, type: 3}
       propertyPath: m_Lightmapping
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948067271337275348, guid: 6c3d0c937e145504486c482cea8085eb, type: 3}
+      propertyPath: m_Shadows.m_NearPlane
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 8948067271337275348, guid: 6c3d0c937e145504486c482cea8085eb, type: 3}
+      propertyPath: m_Shadows.m_Resolution
+      value: 128
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10479,7 +10507,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2834088695053512695, guid: 84c7b2d6064ecdd4aae4595122e65577, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3581760557100315521, guid: 84c7b2d6064ecdd4aae4595122e65577, type: 3}
       propertyPath: m_Name

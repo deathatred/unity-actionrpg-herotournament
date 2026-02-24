@@ -64,7 +64,6 @@ public class PlayerSaveManager
         var data = await _firebaseManager.LoadPlayerDataAsync();
         if (data == null)
         {
-            Debug.Log("no save data found");
             _stats.SetDefaultStats();
             return;
         }
