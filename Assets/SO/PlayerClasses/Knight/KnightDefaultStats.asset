@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 305e085316f95894486aca7d0ba8c096, type: 3}
   m_Name: KnightDefaultStats
   m_EditorClassIdentifier: 
-  DefaultHealth: 10
+  DefaultHealth: 50
   DefaultMana: 10
   Strenght: 5
   Agility: 3

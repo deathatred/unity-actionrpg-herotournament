@@ -6,7 +6,7 @@ using Zenject;
 
 public class PlayerTalentSystem : MonoBehaviour
 {
-    public int TalentPoints { get; private set; } = 5;
+    public int TalentPoints { get; private set; } = 1;
 
     [Inject] private TalentDatabase _talentDatabase;
     [Inject] private EventBus _eventBus;

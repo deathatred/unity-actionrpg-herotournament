@@ -15,8 +15,8 @@ MonoBehaviour:
   Class: 1
   Name: Ice Shackles
   About: Creates an icy shackles around your target, slowing them significantly
-  ManaCost: 10
-  Cooldown: 1
+  ManaCost: 15
+  Cooldown: 20
   AnimationTrigger: IceShakles
   Icon: {fileID: 21300000, guid: 32c4acc349c921a44a74ec015b1a36a3, type: 3}
   Range: 15
