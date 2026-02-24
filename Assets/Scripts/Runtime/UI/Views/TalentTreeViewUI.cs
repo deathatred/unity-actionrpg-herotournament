@@ -96,8 +96,8 @@ public class TalentTreeViewUI : MonoBehaviour
     }
     private void ConfigureTalentTreeView(PlayerConfiguredEvent e)
     {
-        var talentTree = _talentTreeDatabase.GetByClass(e.PlayerClass);
-        switch (e.PlayerClass)
+        var talentTree = _talentTreeDatabase.GetByClass(e.PlayerClassSO.ClassName);
+        switch (e.PlayerClassSO.ClassName)
         {
             case PlayerClass.Knight:
                 

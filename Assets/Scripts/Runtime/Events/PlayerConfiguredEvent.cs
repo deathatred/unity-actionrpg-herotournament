@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class PlayerConfiguredEvent : GameEventBase
 {
-    public PlayerClass PlayerClass { get; private set; }
-    public PlayerConfiguredEvent(PlayerClass playerClass)
+    public PlayerClassSO PlayerClassSO{ get; private set; }
+    public PlayerConfiguredEvent(PlayerClassSO playerClassSO)
     {
-        PlayerClass = playerClass;
+        PlayerClassSO = playerClassSO;
     }
 }

@@ -13,7 +13,7 @@ public class PlayerTalentSystem : MonoBehaviour
     [Inject] private PlayerSpellbook _playerSpellbook;
     [Inject] private PlayerStats _playerStats;
 
-    private ClassSO _currentClass;
+    private PlayerClassSO _currentClass;
     private ClassSpecSO _currentClassSpec;
 
     private Dictionary<TalentSO, int> _learnedTalents = new();
@@ -111,7 +111,7 @@ public class PlayerTalentSystem : MonoBehaviour
             return true;
         return _currentClassSpec.Spec == talent.Spec;
     }
-    public void InitCurrentClass(ClassSO currentClass)
+    public void InitCurrentClass(PlayerClassSO currentClass)
     {
         _currentClass = currentClass;
     }
@@ -148,7 +148,7 @@ public class PlayerTalentSystem : MonoBehaviour
         }
         return res.ToArray();
     }
-    public ClassSO GetCurrentClass()
+    public PlayerClassSO GetCurrentClass()
     {
         return _currentClass;
     }

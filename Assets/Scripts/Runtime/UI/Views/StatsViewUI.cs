@@ -10,6 +10,7 @@ public class StatsViewUI : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _levelAmountText;
     [SerializeField] private TextMeshProUGUI _classNameText;
+    [SerializeField] private Image _classImage;
 
     [SerializeField] private TextMeshProUGUI _hpAmountText;
     [SerializeField] private TextMeshProUGUI _mpAmountText;
@@ -86,20 +87,24 @@ public class StatsViewUI : MonoBehaviour
     }
     private void SubscribeToEvents()
     {
+        _eventBus.Subscribe<PlayerConfiguredEvent>(OnPlayerConfigured);
         _eventBus.Subscribe<StatChangedEvent>(OnStatChanged);
         _eventBus.Subscribe<AllStatsChangedEvent>(AllStatsChanged);
         _eventBus.Subscribe<PlayerLevelChangedEvent>(PlayerLevelUp);
         _eventBus.Subscribe<PlayerLevelRestoredEvent>(PlayerLevelRestored);
         _eventBus.Subscribe<PlayerLevelPointsSpentEvent>(OnLevelPointChanged);
+        _eventBus.Subscribe<PlayerSpecChosenEvent>(OnPlayerSpecChosen);
     }
 
     private void UnsubscribeFromEvents()
     {
+        _eventBus.Unsubscribe<PlayerConfiguredEvent>(OnPlayerConfigured);
         _eventBus.Unsubscribe<StatChangedEvent>(OnStatChanged);
         _eventBus.Unsubscribe<AllStatsChangedEvent>(AllStatsChanged);
         _eventBus.Unsubscribe<PlayerLevelChangedEvent>(PlayerLevelUp);
         _eventBus.Unsubscribe<PlayerLevelRestoredEvent>(PlayerLevelRestored);
         _eventBus.Unsubscribe<PlayerLevelPointsSpentEvent>(OnLevelPointChanged);
+        _eventBus.Unsubscribe<PlayerSpecChosenEvent>(OnPlayerSpecChosen);
     }
     private void BackButtonPress()
     {
@@ -142,6 +147,19 @@ public class StatsViewUI : MonoBehaviour
     {
         _eventBus.Publish(new AddIntButtonPressedEvent());
     }
+    private void OnPlayerConfigured(PlayerConfiguredEvent e)
+    {
+        _classNameText.text = e.PlayerClassSO.ClassName.ToString();
+        SetClassIcon(e.PlayerClassSO.ClassIcon);
+    }
+    private void OnPlayerSpecChosen(PlayerSpecChosenEvent e)
+    {
+        SetClassIcon(e.Spec.Icon);
+    }
+    private void SetClassIcon(Sprite icon)
+    {
+        _classImage.sprite = icon;
+    }
     private void OnStatChanged(StatChangedEvent e)
     {
         if (_statsMap.TryGetValue(e.StatType, out var textMesh))
@@ -153,11 +171,13 @@ public class StatsViewUI : MonoBehaviour
 
     private void PlayerLevelUp(PlayerLevelChangedEvent e)
     {
+        _levelAmountText.text = e.Level.ToString();
         ShowLevelUpButtons(true);
     }
 
     private void PlayerLevelRestored(PlayerLevelRestoredEvent e)
     {
+        _levelAmountText.text = e.RestoredLevel.ToString();
         ShowLevelUpButtons(e.RestoredLevelPoints > 0);
     }
 

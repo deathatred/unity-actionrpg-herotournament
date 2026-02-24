@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6153a54ed7af0648839e593748a436f, type: 3}
+  m_Script: {fileID: 11500000, guid: ce329a01ceb29b146959897cae7c2b44, type: 3}
   m_Name: WizardConfig
   m_EditorClassIdentifier: 
-  ClassName: Wizard
-  ClassIcon: {fileID: 21300000, guid: b853f99406cc2774d98e3b788465b074, type: 3}
+  ClassName: 1
+  ClassIcon: {fileID: 21300000, guid: 435ca4894e2d61d4792d38b1885c0de7, type: 3}
   DefaultSpec: 3
   ClassSound: {fileID: 11400000, guid: 137ef81e340ddc64db5c09c067a53ff2, type: 2}
   DefaultStatsSO: {fileID: 11400000, guid: 7295792073b04d64ca9223a1dbb9dd1c, type: 2}
   Specs:
-  - {fileID: 11400000, guid: 4bc298de7f1ed694d864c94a1a76948e, type: 2}
   - {fileID: 11400000, guid: e6bce0720bc1edd49a17ebcb4ad92dc6, type: 2}
+  - {fileID: 11400000, guid: 4bc298de7f1ed694d864c94a1a76948e, type: 2}
