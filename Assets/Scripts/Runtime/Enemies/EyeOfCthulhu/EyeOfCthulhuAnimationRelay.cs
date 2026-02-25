@@ -1,20 +1,24 @@
+using Assets.Scripts.Runtime.Enemies.EnemyBase;
 using UnityEngine;
 
-public class EyeOfCthulhuAnimationRelay : MonoBehaviour
+namespace Assets.Scripts.Runtime.Enemies.EyeOfCthulhu
 {
-    [SerializeField] private EyeOfCthulhuAudio _audio;
-    [SerializeField] private EnemyProjectileShootingBase _shooting;
-    [SerializeField] private EnemyTargetDetector _detector;
-
-    private float _sfxVolume = 0.1f;
-    public void Shoot()
+    public class EyeOfCthulhuAnimationRelay : MonoBehaviour
     {
-        _audio.PlayAttack(_sfxVolume);
-        _shooting.ShootProjectile(_detector.transform);
+        [SerializeField] private EyeOfCthulhuAudio _audio;
+        [SerializeField] private EnemyProjectileShootingBase _shooting;
+        [SerializeField] private EnemyTargetDetector _detector;
 
-    }
-    public void PlayDeath()
-    {
-        _audio.PlayDeath(_sfxVolume);
+        private float _sfxVolume = 0.1f;
+        public void Shoot()
+        {
+            _audio.PlayAttack(_sfxVolume);
+            _shooting.ShootProjectile(_detector.transform);
+
+        }
+        public void PlayDeath()
+        {
+            _audio.PlayDeath(_sfxVolume);
+        }
     }
 }

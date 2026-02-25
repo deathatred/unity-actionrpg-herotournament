@@ -1,13 +1,16 @@
 using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class PlayerHealthChangedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events
 {
-    public int MaxHealth { get; private set; }
-    public int CurrentHealth { get; private set; }
-    public PlayerHealthChangedEvent(int maxHealth, int currentHealth)
+    public class PlayerHealthChangedEvent : GameEventBase
     {
-        MaxHealth = maxHealth;
-        CurrentHealth = currentHealth;
+        public int MaxHealth { get; private set; }
+        public int CurrentHealth { get; private set; }
+        public PlayerHealthChangedEvent(int maxHealth, int currentHealth)
+        {
+            MaxHealth = maxHealth;
+            CurrentHealth = currentHealth;
+        }
     }
 }

@@ -1,11 +1,14 @@
 using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class TalentPointsChangedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events
 {
-    public int TalentPoints { get; private set; }
-    public TalentPointsChangedEvent(int points)
+    public class TalentPointsChangedEvent : GameEventBase
     {
-        TalentPoints = points;
+        public int TalentPoints { get; private set; }
+        public TalentPointsChangedEvent(int points)
+        {
+            TalentPoints = points;
+        }
     }
 }

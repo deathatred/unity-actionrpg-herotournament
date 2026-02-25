@@ -1,13 +1,16 @@
 using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class PlayerBonusEffectAppliedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events.PlayerSpellCastEvent
 {
-    public string BonusEffect { get; private set; }
-    public float Duration { get; private set; }
-    public PlayerBonusEffectAppliedEvent(string bonusEffect, float duration)
+    public class PlayerBonusEffectAppliedEvent : GameEventBase
     {
-        BonusEffect = bonusEffect;
-        Duration = duration;
+        public string BonusEffect { get; private set; }
+        public float Duration { get; private set; }
+        public PlayerBonusEffectAppliedEvent(string bonusEffect, float duration)
+        {
+            BonusEffect = bonusEffect;
+            Duration = duration;
+        }
     }
 }

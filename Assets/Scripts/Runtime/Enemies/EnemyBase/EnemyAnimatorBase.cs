@@ -1,19 +1,23 @@
+using Assets.Scripts.Runtime.BaseLogic;
 using UnityEngine;
 
-public class EnemyAnimationBase : CharacterAnimationBase<EnemyHealthSystem>
+namespace Assets.Scripts.Runtime.Enemies.EnemyBase
 {
-    protected override void SubscribeToDeath()
+    public class EnemyAnimationBase : CharacterAnimationBase<EnemyHealthSystem>
     {
-        _healthSystem.OnDeath += HealthSystemOnDeath;
-    }
+        protected override void SubscribeToDeath()
+        {
+            _healthSystem.OnDeath += HealthSystemOnDeath;
+        }
 
-    protected virtual void HealthSystemOnDeath(object sender, System.EventArgs e)
-    {
-        SetIsDeadTrue();
-    }
+        protected virtual void HealthSystemOnDeath(object sender, System.EventArgs e)
+        {
+            SetIsDeadTrue();
+        }
 
-    protected override void UnsubscribeFromDeath()
-    {
-        _healthSystem.OnDeath -= HealthSystemOnDeath;
+        protected override void UnsubscribeFromDeath()
+        {
+            _healthSystem.OnDeath -= HealthSystemOnDeath;
+        }
     }
 }

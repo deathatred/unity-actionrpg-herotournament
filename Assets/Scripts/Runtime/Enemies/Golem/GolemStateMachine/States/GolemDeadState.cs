@@ -1,9 +1,14 @@
+using Assets.Scripts.Runtime.Enemies.EnemyBase.EnemyBaseStateMachine;
+using Assets.Scripts.Runtime.Enemies.EnemyBase.EnemyBaseStateMachine.BaseStates;
 using UnityEngine;
 
-public class GolemDeadState : EnemyDeadStateBase
+namespace Assets.Scripts.Runtime.Enemies.Golem.GolemStateMachine.States
 {
-    public GolemDeadState(EnemyStateMachine fsm) : base(fsm)
+    public class GolemDeadState : EnemyDeadStateBase
     {
+        public GolemDeadState(EnemyStateMachine fsm) : base(fsm)
+        {
+        }
+
     }
-    
 }

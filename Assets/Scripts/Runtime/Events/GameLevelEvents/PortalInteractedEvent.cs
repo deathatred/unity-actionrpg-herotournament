@@ -1,7 +1,10 @@
 using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class PortalInteractedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events.GameLevelEvents
 {
-    
+    public class PortalInteractedEvent : GameEventBase
+    {
+
+    }
 }

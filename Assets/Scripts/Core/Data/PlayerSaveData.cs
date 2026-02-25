@@ -1,4 +1,5 @@
 using Assets.Scripts.Core.Enums;
+using Assets.Scripts.Runtime.SpellsContext;
 using NUnit.Framework;
 using System;
 using UnityEngine;

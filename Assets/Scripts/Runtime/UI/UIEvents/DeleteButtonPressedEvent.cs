@@ -1,12 +1,16 @@
 using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.Items;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 
-public class DeleteButtonPressedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.UI.UIEvents
 {
-    public ItemInstance Item { get ; private set; }
-    public DeleteButtonPressedEvent(ItemInstance item)
+    public class DeleteButtonPressedEvent : GameEventBase
     {
-        Item = item;
+        public ItemInstance Item { get; private set; }
+        public DeleteButtonPressedEvent(ItemInstance item)
+        {
+            Item = item;
+        }
     }
 }

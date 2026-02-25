@@ -3,11 +3,14 @@ using Assets.Scripts.Core.Pools;
 using UnityEngine;
 using Zenject;
 
-public class SystemInstaller : MonoInstaller
-{  
-    public override void InstallBindings()
+namespace Assets.Scripts.Runtime.DI.MonoInstallers
+{
+    public class SystemInstaller : MonoInstaller
     {
-        Container.Bind<EventBus>().AsSingle().NonLazy();     
-        Container.Bind<ProjectilePool>().FromComponentInHierarchy().AsSingle().NonLazy();     
+        public override void InstallBindings()
+        {
+            Container.Bind<EventBus>().AsSingle().NonLazy();
+            Container.Bind<ProjectilePool>().FromComponentInHierarchy().AsSingle().NonLazy();
+        }
     }
 }

@@ -1,5 +1,9 @@
+using Assets.Scripts.Runtime.Enemies.EnemyBase;
 using UnityEngine;
 
-public class GolemController : EnemyControllerBase
+namespace Assets.Scripts.Runtime.Enemies.Golem
 {
+    public class GolemController : EnemyControllerBase
+    {
+    }
 }

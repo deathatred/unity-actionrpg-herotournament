@@ -1,27 +1,32 @@
 using Assets.Scripts.Core.Enums;
+using Assets.Scripts.Runtime.Player;
+using Assets.Scripts.Runtime.SOScripts.SpellSOs;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Talent Tree/Effects/Stat Bonus")]
-public class StatBonusEffect : PassiveEffect
+namespace Assets.Scripts.Runtime.SOScripts.PassiveEffectsSO
 {
-    public int StrengthBonus;
-    public int AgilityBonus;
-    public int IntellectBonus;
-    public int SpellPowerBonus;
-
-    public override void Apply(PlayerStats stats)
+    [CreateAssetMenu(menuName = "Talent Tree/Effects/Stat Bonus")]
+    public class StatBonusEffect : PassiveEffect
     {
-        stats.ChangeOutsideStat(StatType.Strength,StrengthBonus);
-        stats.ChangeOutsideStat(StatType.Agility,AgilityBonus);
-        stats.ChangeOutsideStat(StatType.Intellect, IntellectBonus);
-        stats.ChangeOutsideStat(StatType.SpellPower, SpellPowerBonus);
-    }
+        public int StrengthBonus;
+        public int AgilityBonus;
+        public int IntellectBonus;
+        public int SpellPowerBonus;
 
-    public override void Remove(PlayerStats stats)
-    {
-        stats.ChangeOutsideStat(StatType.Strength, -StrengthBonus);
-        stats.ChangeOutsideStat(StatType.Agility, -AgilityBonus);
-        stats.ChangeOutsideStat(StatType.Intellect, -IntellectBonus);
-        stats.ChangeOutsideStat(StatType.SpellPower, -SpellPowerBonus);
+        public override void Apply(PlayerStats stats)
+        {
+            stats.ChangeOutsideStat(StatType.Strength, StrengthBonus);
+            stats.ChangeOutsideStat(StatType.Agility, AgilityBonus);
+            stats.ChangeOutsideStat(StatType.Intellect, IntellectBonus);
+            stats.ChangeOutsideStat(StatType.SpellPower, SpellPowerBonus);
+        }
+
+        public override void Remove(PlayerStats stats)
+        {
+            stats.ChangeOutsideStat(StatType.Strength, -StrengthBonus);
+            stats.ChangeOutsideStat(StatType.Agility, -AgilityBonus);
+            stats.ChangeOutsideStat(StatType.Intellect, -IntellectBonus);
+            stats.ChangeOutsideStat(StatType.SpellPower, -SpellPowerBonus);
+        }
     }
 }

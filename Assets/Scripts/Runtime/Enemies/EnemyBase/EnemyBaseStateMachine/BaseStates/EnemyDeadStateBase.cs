@@ -1,28 +1,31 @@
 using UnityEngine;
 
-public class EnemyDeadStateBase : IEnemyState
+namespace Assets.Scripts.Runtime.Enemies.EnemyBase.EnemyBaseStateMachine.BaseStates
 {
-    public EnemyStateMachine EnemyFsm => _fsm;
-    private EnemyStateMachine _fsm;
-    public EnemyDeadStateBase(EnemyStateMachine fsm)
+    public class EnemyDeadStateBase : IEnemyState
     {
-        _fsm = fsm;
-    }
-
-    public void Enter()
-    {
-        if (_fsm == null)
+        public EnemyStateMachine EnemyFsm => _fsm;
+        private EnemyStateMachine _fsm;
+        public EnemyDeadStateBase(EnemyStateMachine fsm)
         {
-            return;
+            _fsm = fsm;
         }
-        GameObject.Destroy(_fsm.gameObject, 5f);
-    }
 
-    public void Exit()
-    {
-    }
+        public void Enter()
+        {
+            if (_fsm == null)
+            {
+                return;
+            }
+            Object.Destroy(_fsm.gameObject, 5f);
+        }
 
-    public void Update()
-    {
+        public void Exit()
+        {
+        }
+
+        public void Update()
+        {
+        }
     }
 }

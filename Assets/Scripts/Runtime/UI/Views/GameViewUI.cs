@@ -1,5 +1,12 @@
 ﻿using Assets.Scripts.Core.Enums;
 using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.Events;
+using Assets.Scripts.Runtime.Events.GameLevelEvents;
+using Assets.Scripts.Runtime.Events.PlayerLevelSystemEvents;
+using Assets.Scripts.Runtime.Events.PlayerSpellCastEvent;
+using Assets.Scripts.Runtime.Events.StatsEvents.NewOnes;
+using Assets.Scripts.Runtime.UI;
+using Assets.Scripts.Runtime.UI.UIEvents;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;

@@ -2,34 +2,36 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-public class LoadingViewUI : MonoBehaviour
+namespace Assets.Scripts.Runtime.UI.Views
 {
-    [SerializeField] private TextMeshProUGUI _loadingText;
-
-    private Tween _loadingTween;
-
-    private void OnEnable()
+    public class LoadingViewUI : MonoBehaviour
     {
-        AnimateLoadingText();
-    
-    }
+        [SerializeField] private TextMeshProUGUI _loadingText;
 
-    private void OnDisable()
-    {
-        _loadingTween?.Kill();
-    }
+        private Tween _loadingTween;
 
-    private void AnimateLoadingText()
-    {
-        string baseText = "Loading";
-        int dotCount = 0;
-
-        _loadingTween = DOVirtual.DelayedCall(0.4f, () =>
+        private void OnEnable()
         {
-            dotCount = (dotCount + 1) % 4;
-            _loadingText.text = baseText + new string('.', dotCount);
-        })
-        .SetLoops(-1, LoopType.Restart);
+            AnimateLoadingText();
+
+        }
+
+        private void OnDisable()
+        {
+            _loadingTween?.Kill();
+        }
+
+        private void AnimateLoadingText()
+        {
+            string baseText = "Loading";
+            int dotCount = 0;
+
+            _loadingTween = DOVirtual.DelayedCall(0.4f, () =>
+            {
+                dotCount = (dotCount + 1) % 4;
+                _loadingText.text = baseText + new string('.', dotCount);
+            })
+            .SetLoops(-1, LoopType.Restart);
+        }
     }
 }
-

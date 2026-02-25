@@ -6,65 +6,68 @@ using Firebase.Database;
 using System;
 using System.Threading;
 
-public class FirebaseBootstrap
+namespace Assets.Scripts.Runtime.Firebase
 {
-    public const string DATABASE_URL = "https://herotournament-default-rtdb.europe-west1.firebasedatabase.app/";
-    public static string Uid {  get; private set; }
-    public static DatabaseReference Db {  get; private set; }
-    public static bool IsReady { get; private set; }
-
-
-
-    public async UniTask Init(Action onReady = null, bool force = false, CancellationTokenSource cts = default)
+    public class FirebaseBootstrap
     {
-        if (IsReady && !force)
-        {
-            onReady?.Invoke();
-            return;
-        }
-        IsReady = false;
+        public const string DATABASE_URL = "https://herotournament-default-rtdb.europe-west1.firebasedatabase.app/";
+        public static string Uid { get; private set; }
+        public static DatabaseReference Db { get; private set; }
+        public static bool IsReady { get; private set; }
 
-        try
+
+
+        public async UniTask Init(Action onReady = null, bool force = false, CancellationTokenSource cts = default)
         {
-            var deps = await FirebaseApp.CheckAndFixDependenciesAsync();
-            if (deps != DependencyStatus.Available)
+            if (IsReady && !force)
             {
-                Debug.LogError($"Fb deps: {deps}");
+                onReady?.Invoke();
+                return;
             }
+            IsReady = false;
 
-            var app = FirebaseApp.DefaultInstance;
-            var auth = FirebaseAuth.DefaultInstance;
-
-            if (auth.CurrentUser == null)
+            try
             {
-                var signIn = auth.SignInAnonymouslyAsync();
-                if (cts != null)
+                var deps = await FirebaseApp.CheckAndFixDependenciesAsync();
+                if (deps != DependencyStatus.Available)
                 {
-                    await signIn.AsUniTask().AttachExternalCancellation(cts.Token);
+                    Debug.LogError($"Fb deps: {deps}");
                 }
-                else
+
+                var app = FirebaseApp.DefaultInstance;
+                var auth = FirebaseAuth.DefaultInstance;
+
+                if (auth.CurrentUser == null)
                 {
-                    await signIn.AsUniTask();
+                    var signIn = auth.SignInAnonymouslyAsync();
+                    if (cts != null)
+                    {
+                        await signIn.AsUniTask().AttachExternalCancellation(cts.Token);
+                    }
+                    else
+                    {
+                        await signIn.AsUniTask();
+                    }
+                    if (signIn.IsFaulted) return;
                 }
-                if (signIn.IsFaulted) return;
+                Uid = auth.CurrentUser.UserId;
+
+                var db = FirebaseDatabase.GetInstance(app, DATABASE_URL);
+                db.SetPersistenceEnabled(false);
+                Db = db.RootReference;
+
+                IsReady = true;
+                onReady?.Invoke();
+                Debug.Log($"FB Ready, uid = {Uid}");
             }
-            Uid = auth.CurrentUser.UserId;
-
-            var db = FirebaseDatabase.GetInstance(app, DATABASE_URL);
-            db.SetPersistenceEnabled(false);
-            Db = db.RootReference;
-
-            IsReady = true;
-            onReady?.Invoke();
-            Debug.Log($"FB Ready, uid = {Uid}");
-        }
-        catch (OperationCanceledException)
-        {
-            Debug.LogError("FB InitAsync cancelled");
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"FB InitAsync error {ex}");
+            catch (OperationCanceledException)
+            {
+                Debug.LogError("FB InitAsync cancelled");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"FB InitAsync error {ex}");
+            }
         }
     }
 }

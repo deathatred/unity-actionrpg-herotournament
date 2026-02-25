@@ -1,11 +1,15 @@
 using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.SOScripts.ClassSO;
 using UnityEngine;
 
-public class PlayerSpecChosenEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events
 {
-    public ClassSpecSO Spec;
-    public PlayerSpecChosenEvent(ClassSpecSO spec)
+    public class PlayerSpecChosenEvent : GameEventBase
     {
-       Spec = spec;
+        public ClassSpecSO Spec;
+        public PlayerSpecChosenEvent(ClassSpecSO spec)
+        {
+            Spec = spec;
+        }
     }
 }

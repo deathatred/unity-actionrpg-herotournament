@@ -1,3 +1,5 @@
+using Assets.Scripts.Runtime.Enums;
+using Assets.Scripts.Runtime.Player.FSM;
 using UnityEngine;
 
 namespace Assets.Scripts.Core.Interfaces

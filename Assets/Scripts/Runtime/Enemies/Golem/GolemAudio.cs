@@ -1,9 +1,14 @@
+using Assets.Scripts.Runtime.BaseLogic;
+using Assets.Scripts.Runtime.SOScripts.EnemiesSO.Golem;
 using UnityEngine;
 
-public class GolemAudio : CharacterAudioBase<GolemSoundsSO>
+namespace Assets.Scripts.Runtime.Enemies.Golem
 {
-    public void PlaySmashSound()
+    public class GolemAudio : CharacterAudioBase<GolemSoundsSO>
     {
-        _audioManager.Play3D(_characterSoundsSO.SmashImpactSound, transform, 0.1f);
+        public void PlaySmashSound()
+        {
+            _audioManager.Play3D(_characterSoundsSO.SmashImpactSound, transform, 0.1f);
+        }
     }
 }

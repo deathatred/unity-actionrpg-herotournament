@@ -1,7 +1,10 @@
+using Assets.Scripts.Runtime.Enemies.EnemyBase;
 using UnityEngine;
 using Zenject;
 
-
-public class MimicController : EnemyControllerBase
+namespace Assets.Scripts.Runtime.Enemies.Mimic
 {
+    public class MimicController : EnemyControllerBase
+    {
+    }
 }

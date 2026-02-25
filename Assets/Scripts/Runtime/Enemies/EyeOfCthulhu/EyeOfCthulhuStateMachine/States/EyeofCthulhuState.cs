@@ -1,12 +1,15 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public enum EyeOfCthulhuState
+namespace Assets.Scripts.Runtime.Enemies.EyeOfCthulhu.EyeOfCthulhuStateMachine.States
 {
-    Patroling,
-    Attacking,
-    Idling,
-    Alert,
-    Dead
+    [Serializable]
+    public enum EyeOfCthulhuState
+    {
+        Patroling,
+        Attacking,
+        Idling,
+        Alert,
+        Dead
+    }
 }

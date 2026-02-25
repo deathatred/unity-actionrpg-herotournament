@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public enum MimicState 
+namespace Assets.Scripts.Runtime.Enemies.Mimic.MimicStateMachine.States
 {
-   Hidden,
-   Patroling,
-   Attacking,
-   Dead
+    public enum MimicState
+    {
+        Hidden,
+        Patroling,
+        Attacking,
+        Dead
+    }
 }

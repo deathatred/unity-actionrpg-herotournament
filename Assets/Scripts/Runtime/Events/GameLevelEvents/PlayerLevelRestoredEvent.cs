@@ -3,19 +3,21 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class PlayerLevelRestoredEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events.GameLevelEvents
 {
-    public int RestoredLevel;
-    public int RestoredLevelPoints;
-    public int CurrentXp;
-    public int XpToNextLevel;
-    public PlayerLevelRestoredEvent(int level, int levelPoints,int currentXp, int xpToNextLevel)
+    public class PlayerLevelRestoredEvent : GameEventBase
     {
-        RestoredLevel = level;
-        RestoredLevelPoints  = levelPoints;
-        CurrentXp = currentXp;
-        XpToNextLevel = xpToNextLevel;
-    } 
-    
-}
+        public int RestoredLevel;
+        public int RestoredLevelPoints;
+        public int CurrentXp;
+        public int XpToNextLevel;
+        public PlayerLevelRestoredEvent(int level, int levelPoints, int currentXp, int xpToNextLevel)
+        {
+            RestoredLevel = level;
+            RestoredLevelPoints = levelPoints;
+            CurrentXp = currentXp;
+            XpToNextLevel = xpToNextLevel;
+        }
 
+    }
+}

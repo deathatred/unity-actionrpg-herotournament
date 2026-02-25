@@ -1,6 +1,8 @@
-﻿using Assets.Scripts.Core.General;
+﻿using Assets.Scripts.Core.Enums;
+using Assets.Scripts.Core.General;
 using Assets.Scripts.Core.Observer;
 using Assets.Scripts.Core.Structs;
+using Assets.Scripts.Runtime.Events.StatsEvents.NewOnes;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System.Threading;
@@ -30,12 +32,12 @@ namespace Assets.Scripts.Runtime.Player
         }
         private void OnEnable()
         {
-            _eventBus.Subscribe<MoveSpeedChangedEvent>(OnMoveSpeedChanged);
+            _eventBus.Subscribe<StatChangedEvent>(OnMoveSpeedChanged);
             _eventBus.Subscribe<LevelLoadedEvent>(OnLevelLoaded);
         }
         private void OnDisable()
         {
-            _eventBus.Unsubscribe<MoveSpeedChangedEvent>(OnMoveSpeedChanged);
+            _eventBus.Unsubscribe<StatChangedEvent>(OnMoveSpeedChanged);
             _eventBus.Unsubscribe<LevelLoadedEvent>(OnLevelLoaded);
         }
         private void OnDestroy()
@@ -62,9 +64,12 @@ namespace Assets.Scripts.Runtime.Player
         {
             return _rb;
         }
-        private void OnMoveSpeedChanged(MoveSpeedChangedEvent e)
+        private void OnMoveSpeedChanged(StatChangedEvent e)
         {
-            _moveSpeed = e.Amount;
+            if (e.StatType == StatType.MoveSpeed)
+            {
+                _moveSpeed = e.Amount;
+            }
         }
         private void OnLevelLoaded(LevelLoadedEvent e)
         {

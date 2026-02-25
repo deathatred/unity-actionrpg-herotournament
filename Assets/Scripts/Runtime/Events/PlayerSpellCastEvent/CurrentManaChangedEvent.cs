@@ -1,11 +1,14 @@
 using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class CurrentManaChangedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events.PlayerSpellCastEvent
 {
-    public int Amount { get; private set; }
-    public CurrentManaChangedEvent(int amount)
+    public class CurrentManaChangedEvent : GameEventBase
     {
-        Amount = amount;
+        public int Amount { get; private set; }
+        public CurrentManaChangedEvent(int amount)
+        {
+            Amount = amount;
+        }
     }
 }

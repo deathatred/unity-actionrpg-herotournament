@@ -1,11 +1,14 @@
 using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class DefaultModeStartedEvent : GameEventBase 
+namespace Assets.Scripts.Runtime.Events.GameLevelEvents
 {
-    public int AmountOfEnemies;
-    public DefaultModeStartedEvent(int amountOfEnemies)
+    public class DefaultModeStartedEvent : GameEventBase
     {
-        AmountOfEnemies = amountOfEnemies;
+        public int AmountOfEnemies;
+        public DefaultModeStartedEvent(int amountOfEnemies)
+        {
+            AmountOfEnemies = amountOfEnemies;
+        }
     }
 }

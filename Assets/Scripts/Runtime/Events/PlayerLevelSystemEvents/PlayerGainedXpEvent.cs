@@ -1,13 +1,16 @@
 using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class PlayerGainedXpEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events.PlayerLevelSystemEvents
 {
-    public int CurrentXp { get; private set; }
-    public int MaxXp { get; private set; }
-    public PlayerGainedXpEvent(int currentXp, int maxXp)
+    public class PlayerGainedXpEvent : GameEventBase
     {
-        CurrentXp = currentXp;
-        MaxXp = maxXp;
+        public int CurrentXp { get; private set; }
+        public int MaxXp { get; private set; }
+        public PlayerGainedXpEvent(int currentXp, int maxXp)
+        {
+            CurrentXp = currentXp;
+            MaxXp = maxXp;
+        }
     }
 }

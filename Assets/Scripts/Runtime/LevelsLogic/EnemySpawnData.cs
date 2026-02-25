@@ -1,11 +1,14 @@
+using Assets.Scripts.Runtime.SOScripts.EnemiesSO;
 using System;
 using UnityEngine;
 
-
-[Serializable]
-public class EnemySpawnData
+namespace Assets.Scripts.Runtime.LevelsLogic
 {
-    public EnemyDataSO EnemyData;
-    public Transform SpawnPoint;
-    public int SpawnIndex;
+    [Serializable]
+    public class EnemySpawnData
+    {
+        public EnemyDataSO EnemyData;
+        public Transform SpawnPoint;
+        public int SpawnIndex;
+    }
 }

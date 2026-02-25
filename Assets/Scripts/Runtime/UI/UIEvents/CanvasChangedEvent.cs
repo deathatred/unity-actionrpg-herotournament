@@ -1,11 +1,14 @@
 using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class CanvasChangedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.UI.UIEvents
 {
-    public int CanvasId { get; private set;}
-    public CanvasChangedEvent(int canvasId)
+    public class CanvasChangedEvent : GameEventBase
     {
-        CanvasId = canvasId;
+        public int CanvasId { get; private set; }
+        public CanvasChangedEvent(int canvasId)
+        {
+            CanvasId = canvasId;
+        }
     }
 }

@@ -1,50 +1,54 @@
 using Assets.Scripts.Core.Enums;
 using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.UI.UIEvents;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class CharacterCreationViewUI : MonoBehaviour
+namespace Assets.Scripts.Runtime.UI.Views
 {
-    [SerializeField] private Button _wizardClassButton;
-    [SerializeField] private Button _knightClassButton;
- 
+    public class CharacterCreationViewUI : MonoBehaviour
+    {
+        [SerializeField] private Button _wizardClassButton;
+        [SerializeField] private Button _knightClassButton;
 
-    private EventBus _eventBus;
 
-    [Inject]
-    private void Construct(EventBus eventBus)
-    {
-        _eventBus = eventBus;
-    }
-    private void OnEnable()
-    {
-        BindButtons();
-    }
-    private void OnDisable()
-    {
-        UnbindButtons();
-    }
+        private EventBus _eventBus;
 
-    private void BindButtons()
-    {
-        _wizardClassButton.onClick.AddListener(SelectWizardClass);
-        _knightClassButton.onClick.AddListener(SelectKnightClass);
-    }
+        [Inject]
+        private void Construct(EventBus eventBus)
+        {
+            _eventBus = eventBus;
+        }
+        private void OnEnable()
+        {
+            BindButtons();
+        }
+        private void OnDisable()
+        {
+            UnbindButtons();
+        }
 
-    private void UnbindButtons()
-    {
-        _wizardClassButton.onClick.RemoveListener(SelectWizardClass);
-        _knightClassButton.onClick.RemoveListener(SelectKnightClass);
-    }
+        private void BindButtons()
+        {
+            _wizardClassButton.onClick.AddListener(SelectWizardClass);
+            _knightClassButton.onClick.AddListener(SelectKnightClass);
+        }
 
-    private void SelectWizardClass()
-    {
-        _eventBus.Publish(new ClassSelectedEvent(PlayerClass.Wizard));
+        private void UnbindButtons()
+        {
+            _wizardClassButton.onClick.RemoveListener(SelectWizardClass);
+            _knightClassButton.onClick.RemoveListener(SelectKnightClass);
+        }
 
-    }
-    private void SelectKnightClass()
-    {
-        _eventBus.Publish(new ClassSelectedEvent(PlayerClass.Knight)); 
+        private void SelectWizardClass()
+        {
+            _eventBus.Publish(new ClassSelectedEvent(PlayerClass.Wizard));
+
+        }
+        private void SelectKnightClass()
+        {
+            _eventBus.Publish(new ClassSelectedEvent(PlayerClass.Knight));
+        }
     }
 }

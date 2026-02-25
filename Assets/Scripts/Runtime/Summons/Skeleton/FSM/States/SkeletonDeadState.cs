@@ -1,28 +1,31 @@
 using UnityEngine;
 
-public class SkeletonDeadState : ISummonState
+namespace Assets.Scripts.Runtime.Summons.Skeleton.FSM.States
 {
-    private SkeletonAnimation _animation;
-    private SkeletonController _controller;
-    public SkeletonDeadState(SkeletonAnimation animation, SkeletonController controller)
+    public class SkeletonDeadState : ISummonState
     {
-        _animation = animation;
-        _controller = controller;
-    }
+        private SkeletonAnimation _animation;
+        private SkeletonController _controller;
+        public SkeletonDeadState(SkeletonAnimation animation, SkeletonController controller)
+        {
+            _animation = animation;
+            _controller = controller;
+        }
 
-    public void Enter()
-    {
-        _controller.ResetPath();        
-        _animation.SetIsDeadTrue();
-    }
+        public void Enter()
+        {
+            _controller.ResetPath();
+            _animation.SetIsDeadTrue();
+        }
 
-    public void Exit()
-    {
-        
-    }
+        public void Exit()
+        {
 
-    public void Update()
-    {
+        }
 
+        public void Update()
+        {
+
+        }
     }
 }

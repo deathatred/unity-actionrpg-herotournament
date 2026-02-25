@@ -1,4 +1,6 @@
 using Assets.Scripts.Core.Interfaces;
+using Assets.Scripts.Runtime.Enums;
+using Assets.Scripts.Runtime.Player.FSM;
 using UnityEngine;
 using Zenject;
 

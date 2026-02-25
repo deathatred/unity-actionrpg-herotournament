@@ -1,7 +1,10 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EOCSounds", menuName = "EnemiesSounds/EyeOfCthulhu")]
-public class EyeOfCthulhuSoundsSO : CharacterSoundsSO
+namespace Assets.Scripts.Runtime.SOScripts.EnemiesSO.EyeOfCthulhu
 {
-    public AudioClip HoverSound;
+    [CreateAssetMenu(fileName = "EOCSounds", menuName = "EnemiesSounds/EyeOfCthulhu")]
+    public class EyeOfCthulhuSoundsSO : CharacterSoundsSO
+    {
+        public AudioClip HoverSound;
+    }
 }

@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class WizardAnimationRelay : PlayerAnimationRelayBase
+namespace Assets.Scripts.Runtime.Player.UniqueClassLogic.Wizard
 {
-  
+    public class WizardAnimationRelay : PlayerAnimationRelayBase
+    {
+
+    }
 }

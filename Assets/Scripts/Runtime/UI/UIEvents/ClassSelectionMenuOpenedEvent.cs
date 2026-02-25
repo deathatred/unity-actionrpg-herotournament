@@ -1,7 +1,10 @@
 using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class ClassSelectionMenuOpenedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.UI.UIEvents
 {
-  
+    public class ClassSelectionMenuOpenedEvent : GameEventBase
+    {
+
+    }
 }

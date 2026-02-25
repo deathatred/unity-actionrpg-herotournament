@@ -1,7 +1,10 @@
 using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class PlayButtonPressedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.UI.UIEvents
 {
-   
+    public class PlayButtonPressedEvent : GameEventBase
+    {
+
+    }
 }

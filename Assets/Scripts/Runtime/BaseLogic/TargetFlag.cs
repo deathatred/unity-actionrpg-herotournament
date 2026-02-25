@@ -1,16 +1,18 @@
 using Assets.Scripts.Core.Interfaces;
 using UnityEngine;
 
-public class TargetFlag : MonoBehaviour, ITargetable
+namespace Assets.Scripts.Runtime.BaseLogic
 {
-    [SerializeField] Transform _targetTransform;
-    private IHealthSystem _healthSystem;
-    public Transform Transform => _targetTransform;
-    public IHealthSystem HealthSystem => _healthSystem;
-
-    private void Awake()
+    public class TargetFlag : MonoBehaviour, ITargetable
     {
-        _healthSystem = GetComponent<IHealthSystem>();
+        [SerializeField] Transform _targetTransform;
+        private IHealthSystem _healthSystem;
+        public Transform Transform => _targetTransform;
+        public IHealthSystem HealthSystem => _healthSystem;
+
+        private void Awake()
+        {
+            _healthSystem = GetComponent<IHealthSystem>();
+        }
     }
 }
-   

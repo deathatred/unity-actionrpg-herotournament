@@ -3,6 +3,9 @@ using UnityEngine.Pool;
 using System.Collections.Generic;
 using Assets.Scripts.Core.Enums;
 using Assets.Scripts.Core.General;
+using Assets.Scripts.Runtime.Managers;
+using Assets.Scripts.Runtime.Projectiles;
+using Assets.Scripts.Runtime.SOScripts;
 
 namespace Assets.Scripts.Core.Pools
 {
