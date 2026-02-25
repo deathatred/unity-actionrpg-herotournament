@@ -10,12 +10,12 @@ namespace Assets.Scripts.Runtime.SOScripts.SpellSOs.Spells
     [CreateAssetMenu(fileName = "SelfIgnite", menuName = "Wizard Spells/SelfIgnite")]
     public class SelfIgniteSO : SpellSO
     {
-        public int SpellPowerBonus;
-        public float BonusDuration;
+        [SerializeField] private int _spellPowerBonus;
+        [SerializeField] private float _bonusDuration;
         public override void Activate(PlayerSpellContext ctx)
         {
             ctx.Audio.PlaySpellAudio(this);
-            ctx.Stats.ApplyTemporaryBonusAsync(GlobalData.SELF_IGNITE_EFFECT, StatType.SpellPower, SpellPowerBonus, BonusDuration).Forget();
+            ctx.Stats.ApplyTemporaryBonusAsync(GlobalData.SELF_IGNITE_EFFECT, StatType.SpellPower, _spellPowerBonus, _bonusDuration).Forget();
         }
     }
 }

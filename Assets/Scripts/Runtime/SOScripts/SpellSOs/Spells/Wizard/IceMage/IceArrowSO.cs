@@ -9,10 +9,10 @@ namespace Assets.Scripts.Runtime.SOScripts.SpellSOs.Spells
     [CreateAssetMenu(fileName = "IceArrow", menuName = "Wizard Spells/IceArrow")]
     public class IceArrowSO : SpellSO
     {
-        public ProjectileSO IceArrow;
+        [SerializeField] private ProjectileSO _iceArrow;
         public override void Activate(PlayerSpellContext ctx)
         {
-            ctx.SpellCasting.ExecuteProjectileSpellAsync(IceArrow, ctx.EnemyTransform).Forget();
+            ctx.SpellCasting.ExecuteProjectileSpellAsync(_iceArrow, ctx.EnemyTransform).Forget();
             ctx.Audio.PlaySpellAudio(this);
         }
     }

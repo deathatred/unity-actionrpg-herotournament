@@ -22,5 +22,5 @@ MonoBehaviour:
   Range: 0
   CanBeCastWhileMoving: 1
   SoundEffect: {fileID: 8300000, guid: 4e858a8d842bc2b498835989a1d3451e, type: 3}
-  SpellPowerBonus: 50
-  BonusDuration: 15
+  _spellPowerBonus: 50
+  _bonusDuration: 15
