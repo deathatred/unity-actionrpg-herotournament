@@ -1,10 +1,14 @@
+using Assets.Scripts.Runtime.SOScripts;
 using System;
 using UnityEngine;
 
-[Serializable]
-public class ItemSpawnData
+namespace Assets.Scripts.Runtime.LevelsLogic
 {
-    public InventoryItemSO Item;
-    public Transform SpawnPoint;
-    public string SpawnIndex;
+    [Serializable]
+    public class ItemSpawnData
+    {
+        public InventoryItemSO Item;
+        public Transform SpawnPoint;
+        public string SpawnIndex;
+    }
 }

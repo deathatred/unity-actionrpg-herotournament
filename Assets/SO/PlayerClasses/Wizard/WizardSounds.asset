@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7495746f38b71fb4894f4dc9e2df28d0, type: 3}
+  m_Name: WizardSounds
+  m_EditorClassIdentifier: 
+  PreattackSounds:
+  - {fileID: 8300000, guid: 696b0a0d74aa10e40b4273b321075537, type: 3}
+  - {fileID: 8300000, guid: ebc307b6d0dc9044783a5f2517ddf7c7, type: 3}
+  - {fileID: 8300000, guid: 42d29796a4aa0b04cbb7f2af5224eb75, type: 3}
+  AttackSounds:
+  - {fileID: 8300000, guid: 22d7d635a9b4ec046a237b369af66439, type: 3}
+  - {fileID: 8300000, guid: 9b3b795d2539ffa47bd8439449b39446, type: 3}
+  - {fileID: 8300000, guid: 42d29796a4aa0b04cbb7f2af5224eb75, type: 3}
+  SpecialAttackSound: {fileID: 0}
+  StepSounds:
+  - {fileID: 8300000, guid: 3a763678877e40949805b01d5536714e, type: 3}
+  - {fileID: 8300000, guid: d303af002593ea144b1e64aa353d7d90, type: 3}
+  - {fileID: 8300000, guid: 4c8fc3b7fd248754e92d952ea0177843, type: 3}
+  - {fileID: 8300000, guid: 51fff41b734c2c94eae0c79c43058797, type: 3}
+  - {fileID: 8300000, guid: 869034d381f0ec641ae87ee114c84934, type: 3}
+  DeathSound: {fileID: 0}

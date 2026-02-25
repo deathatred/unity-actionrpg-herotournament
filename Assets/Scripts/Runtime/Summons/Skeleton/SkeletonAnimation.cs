@@ -1,11 +1,15 @@
+using Assets.Scripts.Runtime.Summons.SummonsBase;
 using UnityEngine;
 
-public class SkeletonAnimation : SummonAnimationBase
+namespace Assets.Scripts.Runtime.Summons.Skeleton
 {
-    private static int AttackModifierHash = Animator.StringToHash("AttackModifier");
-
-    public void SetAttackModifier(int modifier)
+    public class SkeletonAnimation : SummonAnimationBase
     {
-        _animator.SetInteger(AttackModifierHash, modifier);
+        private static int AttackModifierHash = Animator.StringToHash("AttackModifier");
+
+        public void SetAttackModifier(int modifier)
+        {
+            _animator.SetInteger(AttackModifierHash, modifier);
+        }
     }
 }

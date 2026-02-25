@@ -19,6 +19,7 @@ MonoBehaviour:
   XpReward: 30
   ViewAngle: 100
   ViewDistance: 15
+  LeashRange: 30
   AttackRange: 10
   LoseSightTime: 5
   AttackCooldown: 3

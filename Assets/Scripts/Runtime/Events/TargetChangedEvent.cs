@@ -1,6 +1,10 @@
+using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class TargetChangedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events
 {
-    
+    public class TargetChangedEvent : GameEventBase
+    {
+
+    }
 }

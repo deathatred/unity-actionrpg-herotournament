@@ -1,12 +1,15 @@
+using Assets.Scripts.Runtime.SOScripts.SummonsSO;
 using UnityEngine;
 
-
-public class SummonData : MonoBehaviour
+namespace Assets.Scripts.Runtime.Summons
 {
-    [SerializeField] private SummonDataSO _data;
-
-    public SummonDataSO GetSummonData()
+    public class SummonData : MonoBehaviour
     {
-        return _data;
+        [SerializeField] private SummonDataSO _data;
+
+        public SummonDataSO GetSummonData()
+        {
+            return _data;
+        }
     }
 }

@@ -1,16 +1,20 @@
+using Assets.Scripts.Core.Interfaces;
 using UnityEngine;
 
-public class PointMoveTarget : IMoveTarget
+namespace Assets.Scripts.Runtime.MoveTargets
 {
-    private readonly Vector3 _point;
-
-    public PointMoveTarget(Vector3 point)
+    public class PointMoveTarget : IMoveTarget
     {
-        _point = point;
-    }
+        private readonly Vector3 _point;
 
-    public Vector3 GetPosition()
-    {
-        return _point;
+        public PointMoveTarget(Vector3 point)
+        {
+            _point = point;
+        }
+
+        public Vector3 GetPosition()
+        {
+            return _point;
+        }
     }
 }

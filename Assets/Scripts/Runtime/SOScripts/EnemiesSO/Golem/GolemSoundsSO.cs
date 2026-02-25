@@ -1,7 +1,10 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GolemSounds", menuName = "EnemiesSounds/Golem")]
-public class GolemSoundsSO : CharacterSoundsSO
+namespace Assets.Scripts.Runtime.SOScripts.EnemiesSO.Golem
 {
-    public AudioClip SmashImpactSound;
+    [CreateAssetMenu(fileName = "GolemSounds", menuName = "EnemiesSounds/Golem")]
+    public class GolemSoundsSO : CharacterSoundsSO
+    {
+        public AudioClip SmashImpactSound;
+    }
 }

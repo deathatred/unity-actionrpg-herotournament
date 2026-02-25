@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public enum UnitType
+namespace Assets.Scripts.Core.Enums
 {
-    Enemy,
-    Friendly
+    public enum UnitType
+    {
+        Enemy,
+        Friendly
+    }
 }

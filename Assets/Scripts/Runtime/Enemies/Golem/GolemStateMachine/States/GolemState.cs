@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public enum GolemState
+namespace Assets.Scripts.Runtime.Enemies.Golem.GolemStateMachine.States
 {
-   Idle,
-   Patroling,
-   Moving,
-   Attacking,
-   GroundSmash,
-   Dead
+    public enum GolemState
+    {
+        Idle,
+        Patroling,
+        Moving,
+        Attacking,
+        GroundSmash,
+        Dead
+    }
 }

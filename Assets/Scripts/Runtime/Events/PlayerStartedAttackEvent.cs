@@ -1,6 +1,10 @@
+using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class PlayerStartedAttackEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events
 {
-   
+    public class PlayerStartedAttackEvent : GameEventBase
+    {
+
+    }
 }

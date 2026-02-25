@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public enum PlayerClass 
+namespace Assets.Scripts.Core.Enums
 {
-   Knight,
-   Mage
+    public enum PlayerClass
+    {
+        Knight,
+        Wizard
+    }
 }

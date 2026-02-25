@@ -1,22 +1,24 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class StateMachineBase<TState> : MonoBehaviour where TState : class, IState
+namespace Assets.Scripts.Runtime.BaseLogic
 {
-    public TState CurrentState { get; private set; }
-
-    protected virtual void Update()
+    public abstract class StateMachineBase<TState> : MonoBehaviour where TState : class, IState
     {
-        CurrentState?.Update();
-    }
+        public TState CurrentState { get; private set; }
 
-    public void ChangeState(TState newState)
-    {
-        if (CurrentState == newState) return;
+        protected virtual void Update()
+        {
+            CurrentState?.Update();
+        }
 
-        CurrentState?.Exit();
+        public void ChangeState(TState newState)
+        {
+            if (CurrentState == newState) return;
 
-        CurrentState = newState;
-        CurrentState.Enter();
+            CurrentState?.Exit();
+
+            CurrentState = newState;
+            CurrentState.Enter();
+        }
     }
 }

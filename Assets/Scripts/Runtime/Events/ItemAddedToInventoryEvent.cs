@@ -1,12 +1,17 @@
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.Items;
 using UnityEngine;
 
-public class ItemAddedToInventoryEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events
 {
-    public bool Stacked {  get; private set; }
-    public ItemInstance Item {  get; private set; }
-    public ItemAddedToInventoryEvent(bool stacked, ItemInstance item)
+    public class ItemAddedToInventoryEvent : GameEventBase
     {
-        Stacked = stacked;
-        Item = item;
+        public bool Stacked { get; private set; }
+        public ItemInstance Item { get; private set; }
+        public ItemAddedToInventoryEvent(bool stacked, ItemInstance item)
+        {
+            Stacked = stacked;
+            Item = item;
+        }
     }
 }

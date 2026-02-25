@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public static class RangeFinder
+namespace Assets.Scripts.Core.Utils
 {
-    public static bool IsClose(Transform player, Transform target, float stopRange)
+    public static class RangeFinder
     {
-        Vector3 dir = player.position - target.position;
-        dir.y = 0;
-        return dir.magnitude < stopRange;
+        public static bool IsClose(Transform player, Transform target, float stopRange)
+        {
+            Vector3 dir = player.position - target.position;
+            dir.y = 0;
+            return dir.magnitude < stopRange;
 
+        }
     }
 }

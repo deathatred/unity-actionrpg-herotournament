@@ -1,17 +1,21 @@
+using Assets.Scripts.Runtime.SOScripts;
 using UnityEngine;
 
-[System.Serializable]
-public class ItemInstance
+namespace Assets.Scripts.Runtime.Items
 {
-    public InventoryItemSO Data;
-    public int Amount = 1;
-    public int Durability;
-    public string SceneID;
-
-    public ItemInstance(InventoryItemSO so, string sceneID)
+    [System.Serializable]
+    public class ItemInstance
     {
-        Data = so;
-        Amount = 1;
-        SceneID = sceneID;
+        public InventoryItemSO Data;
+        public int Amount = 1;
+        public int Durability;
+        public string SceneID;
+
+        public ItemInstance(InventoryItemSO so, string sceneID)
+        {
+            Data = so;
+            Amount = 1;
+            SceneID = sceneID;
+        }
     }
 }

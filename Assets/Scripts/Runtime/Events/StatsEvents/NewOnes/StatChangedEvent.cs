@@ -1,12 +1,17 @@
+using Assets.Scripts.Core.Enums;
+using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class StatChangedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events.StatsEvents.NewOnes
 {
-    public StatType StatType;
-    public int Amount;
-    public StatChangedEvent(StatType statType, int amount)
+    public class StatChangedEvent : GameEventBase
     {
-        StatType = statType;
-        Amount = amount;
+        public StatType StatType;
+        public int Amount;
+        public StatChangedEvent(StatType statType, int amount)
+        {
+            StatType = statType;
+            Amount = amount;
+        }
     }
 }

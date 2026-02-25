@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public enum PlayerState
+namespace Assets.Scripts.Runtime.Enums
 {
-    Idle,
-    Moving,
-    Collecting,
-    Attacking,
-    SpellCasting,
-    MoveToSpellTarget,
-    Interacting
+    public enum PlayerState
+    {
+        Idle,
+        Moving,
+        Collecting,
+        Attacking,
+        SpellCasting,
+        MoveToSpellTarget,
+        Interacting
+    }
 }

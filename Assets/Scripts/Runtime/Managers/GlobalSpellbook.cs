@@ -1,44 +1,48 @@
+using Assets.Scripts.Runtime.SOScripts.SpellSOs;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlobalSpellbook : MonoBehaviour
+namespace Assets.Scripts.Runtime.Managers
 {
-    public static GlobalSpellbook Instance;
-    [SerializeField] private List<SpellSO> _allSpells;
+    public class GlobalSpellbook : MonoBehaviour
+    {
+        public static GlobalSpellbook Instance;
+        [SerializeField] private List<SpellSO> _allSpells;
 
-    private Dictionary<string, SpellSO> _spellDict;
-    private void Awake()
-    {
-        InitSingleton();
-        InitSpellDictionary();
-    }
-    private void InitSingleton() 
-    {
-        if (Instance != null && Instance != this)
+        private Dictionary<string, SpellSO> _spellDict;
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
+            InitSingleton();
+            InitSpellDictionary();
         }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-    private void InitSpellDictionary()
-    {
-        _spellDict = new Dictionary<string, SpellSO>();
-
-        foreach (var spell in _allSpells)
+        private void InitSingleton()
         {
-            if (!_spellDict.ContainsKey(spell.Name))
-                _spellDict.Add(spell.Name, spell);
-        }
-    }
-    public SpellSO GetSpellByName(string name)
-    {
-        if (_spellDict.TryGetValue(name, out var spell))
-            return spell;
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
 
-        Debug.LogWarning($"Spell {name} not found in general spellbook!");
-        return null;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        private void InitSpellDictionary()
+        {
+            _spellDict = new Dictionary<string, SpellSO>();
+
+            foreach (var spell in _allSpells)
+            {
+                if (!_spellDict.ContainsKey(spell.Name))
+                    _spellDict.Add(spell.Name, spell);
+            }
+        }
+        public SpellSO GetSpellByName(string name)
+        {
+            if (_spellDict.TryGetValue(name, out var spell))
+                return spell;
+
+            Debug.LogWarning($"Spell {name} not found in general spellbook!");
+            return null;
+        }
     }
 }

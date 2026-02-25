@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 997c2a12a70df9145b0012bfe53bfe59, type: 3}
+  m_Name: IceArrow
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 1610607087359947333, guid: f2e4b007264a7b74b8b14bc81cea9f44, type: 3}
+  Name: IceArrow
+  Speed: 45
+  Damage: 10
+  Homing: 0
+  HomingRotationSpeed: 120
+  StatusEffectSO: {fileID: 11400000, guid: 20f1690a3eae5cc40874d133daa17bad, type: 2}
+  Lifetime: 5
+  HitSound: {fileID: 8300000, guid: 4946e48e7332f2e41b62ce2c7f49a90d, type: 3}

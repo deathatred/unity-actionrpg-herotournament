@@ -1,11 +1,16 @@
+using Assets.Scripts.Core.Enums;
+using Assets.Scripts.Core.Observer;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AllStatsChangedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events.StatsEvents.NewOnes
 {
-   public Dictionary<StatType, int> Stats;
-    public AllStatsChangedEvent(Dictionary<StatType, int> stats)
+    public class AllStatsChangedEvent : GameEventBase
     {
-        Stats = stats;
+        public Dictionary<StatType, int> Stats;
+        public AllStatsChangedEvent(Dictionary<StatType, int> stats)
+        {
+            Stats = stats;
+        }
     }
 }

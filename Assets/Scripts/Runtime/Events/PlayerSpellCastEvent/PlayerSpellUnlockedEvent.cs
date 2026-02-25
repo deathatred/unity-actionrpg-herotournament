@@ -1,10 +1,15 @@
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.SOScripts.SpellSOs;
 using UnityEngine;
 
-public class PlayerSpellUnlockedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events.PlayerSpellCastEvent
 {
-    public SpellSO SpellSO { get; private set; }
-    public PlayerSpellUnlockedEvent(SpellSO spellSO)
+    public class PlayerSpellUnlockedEvent : GameEventBase
     {
-        SpellSO = spellSO;
+        public SpellSO SpellSO { get; private set; }
+        public PlayerSpellUnlockedEvent(SpellSO spellSO)
+        {
+            SpellSO = spellSO;
+        }
     }
 }

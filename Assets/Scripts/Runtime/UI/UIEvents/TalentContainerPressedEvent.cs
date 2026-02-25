@@ -1,3 +1,5 @@
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.SOScripts;
 using UnityEngine;
 
 public class TalentContainerPressedEvent : GameEventBase

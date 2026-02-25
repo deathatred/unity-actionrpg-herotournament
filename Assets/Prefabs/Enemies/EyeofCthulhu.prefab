@@ -205,10 +205,11 @@ GameObject:
   - component: {fileID: 512728803430200012}
   - component: {fileID: 8620878853338471567}
   - component: {fileID: 3902788466397224274}
+  - component: {fileID: 6398713834480400129}
+  - component: {fileID: -3520222942980814895}
   - component: {fileID: 8233462988127580414}
   - component: {fileID: 3310585948013770976}
   - component: {fileID: 1189198694832805105}
-  - component: {fileID: 6398713834480400129}
   m_Layer: 8
   m_Name: EyeofCthulhu
   m_TagString: Untagged
@@ -267,6 +268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _navMeshAgent: {fileID: 3310585948013770976}
   _rotationSpeed: 8
+  _baseSpeed: 3.5
   _visual: {fileID: 4398096487565531021}
   _healthSystem: {fileID: 4465852734831220585}
 --- !u!114 &4207679595578143166
@@ -296,11 +298,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: 28107e72dd711b14bb01fec9f163047e, type: 2}
-  _healthBarUI: {fileID: 2591655003448535469}
   _colliders:
   - {fileID: 8233462988127580414}
   - {fileID: 1189198694832805105}
   _targetImage: {fileID: 6037568610884974393}
+  _enemyStateMachine: {fileID: 697845583422758565}
 --- !u!114 &512728803430200012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,6 +346,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterSoundsSO: {fileID: 11400000, guid: fc3a06348f69a354e8de807a612e264c, type: 2}
+--- !u!114 &6398713834480400129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404304623286243001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6ef92beb9ff327439ca54ded5486b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectileSO: {fileID: 11400000, guid: ae6b8858b53c1b74cb07161524ae3d2c, type: 2}
+  _enemyTargetDetector: {fileID: 8620878853338471567}
+  _shootPoint: {fileID: 2927057637642454577}
+--- !u!114 &-3520222942980814895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404304623286243001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38847e66564e612468567a8bad29cdb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderers:
+  - {fileID: 1136554935774335710}
+  _enemyStateMachine: {fileID: 697845583422758565}
+  _controller: {fileID: 6204294337944103017}
+  _healthSystem: {fileID: 4465852734831220585}
+  _enemyAnimationBase: {fileID: 4207679595578143166}
+  _freezeMaterial: {fileID: 2100000, guid: b39c0a3cb0d666144bd3a9d982d02763, type: 2}
 --- !u!65 &8233462988127580414
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -408,21 +444,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.427171, y: 0.12706846, z: 2.1908102}
   m_Center: {x: 0.1051327, y: 0.120000005, z: -0.09259081}
---- !u!114 &6398713834480400129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2404304623286243001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6ef92beb9ff327439ca54ded5486b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _projectileSO: {fileID: 11400000, guid: ae6b8858b53c1b74cb07161524ae3d2c, type: 2}
-  _enemyTargetDetector: {fileID: 8620878853338471567}
-  _shootPoint: {fileID: 2927057637642454577}
 --- !u!1 &2436261887731739692
 GameObject:
   m_ObjectHideFlags: 0
@@ -2043,17 +2064,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0a1e37b23c2a3040a5a0f2be44b3352, type: 3}
---- !u!114 &2591655003448535469 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8249739993781183633, guid: c0a1e37b23c2a3040a5a0f2be44b3352, type: 3}
-  m_PrefabInstance: {fileID: 5875964609772440892}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b92908c22f26cb148bf382ea8f87f3f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &2845128658824797418 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8570477491557880278, guid: c0a1e37b23c2a3040a5a0f2be44b3352, type: 3}

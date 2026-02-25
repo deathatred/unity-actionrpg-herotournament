@@ -1,11 +1,15 @@
+using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class SurvivalModeStartedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events.GameLevelEvents
 {
-    public int Time { get; private set; }
-
-    public SurvivalModeStartedEvent(int time)
+    public class SurvivalModeStartedEvent : GameEventBase
     {
-        Time = time;
+        public int Time { get; private set; }
+
+        public SurvivalModeStartedEvent(int time)
+        {
+            Time = time;
+        }
     }
 }

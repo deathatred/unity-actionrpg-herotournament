@@ -1,11 +1,16 @@
+using Assets.Scripts.Core.Enums;
+using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class BackButtonPressedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.UI.UIEvents
 {
-   public BackButtonCaller Caller { get; private set; }
-
-    public BackButtonPressedEvent(BackButtonCaller caller)
+    public class BackButtonPressedEvent : GameEventBase
     {
-        this.Caller = caller;
+        public BackButtonCaller Caller { get; private set; }
+
+        public BackButtonPressedEvent(BackButtonCaller caller)
+        {
+            Caller = caller;
+        }
     }
 }

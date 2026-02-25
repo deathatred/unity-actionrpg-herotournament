@@ -1,11 +1,17 @@
+using Assets.Scripts.Runtime.UI;
 using UnityEngine;
 using Zenject;
 
-public class UiInstaller : MonoInstaller
+namespace Assets.Scripts.Runtime.DI.MonoInstallers
 {
-    [SerializeField] private Canvas[] _views;
-    public override void InstallBindings()
+    public class UiInstaller : MonoInstaller
     {
-        Container.Bind<Canvas[]>().FromInstance(_views).AsSingle();
+        [SerializeField] private Canvas[] _views;
+        [SerializeField] private CharacterSelectionRoom _characterSelectionRoom;
+        public override void InstallBindings()
+        {
+            Container.Bind<Canvas[]>().FromInstance(_views).AsSingle();
+            Container.Bind<CharacterSelectionRoom>().FromInstance(_characterSelectionRoom).AsSingle();
+        }
     }
 }

@@ -77,3 +77,4 @@ MonoBehaviour:
   _talentDatabase: {fileID: 11400000, guid: 07b9b8d3348b68648bc2cf592b5961c0, type: 2}
   _itemsDatabase: {fileID: 11400000, guid: 897616fd4f369474b9051e960c25aac1, type: 2}
   _enemyDatabase: {fileID: 11400000, guid: f70a217fc17424940b8a1a1ef0ff6d9a, type: 2}
+  _talentTreeDatabase: {fileID: 11400000, guid: 821f29a1f8aa3f7438fcebcc7288dfba, type: 2}

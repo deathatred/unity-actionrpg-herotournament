@@ -1,47 +1,53 @@
+using Assets.Scripts.Core.Interfaces;
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.Enums;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class PlayerIdleState : PlayerStateBase
+namespace Assets.Scripts.Runtime.Player.FSM
 {
-    private EventBus _eventBus;
-    private readonly PlayerController _playerController;
-    private readonly PlayerStateMachine _playerStateMachine;
-    private readonly PlayerInputHandler _playerInput;
-    private readonly PlayerInteractions _playerInteractions;
-    public PlayerIdleState(PlayerStateMachine fsm,
-        PlayerController controller,
-        PlayerInputHandler input,
-        PlayerInteractions playerInteractions,
-        EventBus eventBus) : base(fsm)
+    public class PlayerIdleState : PlayerStateBase
     {
-        _playerInput = input;
-        _playerController = controller;
-        _playerInteractions = playerInteractions;
-        _eventBus = eventBus;
-    }
-
-    public PlayerStateMachine StateMachine => _playerStateMachine;
-    public override void Enter()
-    {
-        StateType = PlayerState.Idle;
-    }
-    public override void Update()
-    {
-        HandleIdling();
-    }
-    public override void Exit()
-    {
-        _playerController.Stop();
-    }
-    private void HandleIdling()
-    {
-        if (_playerInput.UserTouching)
+        private EventBus _eventBus;
+        private readonly PlayerController _playerController;
+        private readonly PlayerStateMachine _playerStateMachine;
+        private readonly PlayerInputHandler _playerInput;
+        private readonly PlayerInteractions _playerInteractions;
+        public PlayerIdleState(PlayerStateMachine fsm,
+            PlayerController controller,
+            PlayerInputHandler input,
+            PlayerInteractions playerInteractions,
+            EventBus eventBus) : base(fsm)
         {
-            if (_playerInteractions.IsTargetingGround(_playerInput.PointerPos))
+            _playerInput = input;
+            _playerController = controller;
+            _playerInteractions = playerInteractions;
+            _eventBus = eventBus;
+        }
+
+        public PlayerStateMachine StateMachine => _playerStateMachine;
+        public override void Enter()
+        {
+            StateType = PlayerState.Idle;
+        }
+        public override void Update()
+        {
+            HandleIdling();
+        }
+        public override void Exit()
+        {
+            _playerController.Stop();
+        }
+        private void HandleIdling()
+        {
+            if (_playerInput.UserTouching)
             {
-                _fsm.ChangeState(PlayerState.Moving);
+                if (_playerInteractions.IsTargetingGround(_playerInput.PointerPos))
+                {
+                    _fsm.ChangeState(PlayerState.Moving);
+                }
             }
         }
     }

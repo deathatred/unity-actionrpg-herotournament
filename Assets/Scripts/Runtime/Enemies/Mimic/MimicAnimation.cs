@@ -1,6 +1,10 @@
+using Assets.Scripts.Runtime.Enemies.EnemyBase;
 using UnityEngine;
 
-public class MimicAnimation : EnemyAnimationBase
+namespace Assets.Scripts.Runtime.Enemies.Mimic
 {
-   
+    public class MimicAnimation : EnemyAnimationBase
+    {
+
+    }
 }

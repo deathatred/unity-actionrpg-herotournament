@@ -1,6 +1,10 @@
 using UnityEngine;
 
-public class GameEventBase
-{
 
+namespace Assets.Scripts.Core.Observer
+{
+    public class GameEventBase
+    {
+       
+    }
 }

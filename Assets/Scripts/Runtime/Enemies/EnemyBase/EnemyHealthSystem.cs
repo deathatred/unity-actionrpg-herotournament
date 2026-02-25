@@ -1,32 +1,45 @@
+using Assets.Scripts.Core.Interfaces;
+using Assets.Scripts.Runtime.BaseLogic;
+using Assets.Scripts.Runtime.Enemies.EnemyBase.EnemyBaseStateMachine;
+using Assets.Scripts.Runtime.Events;
+using Assets.Scripts.Runtime.SOScripts.EnemiesSO;
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-
-public class EnemyHealthSystem : BaseHealthSystem<EnemyDataSO>, IHealthSystem
+namespace Assets.Scripts.Runtime.Enemies.EnemyBase
 {
-    [SerializeField] private Collider[] _colliders;
-    [SerializeField] private Image _targetImage;
-    public override int GetMaxHpFromData()
+    public class EnemyHealthSystem : BaseHealthSystem<EnemyDataSO>, IHealthSystem
     {
-        return _data.MaxHealth;
-    }
-    protected override void DeathLogic()
-    {
-        foreach (var collider in _colliders)
+        [SerializeField] private Collider[] _colliders;
+        [SerializeField] private Image _targetImage;
+        [SerializeField] private EnemyStateMachine _enemyStateMachine;
+        public override int GetMaxHpFromData()
         {
-            collider.enabled = false;
+            return _data.MaxHealth;
         }
-        _eventBus.Publish(new EnemyKilledEvent(_data.XpReward,gameObject));
-    }
-    public void SetTarget()
-    {
-        _targetImage.gameObject.SetActive(true);
-    }
-    public void UnsetTarget()
-    {
-        _targetImage.gameObject.SetActive(false);
+        protected override void DeathLogic()
+        {
+            foreach (var collider in _colliders)
+            {
+                collider.enabled = false;
+            }
+            _eventBus.Publish(new EnemyKilledEvent(_data.XpReward, gameObject));
+        }
+        public override int TakeDamage(int amount)
+        {
+            _enemyStateMachine.GoToAttackState();
+            return base.TakeDamage(amount);
+        }
+        public void SetTarget()
+        {
+            _targetImage.gameObject.SetActive(true);
+        }
+        public void UnsetTarget()
+        {
+            _targetImage.gameObject.SetActive(false);
+        }
     }
 }

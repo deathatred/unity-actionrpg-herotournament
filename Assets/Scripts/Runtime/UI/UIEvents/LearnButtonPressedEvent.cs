@@ -1,10 +1,15 @@
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.SOScripts;
 using UnityEngine;
 
-public class LearnButtonPressedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.UI.UIEvents
 {
-    public TalentSO TalentSO { get; private set; }
-    public LearnButtonPressedEvent(TalentSO talentSO)
+    public class LearnButtonPressedEvent : GameEventBase
     {
-        TalentSO = talentSO;
+        public TalentSO TalentSO { get; private set; }
+        public LearnButtonPressedEvent(TalentSO talentSO)
+        {
+            TalentSO = talentSO;
+        }
     }
 }

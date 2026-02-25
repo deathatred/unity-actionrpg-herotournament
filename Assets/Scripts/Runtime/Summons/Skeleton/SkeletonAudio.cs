@@ -1,5 +1,10 @@
+using Assets.Scripts.Runtime.BaseLogic;
+using Assets.Scripts.Runtime.SOScripts.SummonsSO;
 using UnityEngine;
 
-public class SkeletonAudio : CharacterAudioBase<SkeletonSoundsSO>
+namespace Assets.Scripts.Runtime.Summons.Skeleton
 {
+    public class SkeletonAudio : CharacterAudioBase<SkeletonSoundsSO>
+    {
+    }
 }

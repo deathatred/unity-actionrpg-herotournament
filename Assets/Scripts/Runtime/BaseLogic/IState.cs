@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public interface IState
+namespace Assets.Scripts.Runtime.BaseLogic
 {
-    void Enter();
-    void Update();
-    void Exit();
+    public interface IState
+    {
+        void Enter();
+        void Update();
+        void Exit();
+    }
 }

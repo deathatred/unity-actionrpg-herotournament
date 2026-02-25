@@ -1,154 +1,168 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Assets.Scripts.Core.Enums;
+using Assets.Scripts.Core.General;
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Core.Structs;
+using Assets.Scripts.Runtime.Events.StatsEvents.NewOnes;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System.Threading;
 using UnityEngine;
 using Zenject;
 
-public class PlayerController : MonoBehaviour
+namespace Assets.Scripts.Runtime.Player
 {
-    [Inject] private EventBus _eventBus;
-    [Inject] private PlayerWallCheck _playerWallCheck;
+    public class PlayerController : MonoBehaviour
+    {
+        [Inject] private EventBus _eventBus;
+        [Inject] private PlayerWallCheck _playerWallCheck;
 
-    [SerializeField] private Rigidbody _rb;
-    [SerializeField] private float _rotationSpeed = 10f;
+        [SerializeField] private Rigidbody _rb;
+        [SerializeField] private float _rotationSpeed = 10f;
 
-    private float _moveSpeed = 5f;
-    private CancellationTokenSource _moveCts;
-    private Tween _rotationTween;
-    private MoveCommand? _currentCommand;
-    public bool IsMoving { get; private set; }
+        private float _moveSpeed = 5f;
+        private CancellationTokenSource _moveCts;
+        private Tween _rotationTween;
+        private MoveCommand? _currentCommand;
+        public bool IsMoving { get; private set; }
+        public bool HasMoveCommand { get; private set; }
 
-    private void Awake()
-    {
-        StartMovementLoop();
-    }
-    private void OnEnable()
-    {
-        _eventBus.Subscribe<MoveSpeedChangedEvent>(OnMoveSpeedChanged);
-        _eventBus.Subscribe<LevelLoadedEvent>(OnLevelLoaded);
-    }
-    private void OnDisable()
-    {
-        _eventBus.Unsubscribe<MoveSpeedChangedEvent>(OnMoveSpeedChanged);
-        _eventBus.Unsubscribe<LevelLoadedEvent>(OnLevelLoaded);
-    }
-    private void OnDestroy()
-    {
-        _moveCts?.Cancel();
-        _moveCts?.Dispose();
-    }
-    public void MoveTo(MoveCommand command)
-    {
-        _currentCommand = command;
-    }
-    public void Stop()
-    {
-        _currentCommand = null;
-        IsMoving = false;
-    }
-    public void WarpToPosition(Vector3 position)
-    {
-        _rb.MovePosition(position);
-    }
-    public Rigidbody GetRb()
-    {
-        return _rb;
-    }
-    private void OnMoveSpeedChanged(MoveSpeedChangedEvent e)
-    {
-        _moveSpeed = e.Amount;
-    }
-    private void OnLevelLoaded(LevelLoadedEvent e)
-    {
-        Stop();
-        print("warped");
-        WarpToPosition(e.SpawnPoint.position);
-    }
-    private void StartMovementLoop()
-    {
-        _moveCts = new CancellationTokenSource();
-        MoveLoopAsync(_moveCts.Token).Forget();
-    }
-    private async UniTask MoveLoopAsync(CancellationToken token)
-    {
-        while (!token.IsCancellationRequested)
+        private void Awake()
         {
-            if (_currentCommand.HasValue)
-            {
-                ProcessMovement(_currentCommand.Value);
-            }
-
-            await UniTask.WaitForFixedUpdate(token);
+            StartMovementLoop();
         }
-    }
-    private void ProcessMovement(MoveCommand command)
-    {
-        if (command.Target == null)
+        private void OnEnable()
+        {
+            _eventBus.Subscribe<StatChangedEvent>(OnMoveSpeedChanged);
+            _eventBus.Subscribe<LevelLoadedEvent>(OnLevelLoaded);
+        }
+        private void OnDisable()
+        {
+            _eventBus.Unsubscribe<StatChangedEvent>(OnMoveSpeedChanged);
+            _eventBus.Unsubscribe<LevelLoadedEvent>(OnLevelLoaded);
+        }
+        private void OnDestroy()
+        {
+            _moveCts?.Cancel();
+            _moveCts?.Dispose();
+        }
+        public void MoveTo(MoveCommand command)
+        {
+            _currentCommand = command;
+            HasMoveCommand = true;
+        }
+        public void Stop()
         {
             _currentCommand = null;
+            HasMoveCommand = false;
             IsMoving = false;
-            return;
         }
-
-        Vector3 targetPos = command.Target.GetPosition();
-
-        Vector3 dir = targetPos - _rb.position;
-        dir.y = 0f;
-
-        float distance = dir.magnitude;
-        IsMoving = distance > command.StopRange;
-
-        if (command.RotateTowardsTarget && dir != Vector3.zero )
+        public void WarpToPosition(Vector3 position)
         {
-            RotateToTarget(dir);
+            _rb.MovePosition(position);
         }
-
-        if (!IsMoving)
+        public Rigidbody GetRb()
         {
-            _currentCommand = null;
-            return;
+            return _rb;
         }
-
-        if (!_playerWallCheck.WallCheck(_rb, dir))
+        private void OnMoveSpeedChanged(StatChangedEvent e)
         {
-            Vector3 step = dir.normalized * _moveSpeed * Time.fixedDeltaTime;
-
-            if (step.magnitude > distance)
+            if (e.StatType == StatType.MoveSpeed)
             {
-                step = dir; 
+                _moveSpeed = e.Amount;
+            }
+        }
+        private void OnLevelLoaded(LevelLoadedEvent e)
+        {
+            Stop();
+            WarpToPosition(e.SpawnPoint.position);
+        }
+        private void StartMovementLoop()
+        {
+            _moveCts = new CancellationTokenSource();
+            MoveLoopAsync(_moveCts.Token).Forget();
+        }
+        private async UniTask MoveLoopAsync(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                if (_currentCommand.HasValue)
+                {
+                    ProcessMovement(_currentCommand.Value);
+                }
+
+                await UniTask.WaitForFixedUpdate(token);
+            }
+        }
+        private void ProcessMovement(MoveCommand command)
+        {
+            if (command.Target == null)
+            {
+                _currentCommand = null;
+                IsMoving = false;
+                return;
             }
 
-            _rb.MovePosition(_rb.position + step);
+            Vector3 targetPos = command.Target.GetPosition();
+
+            Vector3 dir = targetPos - _rb.position;
+            dir.y = 0f;
+
+            float distance = dir.magnitude;
+            IsMoving = distance > command.StopRange;
+
+            if (command.RotateTowardsTarget && dir != Vector3.zero)
+            {
+                RotateToTarget(dir);
+            }
+
+            if (!IsMoving)
+            {
+                _currentCommand = null;
+                HasMoveCommand = false;
+                return;
+            }
+
+            if (!_playerWallCheck.WallCheck(_rb, dir))
+            {
+                Vector3 step = dir.normalized * _moveSpeed * Time.fixedDeltaTime;
+
+                if (step.magnitude > distance)
+                {
+                    step = dir;
+                }
+
+                _rb.MovePosition(_rb.position + step);
+            }
         }
-    }
-    private void RotateToTarget(Vector3 dir)
-    {
-        dir.y = 0f;
-        if (dir == Vector3.zero) return;
+        private void RotateToTarget(Vector3 dir)
+        {
+            dir.y = 0f;
+            if (dir == Vector3.zero) return;
 
-        Quaternion targetRot = Quaternion.LookRotation(dir);
-        Quaternion smoothRot = Quaternion.Slerp(
-            _rb.rotation,
-            targetRot,
-            _rotationSpeed * Time.fixedDeltaTime
-        );
+            Quaternion targetRot = Quaternion.LookRotation(dir);
+            Quaternion smoothRot = Quaternion.Slerp(
+                _rb.rotation,
+                targetRot,
+                _rotationSpeed * Time.fixedDeltaTime
+            );
 
-        _rb.MoveRotation(smoothRot);
-    }
+            _rb.MoveRotation(smoothRot);
+        }
 
-    public async UniTask RotateToTargetAsync(Vector3 targetPos, CancellationToken token)
-    {
-        Vector3 lookAtPos = new Vector3(targetPos.x, transform.position.y, targetPos.z);
-        float rotationDuration = GlobalData.ROTATION_DURATION;
-        _rotationTween?.Kill();
+        public async UniTask RotateToTargetAsync(Vector3 targetPos, CancellationToken token)
+        {
+            Vector3 lookAtPos = new Vector3(targetPos.x, transform.position.y, targetPos.z);
+            float rotationDuration = GlobalData.ROTATION_DURATION;
+            _rotationTween?.Kill();
 
-        _rotationTween = transform
-            .DOLookAt(lookAtPos, rotationDuration)
-            .SetEase(Ease.Linear);
+            _rotationTween = transform
+                .DOLookAt(lookAtPos, rotationDuration)
+                .SetEase(Ease.Linear);
 
-        await _rotationTween
-            .AsyncWaitForCompletion()
-            .AsUniTask()
-            .AttachExternalCancellation(token);
+            await _rotationTween
+                .AsyncWaitForCompletion()
+                .AsUniTask()
+                .AttachExternalCancellation(token);
+        }
     }
 }

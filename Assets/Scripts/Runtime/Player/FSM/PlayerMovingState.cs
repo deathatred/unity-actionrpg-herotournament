@@ -1,67 +1,76 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Core.General;
+using Assets.Scripts.Core.Interfaces;
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Core.Structs;
+using Assets.Scripts.Runtime.Enums;
+using Assets.Scripts.Runtime.MoveTargets;
+using UnityEngine;
 
-public class PlayerMovingState : PlayerStateBase
+namespace Assets.Scripts.Runtime.Player.FSM
 {
-    private readonly EventBus _eventBus;
-    private readonly PlayerController _playerController;
-    private readonly PlayerInputHandler _playerInput;
-    private readonly PlayerInteractions _playerInteractions;
-    private readonly PlayerAnimations _playerAnimations;
-
-    public PlayerMovingState(PlayerStateMachine fsm,
-        PlayerController controller,
-        PlayerInputHandler input,
-        PlayerInteractions playerInteractions,
-        PlayerAnimations playerAnimations,
-        EventBus eventBus) : base(fsm)
+    public class PlayerMovingState : PlayerStateBase
     {
-        _playerInput = input;
-        _playerController = controller;
-        _playerInteractions = playerInteractions;
-        _playerAnimations = playerAnimations;
-        _eventBus = eventBus;
-    }
+        private readonly EventBus _eventBus;
+        private readonly PlayerController _playerController;
+        private readonly PlayerInputHandler _playerInput;
+        private readonly PlayerInteractions _playerInteractions;
+        private readonly PlayerAnimations _playerAnimations;
 
-    public override void Enter()
-    {
-        MoveCharacter();
-        StateType = PlayerState.Moving;
-        _playerAnimations.SetIsMovingTrue();
-    }
+        public PlayerMovingState(PlayerStateMachine fsm,
+            PlayerController controller,
+            PlayerInputHandler input,
+            PlayerInteractions playerInteractions,
+            PlayerAnimations playerAnimations,
+            EventBus eventBus) : base(fsm)
+        {
+            _playerInput = input;
+            _playerController = controller;
+            _playerInteractions = playerInteractions;
+            _playerAnimations = playerAnimations;
+            _eventBus = eventBus;
+        }
 
-    public override void Exit()
-    {
-        _playerAnimations.SetIsMovingFalse();
-    }
-
-    public override void Update()
-    {
-        if (_playerInput.UserTouching && _playerInteractions.GetCurrentEnemyTarget() == null)
+        public override void Enter()
         {
             MoveCharacter();
+            StateType = PlayerState.Moving;
+            _playerAnimations.SetIsMovingTrue();
         }
-        if (!_playerController.IsMoving)
+
+        public override void Exit()
         {
-            _fsm.ChangeState(PlayerState.Idle);
+            _playerAnimations.SetIsMovingFalse();
         }
-    }
-    private void MoveCharacter()
-    {
-        if (_playerInput.UserTouching)
+
+        public override void Update()
         {
-            if (MousePoint.Instance.TryGetPointerWorldPosition(_playerInput.PointerPos,
-                 out Vector3 worldPos))
+            if (_playerInput.UserTouching && _playerInteractions.GetCurrentEnemyTarget() == null)
             {
-                _playerController.MoveTo(new MoveCommand
-                {
-                    Target = new PointMoveTarget(worldPos),
-                    StopRange = 0f,
-                    RotateTowardsTarget = true
-                });
+                MoveCharacter();
             }
-            else
+            if (!_playerController.HasMoveCommand)
             {
-                return;
+                _fsm.ChangeState(PlayerState.Idle);
+            }
+        }
+        private void MoveCharacter()
+        {
+            if (_playerInput.UserTouching)
+            {
+                if (MousePoint.Instance.TryGetPointerWorldPosition(_playerInput.PointerPos,
+                     out Vector3 worldPos))
+                {
+                    _playerController.MoveTo(new MoveCommand
+                    {
+                        Target = new PointMoveTarget(worldPos),
+                        StopRange = 0f,
+                        RotateTowardsTarget = true
+                    });
+                }
+                else
+                {
+                    return;
+                }
             }
         }
     }
