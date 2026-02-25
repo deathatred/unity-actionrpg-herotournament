@@ -22,4 +22,4 @@ MonoBehaviour:
   Range: 0
   CanBeCastWhileMoving: 1
   SoundEffect: {fileID: 8300000, guid: 95e7c54017e305240a8f7f50f21d8f4e, type: 3}
-  healAmount: 120
+  _healAmount: 120

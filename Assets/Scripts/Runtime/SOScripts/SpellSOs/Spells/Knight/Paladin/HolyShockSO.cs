@@ -9,10 +9,10 @@ namespace Assets.Scripts.Runtime.SOScripts.SpellSOs.Spells
     [CreateAssetMenu(fileName = "HolyShock", menuName = "Player Spells/HolyShock")]
     public class HolyShockSO : SpellSO
     {
-        public ProjectileSO LightProjectile;
+        [SerializeField] private ProjectileSO _lightProjectile;
         public override void Activate(PlayerSpellContext ctx)
         {
-            ctx.SpellCasting.ExecuteProjectileSpellAsync(LightProjectile,
+            ctx.SpellCasting.ExecuteProjectileSpellAsync(_lightProjectile,
                 ctx.EnemyTransform).Forget();
             ctx.Audio.PlaySpellAudio(this);
         }

@@ -22,4 +22,4 @@ MonoBehaviour:
   Range: 15
   CanBeCastWhileMoving: 0
   SoundEffect: {fileID: 8300000, guid: f6a970db84d9ad84aa6018b1f25dff31, type: 3}
-  IceArrow: {fileID: 11400000, guid: a2e9064af95b22d48b4afc76cf3515db, type: 2}
+  _iceArrow: {fileID: 11400000, guid: a2e9064af95b22d48b4afc76cf3515db, type: 2}

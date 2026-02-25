@@ -15,4 +15,4 @@ MonoBehaviour:
   StrengthBonus: 0
   AgilityBonus: 0
   IntellectBonus: 0
-  SpellPowerBonus: 10
+  SpellPowerBonus: 15

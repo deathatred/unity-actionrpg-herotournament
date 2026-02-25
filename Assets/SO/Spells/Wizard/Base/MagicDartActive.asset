@@ -22,4 +22,4 @@ MonoBehaviour:
   Range: 10
   CanBeCastWhileMoving: 0
   SoundEffect: {fileID: 8300000, guid: 9e18bc2b9e7b6de4b97fcc926d5f18a9, type: 3}
-  MagicDart: {fileID: 11400000, guid: 886aaa8c44e10fe4ab682eb92ebe071f, type: 2}
+  _magicDart: {fileID: 11400000, guid: 886aaa8c44e10fe4ab682eb92ebe071f, type: 2}
