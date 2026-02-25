@@ -9,10 +9,10 @@ namespace Assets.Scripts.Runtime.SOScripts.SpellSOs.Spells
     [CreateAssetMenu(fileName = "Fireball", menuName = "Wizard Spells/Fireball")]
     public class FireballSO : SpellSO
     {
-        public ProjectileSO FireballProjectile;
+        [SerializeField] private ProjectileSO _fireballProjectile;
         public override void Activate(PlayerSpellContext ctx)
         {
-            ctx.SpellCasting.ExecuteProjectileSpellAsync(FireballProjectile, ctx.EnemyTransform).Forget();
+            ctx.SpellCasting.ExecuteProjectileSpellAsync(_fireballProjectile, ctx.EnemyTransform).Forget();
             ctx.Audio.PlaySpellAudio(this);
         }
     }

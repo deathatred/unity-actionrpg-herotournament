@@ -9,10 +9,10 @@ namespace Assets.Scripts.Runtime.SOScripts.SpellSOs.Spells
     [CreateAssetMenu(fileName = "MagicDart", menuName = "Wizard Spells/MagicDart")]
     public class MagicDartSO : SpellSO
     {
-        public ProjectileSO MagicDart;
+        [SerializeField] private ProjectileSO _magicDart;
         public override void Activate(PlayerSpellContext ctx)
         {
-            ctx.SpellCasting.ExecuteProjectileSpellAsync(MagicDart, ctx.EnemyTransform).Forget();
+            ctx.SpellCasting.ExecuteProjectileSpellAsync(_magicDart, ctx.EnemyTransform).Forget();
             ctx.Audio.PlaySpellAudio(this);
         }
     }

@@ -6,9 +6,10 @@ namespace Assets.Scripts.Runtime.Enemies.EnemyBase.EnemyBaseStateMachine
     public abstract class EnemyStateMachine : StateMachineBase<IEnemyState>
     {
         public bool IsStunned { get; private set; }
+        public bool IsDead { get; private set; }
         protected override void Update()
         {
-            if (IsStunned) { return; }
+            if (IsStunned || IsDead) { return; }
             base.Update();
         }
         private void OnDisable()
@@ -18,6 +19,10 @@ namespace Assets.Scripts.Runtime.Enemies.EnemyBase.EnemyBaseStateMachine
         public void SetIsStunnedTrue()
         {
             IsStunned = true;
+        }
+        public void SetIsDeadTrue()
+        {
+            IsDead = true;
         }
         public void SetIsStunnedFalse()
         {

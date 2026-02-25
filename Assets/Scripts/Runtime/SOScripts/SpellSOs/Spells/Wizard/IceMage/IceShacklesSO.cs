@@ -9,7 +9,7 @@ namespace Assets.Scripts.Runtime.SOScripts.SpellSOs.Spells
     [CreateAssetMenu(fileName = "IceShackles", menuName = "Wizard Spells/IceShackles")]
     public class IceShacklesSO : SpellSO
     {
-        public EnemyStatusEffectSO _statusEffect;
+        [SerializeField] private EnemyStatusEffectSO _statusEffect;
         public override void Activate(PlayerSpellContext ctx)
         {
             ctx.Audio.PlaySpellAudio(this, ctx.EnemyTransform);

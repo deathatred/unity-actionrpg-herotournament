@@ -22,4 +22,4 @@ MonoBehaviour:
   Range: 10
   CanBeCastWhileMoving: 1
   SoundEffect: {fileID: 8300000, guid: 457afa61c34ae474693474ee696977ef, type: 3}
-  LightProjectile: {fileID: 11400000, guid: be4c69772fd974045927093b6ef0eaf3, type: 2}
+  _lightProjectile: {fileID: 11400000, guid: be4c69772fd974045927093b6ef0eaf3, type: 2}

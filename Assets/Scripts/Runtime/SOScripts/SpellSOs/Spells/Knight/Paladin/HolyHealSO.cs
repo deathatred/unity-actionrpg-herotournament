@@ -7,10 +7,10 @@ namespace Assets.Scripts.Runtime.SOScripts.SpellSOs.Spells
     [CreateAssetMenu(fileName = "HolyHeal", menuName = "Player Spells/HolyHeal")]
     public class HolyHealSO : SpellSO
     {
-        public int healAmount;
+        [SerializeField] private int _healAmount;
         public override void Activate(PlayerSpellContext ctx)
         {
-            ctx.Self.Heal(healAmount);
+            ctx.Self.Heal(_healAmount);
             ctx.Audio.PlaySpellAudio(this);
         }
     }

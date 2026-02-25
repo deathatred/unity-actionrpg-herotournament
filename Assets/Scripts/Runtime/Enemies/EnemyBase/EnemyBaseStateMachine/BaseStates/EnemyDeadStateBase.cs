@@ -13,6 +13,7 @@ namespace Assets.Scripts.Runtime.Enemies.EnemyBase.EnemyBaseStateMachine.BaseSta
 
         public void Enter()
         {
+            _fsm.SetIsDeadTrue();
             if (_fsm == null)
             {
                 return;
