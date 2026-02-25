@@ -1,8 +1,10 @@
 using UnityEngine;
 
-public struct PlaySoundEventArgs
+namespace Assets.Scripts.Core.Structs
 {
-    public AudioClip SoundId;
-    public Vector3 Position;
+    public struct PlaySoundEventArgs
+    {
+        public AudioClip SoundId;
+        public Vector3 Position;
+    }
 }
-

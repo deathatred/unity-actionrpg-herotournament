@@ -1,63 +1,71 @@
+using Assets.Scripts.Core.Data;
+using Assets.Scripts.Core.Enums;
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.Events;
+using Assets.Scripts.Runtime.Events.GameLevelEvents;
+using Assets.Scripts.Runtime.Firebase;
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 using Zenject;
 
-public class LevelSaveManager : IDisposable
+namespace Assets.Scripts.Runtime.Managers
 {
-    [Inject] private FirebaseManager _firebaseManager;
-    private EventBus _eventBus;
-    private readonly GameManager _gameManager;
-    private bool _playerConfigured;
-    public LevelSaveManager(GameManager gameManager, EventBus eventBus)
+    public class LevelSaveManager : IDisposable
     {
-        _gameManager = gameManager;
-        _eventBus = eventBus;
-        _eventBus.Subscribe<PlayerConfiguredEvent>(PlayerConfiguredSubscriber);
-    }
-    private void PlayerConfiguredSubscriber(PlayerConfiguredEvent e)
-    {
-        _playerConfigured = true;
-    }
-    public LevelSaveData CreateLevelSaveData()
-    {
-        var level = _gameManager.CurrentLevel;
-        var data = new LevelSaveData();
-        data.LevelIndex = _gameManager.CurrentLevelIndex;
-        data.IsSurvivalMode = level.GetLevelConfig().LevelType == LevelType.Survival ? true : false;
-        if (data.IsSurvivalMode)
+        [Inject] private FirebaseManager _firebaseManager;
+        private EventBus _eventBus;
+        private readonly GameManager _gameManager;
+        private bool _playerConfigured;
+        public LevelSaveManager(GameManager gameManager, EventBus eventBus)
         {
-            data.SurvivalTimeLeft = level.Timer;
-            data.TimeToNextSpawn = level.TimeToNextSpawn;
+            _gameManager = gameManager;
+            _eventBus = eventBus;
+            _eventBus.Subscribe<PlayerConfiguredEvent>(PlayerConfiguredSubscriber);
         }
-        else
+        private void PlayerConfiguredSubscriber(PlayerConfiguredEvent e)
         {
-            data.AmountOfEnemiesLeft = level.AmountOfEnemies;
+            _playerConfigured = true;
         }
-        data.ItemsSceneIDs = level.GetPickedUpItems();
-        data.Enemies = level.CreateEnemySpawnData();
-        return data;
-    }
-    public async UniTask LoadLevelData()
-    {
-        var data = await _firebaseManager.LoadLevelDataAsync();
-        await UniTask.WaitUntil(() => _playerConfigured == true);
-        await UniTask.WaitForSeconds(1f);
-        if (data == null)
+        public LevelSaveData CreateLevelSaveData()
         {
-            Debug.Log("load start level bro");
-             await _gameManager.InitStartingLevelAsync();
-            _eventBus.Publish(new LevelInitedEvent());
-            return;
+            var level = _gameManager.CurrentLevel;
+            var data = new LevelSaveData();
+            data.LevelIndex = _gameManager.CurrentLevelIndex;
+            data.IsSurvivalMode = level.GetLevelConfig().LevelType == LevelType.Survival ? true : false;
+            if (data.IsSurvivalMode)
+            {
+                data.SurvivalTimeLeft = level.Timer;
+                data.TimeToNextSpawn = level.TimeToNextSpawn;
+            }
+            else
+            {
+                data.AmountOfEnemiesLeft = level.AmountOfEnemies;
+            }
+            data.ItemsSceneIDs = level.GetPickedUpItems();
+            data.Enemies = level.CreateEnemySpawnData();
+            return data;
         }
-        _gameManager.RestoreLevelPrefab(data.LevelIndex);
-        
-        _gameManager.CurrentLevel.RestoreLevel(data);
-        _eventBus.Publish(new LevelInitedEvent());
-    }
+        public async UniTask LoadLevelData()
+        {
+            var data = await _firebaseManager.LoadLevelDataAsync();
+            await UniTask.WaitUntil(() => _playerConfigured == true);
+            await UniTask.WaitForSeconds(1f);
+            if (data == null)
+            {
+                await _gameManager.InitStartingLevelAsync();
+                _eventBus.Publish(new LevelInitedEvent());
+                return;
+            }
+            _gameManager.RestoreLevelPrefab(data.LevelIndex);
 
-    public void Dispose()
-    {
-        _eventBus.Unsubscribe<PlayerConfiguredEvent>(PlayerConfiguredSubscriber);
+            _gameManager.CurrentLevel.RestoreLevel(data);
+            _eventBus.Publish(new LevelInitedEvent());
+        }
+
+        public void Dispose()
+        {
+            _eventBus.Unsubscribe<PlayerConfiguredEvent>(PlayerConfiguredSubscriber);
+        }
     }
 }

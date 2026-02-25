@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public interface IInteractable 
+namespace Assets.Scripts.Core.Interfaces
 {
-    public Transform Transform { get;  }    
-    public void Interact();
+    public interface IInteractable
+    {
+        public Transform Transform { get; }
+        public void Interact();
+    }
 }

@@ -1,18 +1,20 @@
+using Assets.Scripts.Runtime.Enemies.EnemyBase;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SlowStatusEffectSO", menuName = "EnemyStatusEffects/Slow")]
-public class SlowStatusEffectSO : EnemyStatusEffectSO
+namespace Assets.Scripts.Runtime.SOScripts.EnemyStatusEffectsSO
 {
-    public int slowPercent;
-    public override void Apply(EnemyStatusEffectsManager target)
+    [CreateAssetMenu(fileName = "SlowStatusEffectSO", menuName = "EnemyStatusEffects/Slow")]
+    public class SlowStatusEffectSO : EnemyStatusEffectSO
     {
-        target.AddSlowEffect(this);
-    }
-    public override void Remove(EnemyStatusEffectsManager target)
-    {
-        target.RemoveSlowEffect(this);
+        public int slowPercent;
+        public override void Apply(EnemyStatusEffectsManager target)
+        {
+            target.AddSlowEffect(this);
+        }
+        public override void Remove(EnemyStatusEffectsManager target)
+        {
+            target.RemoveSlowEffect(this);
+        }
     }
 }
-    
-

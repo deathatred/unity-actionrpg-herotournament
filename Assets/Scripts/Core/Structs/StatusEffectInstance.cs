@@ -1,14 +1,17 @@
+using Assets.Scripts.Runtime.SOScripts;
 using System.Threading;
 
-public class StatusEffectInstance
+namespace Assets.Scripts.Core.Structs
 {
-    public EnemyStatusEffectSO Effect;
-    public CancellationTokenSource Cts;
-
-    public StatusEffectInstance(EnemyStatusEffectSO effect)
+    public class StatusEffectInstance
     {
-        Effect = effect;
-        Cts = new CancellationTokenSource();
+        public EnemyStatusEffectSO Effect;
+        public CancellationTokenSource Cts;
+
+        public StatusEffectInstance(EnemyStatusEffectSO effect)
+        {
+            Effect = effect;
+            Cts = new CancellationTokenSource();
+        }
     }
 }
-

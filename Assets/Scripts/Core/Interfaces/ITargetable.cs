@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public interface ITargetable
+namespace Assets.Scripts.Core.Interfaces
 {
-    public Transform Transform { get;}
-    public IHealthSystem HealthSystem { get;}
+    public interface ITargetable
+    {
+        public Transform Transform { get; }
+        public IHealthSystem HealthSystem { get; }
+    }
 }

@@ -1,5 +1,8 @@
-public enum SpellType
+namespace Assets.Scripts.Runtime.Enums
 {
-    Active,
-    Passive
+    public enum SpellType
+    {
+        Active,
+        Passive
+    }
 }

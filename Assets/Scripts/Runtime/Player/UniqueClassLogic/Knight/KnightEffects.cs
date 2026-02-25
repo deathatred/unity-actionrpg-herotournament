@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class KnightEffects : MonoBehaviour
+namespace Assets.Scripts.Runtime.Player.UniqueClassLogic.Knight
 {
-    [SerializeField] private ParticleSystem _holyHealParticles;
-
-    public void PlayHolyHealParticles()
+    public class KnightEffects : MonoBehaviour
     {
-        Quaternion rotation = Quaternion.Euler(-90f,0,0);   
-        ParticleSystem particles = Instantiate(_holyHealParticles, transform.position, rotation, transform);
+        [SerializeField] private ParticleSystem _holyHealParticles;
+
+        public void PlayHolyHealParticles()
+        {
+            Quaternion rotation = Quaternion.Euler(-90f, 0, 0);
+            ParticleSystem particles = Instantiate(_holyHealParticles, transform.position, rotation, transform);
+        }
     }
 }

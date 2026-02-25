@@ -16,8 +16,8 @@ MonoBehaviour:
   Name: Vampiric Strike
   About: Deals damage to an enemy and also siphons an additional 50% of that attack
     from enemy and heals you for that amount
-  ManaCost: 1
-  Cooldown: 1
+  ManaCost: 10
+  Cooldown: 10
   AnimationTrigger: VampiricStrike
   Icon: {fileID: 21300000, guid: 2dcaa262c4ad3a74da480c229e09fcad, type: 3}
   Range: 1.8

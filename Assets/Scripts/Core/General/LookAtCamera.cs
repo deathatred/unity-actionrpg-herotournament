@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class LookAtCamera : MonoBehaviour
+namespace Assets.Scripts.Core.General
 {
-    private Camera _camera;
-
-    private void Start()
+    public class LookAtCamera : MonoBehaviour
     {
-        _camera = Camera.main;
-    }
+        private Camera _camera;
 
-    private void LateUpdate()
-    {
-        transform.LookAt(transform.position + _camera.transform.forward);
+        private void Start()
+        {
+            _camera = Camera.main;
+        }
+
+        private void LateUpdate()
+        {
+            transform.LookAt(transform.position + _camera.transform.forward);
+        }
     }
 }

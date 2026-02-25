@@ -1,6 +1,10 @@
+using Assets.Scripts.Runtime.Enemies.EnemyBase;
 using UnityEngine;
 
-public class EyeOfCthulhuAnimator : EnemyAnimationBase
+namespace Assets.Scripts.Runtime.Enemies.EyeOfCthulhu
 {
-   
+    public class EyeOfCthulhuAnimator : EnemyAnimationBase
+    {
+
+    }
 }

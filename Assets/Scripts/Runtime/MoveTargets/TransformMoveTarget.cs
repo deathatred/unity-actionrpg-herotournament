@@ -1,18 +1,22 @@
+using Assets.Scripts.Core.Interfaces;
 using UnityEngine;
 
-public class TransformMoveTarget : IMoveTarget
+namespace Assets.Scripts.Runtime.MoveTargets
 {
-    private readonly Transform _transform;
-    public TransformMoveTarget(Transform transform)
+    public class TransformMoveTarget : IMoveTarget
     {
-        _transform = transform;
-    }
+        private readonly Transform _transform;
+        public TransformMoveTarget(Transform transform)
+        {
+            _transform = transform;
+        }
 
-    public Vector3 GetPosition()
-    {
-        if (_transform == null)
-            return Vector3.zero;
+        public Vector3 GetPosition()
+        {
+            if (_transform == null)
+                return Vector3.zero;
 
-        return _transform.position;
+            return _transform.position;
+        }
     }
 }

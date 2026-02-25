@@ -1,10 +1,15 @@
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.SOScripts.ClassSO;
 using UnityEngine;
 
-public class PlayerConfiguredEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events
 {
-    public PlayerClassSO PlayerClassSO{ get; private set; }
-    public PlayerConfiguredEvent(PlayerClassSO playerClassSO)
+    public class PlayerConfiguredEvent : GameEventBase
     {
-        PlayerClassSO = playerClassSO;
+        public PlayerClassSO PlayerClassSO { get; private set; }
+        public PlayerConfiguredEvent(PlayerClassSO playerClassSO)
+        {
+            PlayerClassSO = playerClassSO;
+        }
     }
 }

@@ -1,16 +1,19 @@
 using System;
 using UnityEngine;
 
-public readonly struct AudioHandle
+namespace Assets.Scripts.Core.Structs
 {
-    public static readonly AudioHandle Empty = new AudioHandle(null, null);
-    public readonly AudioSource Source;
-    public readonly Action ReturnToPool;
-    public bool IsValid => Source != null;
-
-    public AudioHandle(AudioSource source, Action returnToPool)
+    public readonly struct AudioHandle
     {
-        Source = source;
-        ReturnToPool = returnToPool;
+        public static readonly AudioHandle Empty = new AudioHandle(null, null);
+        public readonly AudioSource Source;
+        public readonly Action ReturnToPool;
+        public bool IsValid => Source != null;
+
+        public AudioHandle(AudioSource source, Action returnToPool)
+        {
+            Source = source;
+            ReturnToPool = returnToPool;
+        }
     }
 }

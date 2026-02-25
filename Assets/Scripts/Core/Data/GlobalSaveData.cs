@@ -1,8 +1,11 @@
 using UnityEngine;
 
-[SerializeField]
-public class GlobalSaveData : MonoBehaviour
+namespace Assets.Scripts.Core.Data
 {
-    public PlayerSaveData PlayerSaveData;
-    public LevelSaveData LevelSaveData;
+    [SerializeField]
+    public class GlobalSaveData : MonoBehaviour
+    {
+        public PlayerSaveData PlayerSaveData;
+        public LevelSaveData LevelSaveData;
+    }
 }

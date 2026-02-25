@@ -1,10 +1,15 @@
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.Items;
 using UnityEngine;
 
-public class SlotButtonPressedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.UI.UIEvents
 {
-   public ItemInstance SlotItem {  get; private set; }
-    public SlotButtonPressedEvent(ItemInstance slotItem)
+    public class SlotButtonPressedEvent : GameEventBase
     {
-        SlotItem = slotItem;
+        public ItemInstance SlotItem { get; private set; }
+        public SlotButtonPressedEvent(ItemInstance slotItem)
+        {
+            SlotItem = slotItem;
+        }
     }
 }

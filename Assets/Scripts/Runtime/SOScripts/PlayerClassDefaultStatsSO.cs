@@ -1,18 +1,21 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName ="ClassDefaultStats")]
-public class PlayerClassDefaultStatsSO : ScriptableObject
+namespace Assets.Scripts.Runtime.SOScripts
 {
-    public int DefaultHealth;
-    public int DefaultMana;
-    public int Strenght;
-    public int Agility;
-    public int Intellect;
-    public int AttackPower;
-    public int Armor;
-    public int SpellPower;
-    public int MoveSpeed;
-    public int Vampirism;
-    public int AttackSpeed;
-    public int CriticalRate; 
+    [CreateAssetMenu(fileName = "ClassDefaultStats")]
+    public class PlayerClassDefaultStatsSO : ScriptableObject
+    {
+        public int DefaultHealth;
+        public int DefaultMana;
+        public int Strenght;
+        public int Agility;
+        public int Intellect;
+        public int AttackPower;
+        public int Armor;
+        public int SpellPower;
+        public int MoveSpeed;
+        public int Vampirism;
+        public int AttackSpeed;
+        public int CriticalRate;
+    }
 }

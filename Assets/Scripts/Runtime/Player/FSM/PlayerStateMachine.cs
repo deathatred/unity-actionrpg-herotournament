@@ -1,97 +1,105 @@
+using Assets.Scripts.Core.Factories;
+using Assets.Scripts.Core.Interfaces;
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.Enums;
+using Assets.Scripts.Runtime.Events;
+using Assets.Scripts.Runtime.Events.PlayerSpellCastEvent;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class PlayerStateMachine : MonoBehaviour
+namespace Assets.Scripts.Runtime.Player.FSM
 {
-    [Inject] private EventBus _eventBus;
-    [Inject] private PlayerStateFactory _stateFactory;
-    [Inject] private PlayerInteractions _playerInteractions;
-    [Inject] private PlayerInputHandler _playerInput;
-    private PlayerStateBase _currentState;
-    private bool _isTouched;
-    public PlayerState CurrentState { get; private set; }
-    public PlayerState LastState { get; private set; }
-   
-    private void OnEnable()
+    public class PlayerStateMachine : MonoBehaviour
     {
-        SubscribeToEvents();
-    }
-    private void Awake()
-    {
-        HandleStartingState();
-    }
-    private void Update()
-    {
-        print(_currentState);
-        HandleGlobalTransitions();
-        _currentState.Update();
-    }
-    private void OnDisable()
-    {
-        UnsubscribeFromEvents();
-    }
-    private void HandleStartingState()
-    {
-        ChangeState(PlayerState.Idle);
-    }
-    private void HandleGlobalTransitions()
-    {
-        if (_playerInput.UserTouching && !_isTouched)
+        [Inject] private EventBus _eventBus;
+        [Inject] private PlayerStateFactory _stateFactory;
+        [Inject] private PlayerInteractions _playerInteractions;
+        [Inject] private PlayerInputHandler _playerInput;
+        private PlayerStateBase _currentState;
+        private bool _isTouched;
+        public PlayerState CurrentState { get; private set; }
+        public PlayerState LastState { get; private set; }
+
+        private void OnEnable()
         {
-            if (_playerInteractions.HandleEnemyInteraction(_playerInput.PointerPos))
+            SubscribeToEvents();
+        }
+        private void Awake()
+        {
+            HandleStartingState();
+        }
+        private void Update()
+        {
+            HandleGlobalTransitions();
+            _currentState.Update();
+        }
+        private void OnDisable()
+        {
+            UnsubscribeFromEvents();
+        }
+        private void HandleStartingState()
+        {
+            ChangeState(PlayerState.Idle);
+        }
+        private void HandleGlobalTransitions()
+        {
+            if (_playerInput.UserTouching && !_isTouched)
             {
-                _isTouched = true;
-                return;
+                if (_playerInteractions.HandleEnemyInteraction(_playerInput.PointerPos))
+                {
+                    _isTouched = true;
+                    return;
+                }
+                if (_playerInteractions.HandleInteractableInteraction(_playerInput.PointerPos))
+                {
+                    _isTouched = true;
+                    ChangeState(PlayerState.Interacting);
+                    return;
+                }
+                if (_playerInteractions.HandleItemInteraction(_playerInput.PointerPos))
+                {
+                    _isTouched = true;
+                    ChangeState(PlayerState.Collecting);
+                    return;
+                }
             }
-            if (_playerInteractions.HandleInteractableInteraction(_playerInput.PointerPos))
+            else if (!_playerInput.UserTouching && _isTouched)
             {
-                _isTouched = true;
-                ChangeState(PlayerState.Interacting);
-                return;
+                _isTouched = false; return;
             }
-            if (_playerInteractions.HandleItemInteraction(_playerInput.PointerPos))
+        }
+        private void SubscribeToEvents()
+        {
+            _eventBus.Subscribe<PlayerSpellCastedEvent>(ChangeToSpellCastState);
+            _eventBus.Subscribe<SameEnemyClickedEvent>(ChangeToAttackState);
+        }
+        private void UnsubscribeFromEvents()
+        {
+            _eventBus.Unsubscribe<PlayerSpellCastedEvent>(ChangeToSpellCastState);
+            _eventBus.Unsubscribe<SameEnemyClickedEvent>(ChangeToAttackState);
+        }
+        private void ChangeToSpellCastState(PlayerSpellCastedEvent e)
+        {
+            ChangeState(PlayerState.SpellCasting);
+        }
+        private void ChangeToAttackState(SameEnemyClickedEvent e)
+        {
+            if (CurrentState != PlayerState.SpellCasting)
             {
-                _isTouched = true;
-                ChangeState(PlayerState.Collecting);
-                return;
+                ChangeState(PlayerState.Attacking);
             }
         }
-        else if (!_playerInput.UserTouching && _isTouched)
+        public void ChangeState(PlayerState state)
         {
-            _isTouched = false; return;
+            if (_currentState != null)
+            {
+                LastState = _currentState.StateType;
+                _currentState.Exit();
+            }
+            CurrentState = state;
+            _currentState = _stateFactory.CreatePlayerState(state);
+            _currentState.Enter();
         }
-    }
-    private void SubscribeToEvents()
-    {
-        _eventBus.Subscribe<PlayerSpellCastedEvent>(ChangeToSpellCastState);
-        _eventBus.Subscribe<SameEnemyClickedEvent>(ChangeToAttackState);
-    }
-    private void UnsubscribeFromEvents()
-    {
-        _eventBus.Unsubscribe<PlayerSpellCastedEvent>(ChangeToSpellCastState);
-        _eventBus.Unsubscribe<SameEnemyClickedEvent>(ChangeToAttackState);
-    }
-    private void ChangeToSpellCastState(PlayerSpellCastedEvent e)
-    {
-        ChangeState(PlayerState.SpellCasting);
-    }
-    private void ChangeToAttackState(SameEnemyClickedEvent e)
-    {
-        if (CurrentState != PlayerState.SpellCasting)
-        {
-            ChangeState(PlayerState.Attacking);
-        }
-    }
-    public void ChangeState(PlayerState state)
-    {
-        if (_currentState != null)
-        {
-            LastState = _currentState.StateType;
-            _currentState.Exit();
-        }
-        CurrentState = state;
-        _currentState = _stateFactory.CreatePlayerState(state);
-        _currentState.Enter();
     }
 }

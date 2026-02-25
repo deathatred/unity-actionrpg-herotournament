@@ -1,15 +1,19 @@
+using Assets.Scripts.Runtime.Enemies.EnemyBase;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "FreezeStatusEffectSO", menuName = "EnemyStatusEffects/Freeze")]
-public class FreezeStatusEffectSO : EnemyStatusEffectSO
+namespace Assets.Scripts.Runtime.SOScripts.EnemyStatusEffectsSO
 {
-    public override void Apply(EnemyStatusEffectsManager target)
+    [CreateAssetMenu(fileName = "FreezeStatusEffectSO", menuName = "EnemyStatusEffects/Freeze")]
+    public class FreezeStatusEffectSO : EnemyStatusEffectSO
     {
-        target.ApplyFreeze();
-    }
+        public override void Apply(EnemyStatusEffectsManager target)
+        {
+            target.ApplyFreeze();
+        }
 
-    public override void Remove(EnemyStatusEffectsManager target)
-    {
-        target.RemoveFreeze();
+        public override void Remove(EnemyStatusEffectsManager target)
+        {
+            target.RemoveFreeze();
+        }
     }
 }

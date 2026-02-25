@@ -15,7 +15,7 @@ MonoBehaviour:
   Prefab: {fileID: 1610607087359947333, guid: f2e4b007264a7b74b8b14bc81cea9f44, type: 3}
   Name: IceArrow
   Speed: 45
-  Damage: 15
+  Damage: 10
   Homing: 0
   HomingRotationSpeed: 120
   StatusEffectSO: {fileID: 11400000, guid: 20f1690a3eae5cc40874d133daa17bad, type: 2}

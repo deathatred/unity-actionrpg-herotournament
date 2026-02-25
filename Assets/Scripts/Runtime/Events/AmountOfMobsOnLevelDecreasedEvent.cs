@@ -1,10 +1,14 @@
+using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class AmountOfMobsOnLevelDecreasedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events
 {
-    public int AmountOfMobs;
-    public AmountOfMobsOnLevelDecreasedEvent(int amountOfMobs)
+    public class AmountOfMobsOnLevelDecreasedEvent : GameEventBase
     {
-        AmountOfMobs = amountOfMobs;
+        public int AmountOfMobs;
+        public AmountOfMobsOnLevelDecreasedEvent(int amountOfMobs)
+        {
+            AmountOfMobs = amountOfMobs;
+        }
     }
 }

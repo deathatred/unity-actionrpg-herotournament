@@ -1,10 +1,14 @@
+using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class CurrentHealthChangedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events
 {
-    public int Amount { get;  private set; }
-    public CurrentHealthChangedEvent(int amount)
+    public class CurrentHealthChangedEvent : GameEventBase
     {
-        Amount = amount;
+        public int Amount { get; private set; }
+        public CurrentHealthChangedEvent(int amount)
+        {
+            Amount = amount;
+        }
     }
 }

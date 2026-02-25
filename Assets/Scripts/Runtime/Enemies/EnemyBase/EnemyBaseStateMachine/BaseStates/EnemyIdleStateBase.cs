@@ -1,52 +1,59 @@
+using Assets.Scripts.Core.Interfaces;
+using Assets.Scripts.Core.Utils;
+using Assets.Scripts.Runtime.Enemies.EnemyBase;
+using Assets.Scripts.Runtime.SOScripts.EnemiesSO;
 using System;
 using UnityEngine;
 
-public abstract class EnemyIdleStateBase<TStateMachine,TStateType> : IEnemyState
-    where TStateMachine : EnemyStateMachine
-    where TStateType : Enum
+namespace Assets.Scripts.Runtime.Enemies.EnemyBase.EnemyBaseStateMachine.BaseStates
 {
-    public EnemyStateMachine EnemyFsm => _fsm;
-
-    protected readonly TStateMachine _fsm;
-    protected readonly EnemyData _data;
-    protected readonly EnemyHealthSystem _healthSystem;
-    protected readonly EnemyTargetDetector _detector;
-
-    private EnemyDataSO _dataSO;
-
-    public EnemyIdleStateBase(TStateMachine fsm,
-        EnemyHealthSystem healthSystem,
-        EnemyTargetDetector detector,
-        EnemyData data)
+    public abstract class EnemyIdleStateBase<TStateMachine, TStateType> : IEnemyState
+        where TStateMachine : EnemyStateMachine
+        where TStateType : Enum
     {
-        _fsm = fsm;
-        _healthSystem = healthSystem;
-        _detector = detector;
-        _data = data;
-    }
-    public void Enter()
-    {
-        _dataSO = _data.GetEnemyData();
-    }
-    public void Exit()
-    {
+        public EnemyStateMachine EnemyFsm => _fsm;
 
-    }
-    public void Update()
-    {
-        var viewDistance = _dataSO.ViewDistance;
-        var viewAngle = _dataSO.ViewAngle;
-        if (_detector.TryFindClosestTarget(out ITargetable closestTarget))
+        protected readonly TStateMachine _fsm;
+        protected readonly EnemyData _data;
+        protected readonly EnemyHealthSystem _healthSystem;
+        protected readonly EnemyTargetDetector _detector;
+
+        private EnemyDataSO _dataSO;
+
+        public EnemyIdleStateBase(TStateMachine fsm,
+            EnemyHealthSystem healthSystem,
+            EnemyTargetDetector detector,
+            EnemyData data)
         {
-            if (DetectionHelper.CanSeeTarget(_fsm.transform, closestTarget.Transform,
-            viewDistance, viewAngle,
-            DetectionHelper.DetectionDefaultOffset) || DetectionHelper.InCloseRange(_fsm.transform,
-            closestTarget.Transform, _dataSO.CloseRangeTrigger))
-            {
-                ChangeToAttackState();
-            }
+            _fsm = fsm;
+            _healthSystem = healthSystem;
+            _detector = detector;
+            _data = data;
         }
+        public void Enter()
+        {
+            _dataSO = _data.GetEnemyData();
+        }
+        public void Exit()
+        {
 
+        }
+        public void Update()
+        {
+            var viewDistance = _dataSO.ViewDistance;
+            var viewAngle = _dataSO.ViewAngle;
+            if (_detector.TryFindClosestTarget(out ITargetable closestTarget))
+            {
+                if (DetectionHelper.CanSeeTarget(_fsm.transform, closestTarget.Transform,
+                viewDistance, viewAngle,
+                DetectionHelper.DetectionDefaultOffset) || DetectionHelper.InCloseRange(_fsm.transform,
+                closestTarget.Transform, _dataSO.CloseRangeTrigger))
+                {
+                    ChangeToAttackState();
+                }
+            }
+
+        }
+        protected abstract void ChangeToAttackState();
     }
-    protected abstract void ChangeToAttackState();
 }

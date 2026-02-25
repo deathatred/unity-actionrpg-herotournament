@@ -1,6 +1,10 @@
+using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class FirstSpellButtonPressedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.UI.UIEvents
 {
-    
+    public class FirstSpellButtonPressedEvent : GameEventBase
+    {
+
+    }
 }

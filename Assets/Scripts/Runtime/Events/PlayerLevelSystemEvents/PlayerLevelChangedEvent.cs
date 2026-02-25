@@ -1,10 +1,14 @@
+using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class PlayerLevelChangedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events.PlayerLevelSystemEvents
 {
-    public int Level { get; private set; }
-    public PlayerLevelChangedEvent(int level)
+    public class PlayerLevelChangedEvent : GameEventBase
     {
-        this.Level = level;
+        public int Level { get; private set; }
+        public PlayerLevelChangedEvent(int level)
+        {
+            Level = level;
+        }
     }
 }

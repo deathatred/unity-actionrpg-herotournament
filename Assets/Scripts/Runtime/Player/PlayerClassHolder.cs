@@ -1,10 +1,14 @@
+using Assets.Scripts.Core.Enums;
 using UnityEngine;
 
-public class PlayerClassHolder : MonoBehaviour
+namespace Assets.Scripts.Runtime.Player
 {
-    public PlayerClass PlayerClass { get; private set; }
-    public void SetClass(PlayerClass playerClass)
+    public class PlayerClassHolder : MonoBehaviour
     {
-        PlayerClass = playerClass;
+        public PlayerClass PlayerClass { get; private set; }
+        public void SetClass(PlayerClass playerClass)
+        {
+            PlayerClass = playerClass;
+        }
     }
 }

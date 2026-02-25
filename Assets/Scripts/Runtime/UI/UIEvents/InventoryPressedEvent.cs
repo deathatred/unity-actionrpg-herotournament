@@ -1,6 +1,10 @@
+using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class InventoryPressedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.UI.UIEvents
 {
-    
+    public class InventoryPressedEvent : GameEventBase
+    {
+
+    }
 }

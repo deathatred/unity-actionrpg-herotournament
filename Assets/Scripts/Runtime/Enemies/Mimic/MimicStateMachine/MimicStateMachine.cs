@@ -1,53 +1,59 @@
+using Assets.Scripts.Runtime.Enemies.EnemyBase;
+using Assets.Scripts.Runtime.Enemies.EnemyBase.EnemyBaseStateMachine;
+using Assets.Scripts.Runtime.Enemies.EnemyBase.EnemyBaseStateMachine.BaseStates;
+using Assets.Scripts.Runtime.Enemies.Mimic.MimicStateMachine.States;
 using Cysharp.Threading.Tasks.Triggers;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
 
-public class MimicStateMachine : EnemyStateMachine
+namespace Assets.Scripts.Runtime.Enemies.Mimic.MimicStateMachine
 {
-    [SerializeField] private EnemyHealthSystem _healthSystem;
-    [SerializeField] private MimicAnimation _mimicAnimation;
-    [SerializeField] private MimicController _controller;
-    [SerializeField] private EnemyData _data;
-    [SerializeField] private EnemyTargetDetector _detector;
-    private Dictionary<MimicState, IEnemyState> _states;
-    private MimicState _currentStateEnum;
-    private void OnEnable()
+    public class MimicStateMachine : EnemyStateMachine
     {
-        _healthSystem.OnDeath += HealthSystemOnDeath;
-    }
-    private void Awake()
-    {
-        _states = new Dictionary<MimicState, IEnemyState>
+        [SerializeField] private EnemyHealthSystem _healthSystem;
+        [SerializeField] private MimicAnimation _mimicAnimation;
+        [SerializeField] private MimicController _controller;
+        [SerializeField] private EnemyData _data;
+        [SerializeField] private EnemyTargetDetector _detector;
+        private Dictionary<MimicState, IEnemyState> _states;
+        private MimicState _currentStateEnum;
+        private void OnEnable()
+        {
+            _healthSystem.OnDeath += HealthSystemOnDeath;
+        }
+        private void Awake()
+        {
+            _states = new Dictionary<MimicState, IEnemyState>
         {
            { MimicState.Hidden, new MimicHiddenIdleState(this, _healthSystem, _detector,_data) },
            { MimicState.Attacking, new MimicAttackingState(this, _controller,
            _mimicAnimation,_data, _detector) },
            { MimicState.Dead, new EnemyDeadStateBase(this) },
         };
-        ChangeState(MimicState.Hidden);
-    }
-    private void OnDisable()
-    {
-        _healthSystem.OnDeath -= HealthSystemOnDeath;
-    }
-    private void HealthSystemOnDeath(object sender, System.EventArgs e)
-    {
-        ChangeState(MimicState.Dead);
-    }
-    public override void GoToAttackState()
-    {
-        if (_currentStateEnum == MimicState.Attacking)
-        {
-            return;
+            ChangeState(MimicState.Hidden);
         }
-        ChangeState(MimicState.Attacking);
-        Debug.Log("I went to attack state bruh");
-    }
-    public void ChangeState(MimicState state)
-    {
-        _currentStateEnum = state;
-        ChangeState(_states[state]);
+        private void OnDisable()
+        {
+            _healthSystem.OnDeath -= HealthSystemOnDeath;
+        }
+        private void HealthSystemOnDeath(object sender, System.EventArgs e)
+        {
+            ChangeState(MimicState.Dead);
+        }
+        public override void GoToAttackState()
+        {
+            if (_currentStateEnum == MimicState.Attacking)
+            {
+                return;
+            }
+            ChangeState(MimicState.Attacking);
+        }
+        public void ChangeState(MimicState state)
+        {
+            _currentStateEnum = state;
+            ChangeState(_states[state]);
+        }
     }
 }

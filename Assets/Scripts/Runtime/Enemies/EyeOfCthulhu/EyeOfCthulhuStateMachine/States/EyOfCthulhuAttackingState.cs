@@ -1,20 +1,25 @@
+using Assets.Scripts.Runtime.Enemies.EnemyBase;
+using Assets.Scripts.Runtime.Enemies.EnemyBase.EnemyBaseStateMachine.BaseStates;
+using Assets.Scripts.Runtime.Enemies.EyeOfCthulhu;
+using Assets.Scripts.Runtime.Enemies.EyeOfCthulhu.EyeOfCthulhuStateMachine;
 using Cysharp.Threading.Tasks;
 using System;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Threading;
 using UnityEngine;
 
-public class EyeOfCthulhuAttackingState : EnemyAttackingStateBase<EyeOfCthulhuStateMachine, EyeOfCthulhuController,
-    EyeOfCthulhuAnimator>
+namespace Assets.Scripts.Runtime.Enemies.EyeOfCthulhu.EyeOfCthulhuStateMachine.States
 {
-    public EyeOfCthulhuAttackingState(EyeOfCthulhuStateMachine fsm,
-        EyeOfCthulhuController controller, EyeOfCthulhuAnimator animator,
-        EnemyData data, EnemyTargetDetector detector) : base(fsm, controller, animator, data, detector)
+    public class EyeOfCthulhuAttackingState : EnemyAttackingStateBase<EyeOfCthulhuStateMachine, EyeOfCthulhuController,
+        EyeOfCthulhuAnimator>
     {
-    }
-    protected override void OnLostSight()
-    {
-        _fsm.ChangeState(EyeOfCthulhuState.Patroling);
+        public EyeOfCthulhuAttackingState(EyeOfCthulhuStateMachine fsm,
+            EyeOfCthulhuController controller, EyeOfCthulhuAnimator animator,
+            EnemyData data, EnemyTargetDetector detector) : base(fsm, controller, animator, data, detector)
+        {
+        }
+        protected override void OnLostSight()
+        {
+            _fsm.ChangeState(EyeOfCthulhuState.Patroling);
+        }
     }
 }

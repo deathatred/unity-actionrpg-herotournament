@@ -1,23 +1,25 @@
 using UnityEngine;
 using Zenject;
 
-
-public class KnightAnimationRelay : PlayerAnimationRelayBase
-{   
-    [SerializeField] private TrailRenderer[] _bloodTrails;
-
-    public void EnableBloodTrail()
+namespace Assets.Scripts.Runtime.Player.UniqueClassLogic.Knight
+{
+    public class KnightAnimationRelay : PlayerAnimationRelayBase
     {
-        foreach (var trail in  _bloodTrails)
+        [SerializeField] private TrailRenderer[] _bloodTrails;
+
+        public void EnableBloodTrail()
         {
-            trail.emitting = true;
+            foreach (var trail in _bloodTrails)
+            {
+                trail.emitting = true;
+            }
         }
-    }
-    public void DisableBloodTrail()
-    {
-        foreach (var trail in _bloodTrails)
+        public void DisableBloodTrail()
         {
-            trail.emitting = false;
+            foreach (var trail in _bloodTrails)
+            {
+                trail.emitting = false;
+            }
         }
     }
 }

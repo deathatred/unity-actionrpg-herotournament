@@ -1,10 +1,14 @@
+using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class PlayerLevelPointsSpentEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events.PlayerLevelSystemEvents
 {
-    public int Amount { get; private set; }
-    public PlayerLevelPointsSpentEvent(int amount)
+    public class PlayerLevelPointsSpentEvent : GameEventBase
     {
-        Amount = amount;
+        public int Amount { get; private set; }
+        public PlayerLevelPointsSpentEvent(int amount)
+        {
+            Amount = amount;
+        }
     }
 }

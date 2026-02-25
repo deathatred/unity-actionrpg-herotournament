@@ -1,10 +1,15 @@
+using Assets.Scripts.Core.Observer;
+using Assets.Scripts.Runtime.Items;
 using UnityEngine;
 
-public class PlayerFinishedCollectingEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events
 {
-    public ItemInstance Item;
-    public PlayerFinishedCollectingEvent(ItemInstance item)
+    public class PlayerFinishedCollectingEvent : GameEventBase
     {
-        Item = item;
+        public ItemInstance Item;
+        public PlayerFinishedCollectingEvent(ItemInstance item)
+        {
+            Item = item;
+        }
     }
 }

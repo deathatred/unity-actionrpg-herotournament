@@ -1,21 +1,23 @@
-
-
+using Assets.Scripts.Runtime.BaseLogic;
+using Assets.Scripts.Runtime.SOScripts.SummonsSO;
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class SummonHealthSystem : BaseHealthSystem<SummonDataSO>
+namespace Assets.Scripts.Runtime.Summons.SummonsBase
 {
-    public override int GetMaxHpFromData()
+    public class SummonHealthSystem : BaseHealthSystem<SummonDataSO>
     {
-        return _data.MaxHealth;
-    }
+        public override int GetMaxHpFromData()
+        {
+            return _data.MaxHealth;
+        }
 
-    protected override void DeathLogic()
-    {
-        
+        protected override void DeathLogic()
+        {
+
+        }
     }
 }
-

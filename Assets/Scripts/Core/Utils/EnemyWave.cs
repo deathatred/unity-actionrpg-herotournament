@@ -1,8 +1,12 @@
+using Assets.Scripts.Runtime.SOScripts.EnemiesSO;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class EnemyWave
+namespace Assets.Scripts.Core.Utils
 {
-    public List<EnemyDataSO> Enemies;
+    [System.Serializable]
+    public class EnemyWave
+    {
+        public List<EnemyDataSO> Enemies;
+    }
 }

@@ -1,10 +1,14 @@
+using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class ItemAmountChangedEvent : GameEventBase
+namespace Assets.Scripts.Runtime.Events
 {
-    public int Amount { get; private set; }
-    public ItemAmountChangedEvent(int amount)
+    public class ItemAmountChangedEvent : GameEventBase
     {
-        Amount = amount;
+        public int Amount { get; private set; }
+        public ItemAmountChangedEvent(int amount)
+        {
+            Amount = amount;
+        }
     }
 }

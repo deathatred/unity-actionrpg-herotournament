@@ -1,6 +1,10 @@
+using Assets.Scripts.Core.Observer;
 using UnityEngine;
 
-public class ReachedSpellTarget : GameEventBase
+namespace Assets.Scripts.Runtime.Events.PlayerSpellCastEvent
 {
-   
+    public class ReachedSpellTarget : GameEventBase
+    {
+
+    }
 }

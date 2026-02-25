@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public enum ClassSpec
+namespace Assets.Scripts.Core.Enums
 {
-    Knight,
-    Paladin,
-    DeathKnight,
-    Wizard,
-    FireWizard,
-    IceWizard,
+    public enum ClassSpec
+    {
+        Knight,
+        Paladin,
+        DeathKnight,
+        Wizard,
+        FireWizard,
+        IceWizard,
+    }
 }

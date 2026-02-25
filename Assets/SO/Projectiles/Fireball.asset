@@ -15,7 +15,7 @@ MonoBehaviour:
   Prefab: {fileID: 3781058697305846713, guid: 77bd4021af944c740b189225fd85edcc, type: 3}
   Name: Fireball
   Speed: 25
-  Damage: 20
+  Damage: 25
   Homing: 0
   HomingRotationSpeed: 120
   StatusEffectSO: {fileID: 0}

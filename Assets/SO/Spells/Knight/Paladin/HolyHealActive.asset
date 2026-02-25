@@ -15,8 +15,8 @@ MonoBehaviour:
   Class: 0
   Name: Holy Heal
   About: Heals your wounds with lights grace
-  ManaCost: 1
-  Cooldown: 1
+  ManaCost: 15
+  Cooldown: 60
   AnimationTrigger: HolyHeal
   Icon: {fileID: 21300000, guid: 703f1dc49b39d154997ad2794dbb68a9, type: 3}
   Range: 0

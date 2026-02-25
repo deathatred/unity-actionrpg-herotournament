@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public enum StatType
+namespace Assets.Scripts.Core.Enums
 {
-    Strength,
-    Agility, 
-    Intellect,
-    MaxHealth, 
-    MaxMana,
-    AttackPower,
-    Armor,
-    SpellPower,
-    MoveSpeed,
-    Vampirism, 
-    AttackSpeed,
-    CriticalRate
+    public enum StatType
+    {
+        Strength,
+        Agility,
+        Intellect,
+        MaxHealth,
+        MaxMana,
+        AttackPower,
+        Armor,
+        SpellPower,
+        MoveSpeed,
+        Vampirism,
+        AttackSpeed,
+        CriticalRate
+    }
 }

@@ -1,7 +1,10 @@
 using UnityEngine;
 
-[CreateAssetMenu (fileName = "MimicSounds", menuName = "EnemiesSounds/Mimic")]
-public class MimicSoundsSO : CharacterSoundsSO
+namespace Assets.Scripts.Runtime.SOScripts.EnemiesSO.Mimic
 {
-    public AudioClip RageSound;
+    [CreateAssetMenu(fileName = "MimicSounds", menuName = "EnemiesSounds/Mimic")]
+    public class MimicSoundsSO : CharacterSoundsSO
+    {
+        public AudioClip RageSound;
+    }
 }

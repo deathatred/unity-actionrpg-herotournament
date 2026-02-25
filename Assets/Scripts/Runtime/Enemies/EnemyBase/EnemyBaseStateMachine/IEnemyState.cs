@@ -1,6 +1,10 @@
+using Assets.Scripts.Runtime.BaseLogic;
 using UnityEngine;
 
-public interface IEnemyState : IState
+namespace Assets.Scripts.Runtime.Enemies.EnemyBase.EnemyBaseStateMachine
 {
-    public EnemyStateMachine EnemyFsm { get; }
+    public interface IEnemyState : IState
+    {
+        public EnemyStateMachine EnemyFsm { get; }
+    }
 }

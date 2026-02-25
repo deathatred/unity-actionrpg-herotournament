@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: Ice Arrow
   About: Creates an ice arrow to damage and slow target
   ManaCost: 5
-  Cooldown: 3
+  Cooldown: 7
   AnimationTrigger: IceArrow
   Icon: {fileID: 21300000, guid: d3a8b0e25d32439428a866c3d126accc, type: 3}
   Range: 15

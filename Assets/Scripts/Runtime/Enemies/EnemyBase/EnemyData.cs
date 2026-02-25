@@ -1,10 +1,14 @@
+using Assets.Scripts.Runtime.SOScripts.EnemiesSO;
 using UnityEngine;
 
-public class EnemyData : MonoBehaviour 
+namespace Assets.Scripts.Runtime.Enemies.EnemyBase
 {
-    [SerializeField] protected EnemyDataSO _data;
-    public EnemyDataSO GetEnemyData()
+    public class EnemyData : MonoBehaviour
     {
-        return _data;
+        [SerializeField] protected EnemyDataSO _data;
+        public EnemyDataSO GetEnemyData()
+        {
+            return _data;
+        }
     }
 }

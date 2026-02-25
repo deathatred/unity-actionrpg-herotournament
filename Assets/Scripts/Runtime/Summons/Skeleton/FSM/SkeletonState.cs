@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public enum SkeletonState
+namespace Assets.Scripts.Runtime.Summons.Skeleton.FSM
 {
-   Idle,
-   Moving,
-   Attacking,
-   Dead
+    public enum SkeletonState
+    {
+        Idle,
+        Moving,
+        Attacking,
+        Dead
+    }
 }

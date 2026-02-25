@@ -1,38 +1,46 @@
 using UnityEngine;
 using UnityEngine.Pool;
 using System.Collections.Generic;
+using Assets.Scripts.Core.Enums;
+using Assets.Scripts.Core.General;
+using Assets.Scripts.Runtime.Managers;
+using Assets.Scripts.Runtime.Projectiles;
+using Assets.Scripts.Runtime.SOScripts;
 
-public class ProjectilePool : MonoBehaviour
+namespace Assets.Scripts.Core.Pools
 {
-    [SerializeField] private AudioManager _audioManager;
-    private Dictionary<ProjectileSO, IObjectPool<Projectile>> _pools =
-        new Dictionary<ProjectileSO, IObjectPool<Projectile>>();
-
-    public Projectile Get(ProjectileSO config)
+    public class ProjectilePool : MonoBehaviour
     {
-        if (!_pools.TryGetValue(config, out var pool))
+        [SerializeField] private AudioManager _audioManager;
+        private Dictionary<ProjectileSO, IObjectPool<Projectile>> _pools =
+            new Dictionary<ProjectileSO, IObjectPool<Projectile>>();
+
+        public Projectile Get(ProjectileSO config)
         {
-            pool = CreateNewPool(config);
-            _pools.Add(config, pool);
+            if (!_pools.TryGetValue(config, out var pool))
+            {
+                pool = CreateNewPool(config);
+                _pools.Add(config, pool);
+            }
+
+            return pool.Get();
         }
 
-        return pool.Get();
-    }
+        private IObjectPool<Projectile> CreateNewPool(ProjectileSO config)
+        {
+            return new ObjectPool<Projectile>(
+                () => Instantiate(config.Prefab).GetComponent<Projectile>(),
+                p => p.gameObject.SetActive(true),
+                p => p.gameObject.SetActive(false),
+                p => Destroy(p.gameObject),
+                maxSize: GlobalData.DEFAULT_PROJECTILE_POOL_SIZE
+            );
+        }
 
-    private IObjectPool<Projectile> CreateNewPool(ProjectileSO config)
-    {
-        return new ObjectPool<Projectile>(
-            () => Instantiate(config.Prefab).GetComponent<Projectile>(),
-            p => p.gameObject.SetActive(true),
-            p => p.gameObject.SetActive(false),
-            p => Destroy(p.gameObject),
-            maxSize: GlobalData.DEFAULT_PROJECTILE_POOL_SIZE  
-        );
-    }
-
-    public void SpawnProjectile(ProjectileSO so, Vector3 pos, Vector3 dir,UnitType typeToDamage,int finalDamage, Transform target = null)
-    {
-        var projectile = Get(so);
-        projectile.Init(so, pos, dir, target, typeToDamage, _pools[so], finalDamage, _audioManager);
+        public void SpawnProjectile(ProjectileSO so, Vector3 pos, Vector3 dir, UnitType typeToDamage, int finalDamage, Transform target = null)
+        {
+            var projectile = Get(so);
+            projectile.Init(so, pos, dir, target, typeToDamage, _pools[so], finalDamage, _audioManager);
+        }
     }
 }

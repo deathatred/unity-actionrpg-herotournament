@@ -1,20 +1,24 @@
+using Assets.Scripts.Runtime.BaseLogic;
 using System;
 using UnityEngine;
 
-public class SummonAnimationBase : CharacterAnimationBase<SummonHealthSystem>
+namespace Assets.Scripts.Runtime.Summons.SummonsBase
 {
-    protected override void SubscribeToDeath()
+    public class SummonAnimationBase : CharacterAnimationBase<SummonHealthSystem>
     {
-        _healthSystem.OnDeath += HealthSystemOnDeath;
-    }
+        protected override void SubscribeToDeath()
+        {
+            _healthSystem.OnDeath += HealthSystemOnDeath;
+        }
 
-    protected virtual void HealthSystemOnDeath(object sender, EventArgs e)
-    {
-        SetIsDeadTrue();
-    }
+        protected virtual void HealthSystemOnDeath(object sender, EventArgs e)
+        {
+            SetIsDeadTrue();
+        }
 
-    protected override void UnsubscribeFromDeath()
-    {
-        
+        protected override void UnsubscribeFromDeath()
+        {
+
+        }
     }
 }
